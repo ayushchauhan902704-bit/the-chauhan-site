@@ -31,7 +31,10 @@ body{background:radial-gradient(600px at 0% 0%, #143d1f 0%, #0f0f0f 60%);color:#
 .tool.pink{border-color:#ff3b7f55;background:linear-gradient(135deg,rgba(40,20,30,.9),rgba(46,10,38,.9))}
 .badge{background:#00c896;color:#000;font-size:9px;padding:3px 7px;border-radius:20px;margin-left:6px;font-weight:800}
 .badge.pink{background:#ff3b7f;color:#fff}
-.footer{text-align:center;color:#444;margin:36px 0 10px;font-size:11px}
+.footer-links{text-align:center;padding:24px 10px;border-top:1px solid #1e1e1e;margin-top:30px}
+.footer-links a{color:#999;font-size:12px;margin:0 7px;text-decoration:none}
+.footer-links a:hover{color:#00c896}
+.footer-links p{color:#555;font-size:11px;margin-top:10px}
 #dobInput{position:absolute;left:-9999px}
 body.size-small .card{max-width:420px;transform:scale(.88)} body.size-large .card{max-width:620px;transform:scale(1.08)}
 @keyframes fade{from{opacity:0;transform:translateY(10px)}to{opacity:1;transform:translateY(0)}}
@@ -62,7 +65,16 @@ body.size-small .card{max-width:420px;transform:scale(.88)} body.size-large .car
 </div>
 
 <input type="date" id="dobInput">
-<p class="footer">the-chauhan-site.vercel.app • Made by Ayush</p>
+
+<footer class="footer-links">
+<a href="/about/">About</a>
+<a href="/contact/">Contact</a>
+<a href="/privacy/">Privacy</a>
+<a href="/terms/">Terms</a>
+<a href="/disclaimer/">Disclaimer</a>
+<p>© 2026 TheChauhanSite • Ayush Chauhan • Dehradun • ayushchauhan902704@gmail.com</p>
+<p style="margin-top:4px">the-chauhan-site.vercel.app • Made by Ayush</p>
+</footer>
 
 <script>
 let t,deferredPrompt;
@@ -82,13 +94,5 @@ if('serviceWorker' in navigator){navigator.serviceWorker.register('/sw.js')}
 window.onpopstate=()=>{if(location.pathname.includes('age-timer'))openTool('timer');else closeTool()}
 if(location.pathname.includes('age-timer'))openTool('timer');
 </script>
-  <footer style="text-align:center;padding:24px 10px;border-top:1px solid #1e1e1e;margin-top:30px">
-<a href="/about/" style="color:#999;font-size:12px;margin:0 7px;text-decoration:none">About</a>
-<a href="/contact/" style="color:#999;font-size:12px;margin:0 7px;text-decoration:none">Contact</a>
-<a href="/privacy/" style="color:#999;font-size:12px;margin:0 7px;text-decoration:none">Privacy</a>
-<a href="/terms/" style="color:#999;font-size:12px;margin:0 7px;text-decoration:none">Terms</a>
-<a href="/disclaimer/" style="color:#999;font-size:12px;margin:0 7px;text-decoration:none">Disclaimer</a>
-<p style="color:#555;font-size:11px;margin-top:10px">© 2026 TheChauhanSite • Ayush Chauhan • Dehradun • ayushchauhan902704@gmail.com</p>
-</footer>
 </body>
 </html>
