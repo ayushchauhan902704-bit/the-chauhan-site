@@ -3,145 +3,110 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Age Timer</title>
+<title>Live Age Timer - NEXORA Tools</title>
 <style>
-*{margin:0;padding:0;box-sizing:border-box}
-body{
-  min-height:100vh;
-  background:radial-gradient(circle at top,#234d2b,#112016);
-  display:flex;flex-direction:column;
-  align-items:center;justify-content:center;
-  padding:20px;
-  font-family:-apple-system,BlinkMacSystemFont,sans-serif;
-}
-.controls{display:flex;gap:12px;margin-bottom:26px}
-.controls button{
-  padding:10px 22px;border-radius:24px;
-  border:1px solid rgba(255,255,255,.22);
-  background:rgba(255,255,255,.12);
-  color:#d8e8d9;backdrop-filter:blur(10px);
-  cursor:pointer;font-size:14px;
-}
-.pill{
-  width:100%;max-width:860px;
-  background:linear-gradient(180deg,rgba(220,235,220,.32),rgba(150,185,155,.28));
-  backdrop-filter:blur(40px);-webkit-backdrop-filter:blur(40px);
-  border-radius:100px;
-  padding:28px 16px 30px;
-  border:1.5px solid rgba(255,255,255,.28);
-  box-shadow:0 25px 60px rgba(0,0,0,.35),inset 0 1px 0 rgba(255,255,255,.35);
-  transition:transform .3s;
-}
-.head{text-align:center;color:rgba(255,255,255,.8);font-size:11px;letter-spacing:4px;font-weight:600;margin-bottom:24px}
-.row{display:flex}
-.col{flex:1;text-align:center;border-right:1px solid rgba(255,255,255,.14);padding:0 4px}
-.col:last-child{border:none}
-.col span{display:block;font-size:9px;color:rgba(255,255,255,.6);letter-spacing:1px;font-weight:700;margin-bottom:12px}
-.col b{display:block;color:white;font-weight:800;line-height:1;white-space:nowrap;letter-spacing:-.5px;font-size:clamp(16px,2.8vw,28px)}
-.small{transform:scale(.85)} .medium{transform:scale(1)} .large{transform:scale(1.08)}
-.dob{
-  margin-top:26px;display:flex;gap:12px;align-items:center;
-  background:rgba(255,255,255,.14);backdrop-filter:blur(12px);
-  padding:8px 8px 8px 18px;border-radius:28px;
-  border:1px solid rgba(255,255,255,.18);
-}
-.dob input{
-  background:transparent;border:none;color:white;outline:none;
-  color-scheme:dark;font-size:15px;min-width:130px;
-}
-.dob button{
-  border:none;background:white;color:#1d3a22;
-  padding:10px 20px;border-radius:20px;font-weight:800;cursor:pointer;
-}
-@media(max-width:600px){
-  .pill{border-radius:28px;padding:20px 10px}
-  .col b{font-size:14px!important}
-  .col span{font-size:7px}
-}
+  *{box-sizing:border-box;margin:0;padding:0;font-family:system-ui}
+  body{background:#f6f7fb;display:flex;justify-content:center;padding:15px}
+  .card{background:white;width:100%;max-width:500px;border-radius:20px;padding:20px;box-shadow:0 10px 30px rgba(0,0,0,.08)}
+  h1{font-size:22px;text-align:center;margin-bottom:5px}
+  .sub{text-align:center;color:#666;font-size:13px;margin-bottom:15px}
+  #dobInput{width:100%;padding:12px;border:2px solid #e5e7eb;border-radius:12px;font-size:16px;margin-bottom:10px}
+  #setBtn{width:100%;padding:13px;background:#111;border:none;color:white;border-radius:12px;font-weight:600;cursor:pointer;touch-action:manipulation}
+  #setBtn:active{transform:scale(0.98)}
+  .dob-text{text-align:center;margin:12px 0;color:#333;font-size:14px}
+  .grid{display:grid;grid-template-columns:repeat(3,1fr);gap:10px;margin-top:10px}
+  .box{background:#f9fafb;border:1px solid #eee;border-radius:14px;padding:12px;text-align:center;overflow:hidden;min-width:0}
+  .box .num{font-size:clamp(16px, 5vw, 22px);font-weight:800;color:#111;word-break:break-all;line-height:1.1}
+  .box .label{font-size:11px;color:#666;margin-top:4px;letter-spacing:1px}
+  .box.wide{grid-column:span 3;background:#111;color:white;border:none}
+  .box.wide .num{color:white;font-size:clamp(18px, 6vw, 28px)}
+  .box.wide .label{color:#aaa}
+  .changeBtn{margin-top:15px;width:100%;padding:10px;background:white;border:1px dashed #bbb;border-radius:10px;cursor:pointer}
 </style>
 </head>
 <body>
-
-<div class="controls">
-  <button onclick="setSize('small')">Chota</button>
-  <button onclick="setSize('medium')">Medium</button>
-  <button onclick="setSize('large')">Bada</button>
-</div>
-
-<div id="pill" class="pill medium">
-  <div class="head">AGE TIMER</div>
-  <div class="row">
-    <div class="col"><span>YEAR</span><b id="y">--</b></div>
-    <div class="col"><span>MONTH</span><b id="mo">--</b></div>
-    <div class="col"><span>DAYS</span><b id="d">--</b></div>
-    <div class="col"><span>HOURS</span><b id="h">--</b></div>
-    <div class="col"><span>MINTS</span><b id="m">--</b></div>
-    <div class="col"><span>SECS</span><b id="s">--</b></div>
+<div class="card">
+  <h1>AGE TIMER</h1>
+  <p class="sub">Live age calculator</p>
+  
+  <div id="inputArea">
+    <input type="date" id="dobInput">
+    <button id="setBtn">Set DOB</button>
   </div>
-</div>
 
-<div class="dob">
-  <input type="date" id="dobInput">
-  <button onclick="saveDOB()">Set DOB</button>
+  <div id="timerArea" style="display:none">
+    <div class="dob-text">DOB: <b id="dobShow"></b></div>
+    <div class="grid">
+      <div class="box"><div class="num" id="years">0</div><div class="label">YEARS</div></div>
+      <div class="box"><div class="num" id="months">0</div><div class="label">MONTHS</div></div>
+      <div class="box"><div class="num" id="days">0</div><div class="label">DAYS</div></div>
+      <div class="box"><div class="num" id="hours">0</div><div class="label">HOURS</div></div>
+      <div class="box"><div class="num" id="mins">0</div><div class="label">MINS</div></div>
+      <div class="box"><div class="num" id="secs">0</div><div class="label">SECS</div></div>
+      <div class="box wide"><div class="num" id="totalSecs">0</div><div class="label">TOTAL SECONDS LIVED</div></div>
+    </div>
+    <button class="changeBtn" id="changeBtn">Change DOB / Reset</button>
+  </div>
 </div>
 
 <script>
 const dobInput = document.getElementById('dobInput');
-const pill = document.getElementById('pill');
+const setBtn = document.getElementById('setBtn');
+const changeBtn = document.getElementById('changeBtn');
+const inputArea = document.getElementById('inputArea');
+const timerArea = document.getElementById('timerArea');
+let timerInterval;
 
-const savedDOB = localStorage.getItem('age_timer_dob');
-const savedSize = localStorage.getItem('age_timer_size') || 'medium';
-if(savedDOB) dobInput.value = savedDOB;
-pill.className = 'pill '+savedSize;
+function startTimer(dob){
+  inputArea.style.display='none';
+  timerArea.style.display='block';
+  document.getElementById('dobShow').innerText = new Date(dob).toDateString();
+  
+  clearInterval(timerInterval);
+  timerInterval = setInterval(()=>{
+    const now = new Date();
+    const birth = new Date(dob);
+    const diff = now - birth;
 
-function setSize(s){
-  pill.className = 'pill '+s;
-  localStorage.setItem('age_timer_size', s);
+    const totalSeconds = Math.floor(diff/1000);
+    
+    // Simple live calc
+    let years = now.getFullYear() - birth.getFullYear();
+    let months = now.getMonth() - birth.getMonth();
+    let days = now.getDate() - birth.getDate();
+    if(days < 0){ months--; days += new Date(now.getFullYear(), now.getMonth(), 0).getDate(); }
+    if(months < 0){ years--; months += 12; }
+
+    document.getElementById('years').innerText = years;
+    document.getElementById('months').innerText = months;
+    document.getElementById('days').innerText = days;
+    document.getElementById('hours').innerText = Math.floor((diff % (1000*60*60*24)) / (1000*60*60));
+    document.getElementById('mins').innerText = Math.floor((diff % (1000*60*60)) / (1000*60));
+    document.getElementById('secs').innerText = Math.floor((diff % (1000*60)) / 1000);
+    document.getElementById('totalSecs').innerText = totalSeconds.toLocaleString('en-IN');
+  },1000);
 }
 
-function saveDOB(){
-  if(!dobInput.value){
-    alert('Pehle date select kar bhai!');
-    return;
-  }
-  localStorage.setItem('age_timer_dob', dobInput.value);
-  tick();
-  alert('DOB Saved: '+dobInput.value+' - Ab sahi age dikhegi');
-}
+setBtn.addEventListener('click', ()=>{
+  if(!dobInput.value){ alert('Pehle date select kar'); return; }
+  localStorage.setItem('nexora_dob', dobInput.value);
+  startTimer(dobInput.value);
+});
 
-function tick(){
-  const ds = localStorage.getItem('age_timer_dob');
-  if(!ds) return;
-  const birth = new Date(ds);
-  const now = new Date();
-  let diff = now - birth;
-  if(diff < 0) return;
+// FIX: Change DOB wala bug yaha fix hai
+changeBtn.addEventListener('click', ()=>{
+  clearInterval(timerInterval);
+  localStorage.removeItem('nexora_dob');
+  timerArea.style.display='none';
+  inputArea.style.display='block';
+  dobInput.value = '';
+  dobInput.focus();
+  if(dobInput.showPicker){ dobInput.showPicker(); } // mobile pe direct picker khulega
+});
 
-  const sec = Math.floor(diff/1000);
-  const mins = Math.floor(sec/60);
-  const hrs = Math.floor(mins/60);
-  const days = Math.floor(hrs/24);
-
-  let years = now.getFullYear() - birth.getFullYear();
-  let months = years*12 + (now.getMonth() - birth.getMonth());
-  if(now.getDate() < birth.getDate()) months--;
-  if(now.getMonth() < birth.getMonth() || (now.getMonth() === birth.getMonth() && now.getDate() < birth.getDate())){
-    years--;
-  }
-  if(years < 0) years = 0;
-  if(months < 0) months = 0;
-
-  document.getElementById('y').innerText = years;
-  document.getElementById('mo').innerText = months;
-  document.getElementById('d').innerText = days;
-  document.getElementById('h').innerText = hrs;
-  document.getElementById('m').innerText = mins;
-  document.getElementById('s').innerText = sec;
-}
-
-setInterval(tick, 1000);
-tick();
+// Auto load
+const saved = localStorage.getItem('nexora_dob');
+if(saved){ startTimer(saved); }
 </script>
-
 </body>
 </html>
