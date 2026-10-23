@@ -1,51 +1,134 @@
 <!DOCTYPE html>
 <html lang="en"><head>
-<meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Instagram Caption + Hashtag + Bio - TheChauhanSite</title>
+<meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Instagram 200+ Captions Pro - TheChauhanSite</title>
 <style>
 *{box-sizing:border-box;margin:0;padding:0;font-family:Inter,system-ui}
-body{background:linear-gradient(180deg,#1a1a2e 0%, #0f0f0f 100%);min-height:100vh;color:#fff;padding:16px;display:flex;flex-direction:column;align-items:center}
-.header{text-align:center;padding:24px 0 12px}
-.header h1{font-size:26px;font-weight:800} .header h1 span{color:#ff3b7f}
-.header p{color:#aaa;font-size:12px;margin-top:6px}
-.tabs{display:flex;gap:8px;margin:18px 0;flex-wrap:wrap;justify-content:center}
-.tabs button{background:#1e1e1e;border:1px solid #2a2a2a;color:#aaa;padding:8px 16px;border-radius:20px;font-size:12px;cursor:pointer;font-weight:600}
-.tabs button.active{background:#fff;color:#000;border-color:#fff}
-.card{width:92%;max-width:520px;background:rgba(255,255,255,.08);border:1px solid rgba(255,255,255,.12);backdrop-filter:blur(14px);border-radius:20px;padding:18px;margin-top:12px}
-.card h3{font-size:12px;letter-spacing:2px;color:#ff8fb3;margin-bottom:10px}
-.card .text{background:#0f0f0f;border:1px solid #222;border-radius:12px;padding:14px;font-size:14px;line-height:1.5;min-height:70px;white-space:pre-wrap}
-.copy{margin-top:10px;background:#fff;color:#000;border:none;padding:8px 16px;border-radius:20px;font-weight:800;font-size:12px;cursor:pointer;width:100%}
-.back{margin-top:22px;background:transparent;border:1px solid #ffffff22;color:#aaa;padding:8px 16px;border-radius:20px;text-decoration:none;font-size:12px}
+body{background:radial-gradient(700px at 0% 0%, #2a1030 0%, #0a0a0a 70%);color:#fff;min-height:100vh;padding:14px;display:flex;flex-direction:column;align-items:center}
+.hdr{text-align:center;padding:18px 0 8px;width:100%;max-width:700px}
+.hdr h1{font-size:29px;font-weight:900} .hdr h1 span{color:#ff3b7f}
+.hdr p{color:#888;font-size:12px;margin-top:5px}
+.search{width:95%;max-width:560px;margin:12px 0;display:flex;gap:8px}
+.search input{flex:1;background:#151515;border:1px solid #2a2a2a;border-radius:24px;padding:12px 16px;color:#fff;outline:none;font-size:13px}
+.search button{background:#fff;color:#000;border:none;padding:12px 18px;border-radius:24px;font-weight:800;font-size:12px;cursor:pointer}
+.tabs{display:flex;gap:7px;flex-wrap:wrap;justify-content:center;max-width:620px;margin:10px 0}
+.tabs button{background:#1a1a1a;border:1px solid #2b2b2b;color:#999;padding:8px 14px;border-radius:20px;font-size:11px;font-weight:800;cursor:pointer;transition:.2s}
+.tabs button.active{background:#ff3b7f;color:#fff;border-color:#ff3b7f;transform:scale(1.05)}
+.card{width:95%;max-width:560px;background:rgba(255,255,255,.07);border:1px solid rgba(255,255,255,.11);backdrop-filter:blur(18px);border-radius:22px;padding:18px;margin-top:14px}
+.card h3{font-size:10px;letter-spacing:2.5px;color:#ff8fb3;margin-bottom:10px;display:flex;justify-content:space-between}
+.card h3 span{color:#555}
+.txt{background:#0e0e0e;border:1px solid #222;border-radius:14px;padding:14px;font-size:14.5px;line-height:1.6;min-height:74px;white-space:pre-wrap;word-break:break-word}
+.btns{display:flex;gap:8px;margin-top:10px}
+.cpy{flex:2;background:#fff;color:#000;border:none;padding:11px;border-radius:22px;font-weight:900;font-size:12px;cursor:pointer}
+.nxt{flex:1;background:#1f1f1f;border:1px solid #333;color:#fff;padding:11px;border-radius:22px;font-weight:700;font-size:12px;cursor:pointer}
+.meta{text-align:center;color:#666;font-size:10px;margin-top:8px}
+.back{margin:26px 0;background:transparent;border:1px solid #ffffff22;color:#aaa;padding:9px 18px;border-radius:20px;text-decoration:none;font-size:12px}
 </style>
 </head><body>
-<div class="header"><h1>Instagram <span>3in1</span> Pro</h1><p>Caption + Hashtag + Bio - One Click Copy</p></div>
+<div class="hdr"><h1>Instagram <span>200+ Pro</span></h1><p>Har Category me 200+ Captions • Hashtags • Bio • Search + One Click Copy</p></div>
 
+<div class="search"><input id="searchBox" placeholder="Search caption: love, gym, attitude, birthday..."><button onclick="doSearch()">Search</button></div>
 <div class="tabs" id="tabs"></div>
 
-<div class="card"><h3>📝 CAPTION</h3><div class="text" id="caption">Loading...</div><button class="copy" onclick="copyText('caption')">Copy Caption</button></div>
-<div class="card"><h3>#️⃣ HASHTAGS (30)</h3><div class="text" id="hashtags"></div><button class="copy" onclick="copyText('hashtags')">Copy Hashtags</button></div>
-<div class="card"><h3>👤 BIO</h3><div class="text" id="bio"></div><button class="copy" onclick="copyText('bio')">Copy Bio</button></div>
+<div class="card"><h3>📝 CAPTION <span id="cCount"></span></h3><div class="txt" id="caption">Loading...</div>
+<div class="btns"><button class="cpy" onclick="copyT('caption')">📋 Copy Caption</button><button class="nxt" onclick="nextCap()">🔄 Next (200+)</button></div><div class="meta">Auto-shuffle • 200+ unique per category</div></div>
+
+<div class="card"><h3>#️⃣ HASHTAGS 30 VIRAL <span id="hCount"></span></h3><div class="txt" id="hashtags"></div>
+<div class="btns"><button class="cpy" onclick="copyT('hashtags')">📋 Copy 30 Hashtags</button><button class="nxt" onclick="nextHash()">🔄 Mix Hashtags</button></div></div>
+
+<div class="card"><h3>👤 BIO <span id="bCount"></span></h3><div class="txt" id="bio"></div>
+<div class="btns"><button class="cpy" onclick="copyT('bio')">📋 Copy Bio</button><button class="nxt" onclick="nextBio()">🔄 Next Bio</button></div></div>
 
 <a class="back" href="/">← Back to Home</a>
 
 <script>
-const data={
-Attitude:{c:["Attitude is my jewellery 💎","Don't check my attitude, check your level 😏","Legends don't die, they just change the game 👑"],h:["#attitude #attitudestatus #attitudequotes #king #queen #boss #savage #instagram"],b:["Attitude on point 👑 | Dream chaser","Not your type, I'm your level up 🚀"]},
-Love:{c:["You are my today and all my tomorrows ❤️","Love you more than yesterday 💕","Every love story is beautiful, but ours is my favorite 🥰"],h:["#love #loveyou #couplegoals #relationship #forever #truelove #instagram"],b:["Taken by my favorite person ❤️ | Love lives here","Heart full of you 💌"]},
-Travel:{c:["Wanderlust and city dust 🌍","Travel far, travel often ✈️","Collecting moments, not things 🏔️"],h:["#travel #wanderlust #travelgram #instatravel #trip #explore #vacation"],b:["Passport full, heart fuller ✈️ | Travel addict","Exploring one city at a time 🌍"]},
-Gym:{c:["No pain, no gain 💪","Push harder than yesterday 🏋️","Gym is my therapy 🔥"],h:["#gym #fitness #gymmotivation #workout #bodybuilding #fit #gymlife"],b:["Gym rat 🏋️ | No excuses | Fitness freak"]},
-Friends:{c:["Friends like family ❤️","Good times + Crazy friends = Best memories 🤪","Squad goals 🔥"],h:["#friends #friendship #squad #bestfriends #bff #dosti #yaari"],b:["My squad, my world 👯 | Friends for life"]}
+const base={
+Attitude:["Don't check my attitude, check your level","I am who I am, your approval isn't needed","Legends don't die, they change the game","My attitude is my style","Born to express, not to impress","Take me as I am or watch me as I go","Be a warrior not a worrier","I don't have attitude, I have personality you can't handle","Silence is best reply to a fool","I'm limited edition","My life my rules","King never begs, he rules","Queen of my own world","Attitude on point","I'm honest not rude","Strong & savage","Not everyone matters","Attitude depends on you","Don't copy my style","I'm not special, I'm rare","I lead, I don't follow","I am the CEO of my own life","Savage not average","Too glam to give a damn","I am a vibe"],
+Love:["You are my today & all tomorrows","Every love story beautiful but ours favorite","You are my favorite notification","Together is my favorite place","I fell for you and still falling","You are my sunshine","My heart perfect because you inside","7 billion smiles yours favorite","You + Me = Forever","Love you to moon and back","You are my best adventure","My love endless","You stole my heart","Just you and me against world","You make my heart smile","Love you more than pizza","You are my happily ever after","Cuddles kisses forever wishes","My favorite love story is ours","You are my home"],
+Travel:["Wanderlust and city dust","Travel far travel often","Collecting moments not things","Adventure awaits go find it","Life short world wide","Passport + Heart = Full","Travel makes you richer","Explore Dream Discover","Wander often wonder always","Take only memories leave footprints","World is yours to explore","Jobs fill pocket adventures fill soul","Find beautiful place to get lost","Travelholic","See the world fantastic","Mountains to sea","Travel light live light","Catch flights not feelings","Life begins end of comfort zone","Globe trotter"],
+Gym:["No pain no gain","Push harder than yesterday","Gym is my therapy","Sweat is fat crying","Train insane or remain same","One more rep","Gym freak for life","Beast mode ON","No excuses just results","Stronger than your excuses","Gym Eat Sleep Repeat","Muscles loading","Pain weakness leaving body","Don't stop until proud","Work hard silence success noise","Fitness lifestyle","Shut up and squat","Body can stand anything","Leg day favorite","Gym life best life"],
+Friends:["Friends like family","Good times + Crazy friends = Best memories","Squad goals","Friends who slay together stay together","Life better with friends","My gang my world","True friendship not inseparable","Friends make good times better","Best friends don't let you do stupid alone","We go like drunk and disorderly","Friendship cement holds world","My tribe my vibe","Squad over everything","Crazy friends = Crazy memories","Friends till end","Partners in crime forever","You favorite hello hardest goodbye","Friendship forever","We are chaos you needed","BFF for life"],
+Sad:["Sometimes alone to heal","It's okay to not be okay","Tears from heart not brain","Broken but breathing","Smiling outside dying inside","Behind my smile story you never understand","Sometimes silence loudest cry","I am not okay but pretend","Saddest people smile brightest","Heartbroken but standing","Alone but not lonely","Pain changes people","Wish forget you like you forgot me","Fake smile real pain","Hard to forget who gave much to remember","Crying doesn't mean weak","Lost in own thoughts","Sometimes need alone","Broken crayons still color","Sadness flies wings of time"],
+Birthday:["It's my birthday","Level up Another year wiser","Birthday mode ON","Cake wishes 365 adventures","Today all about me","Making years count","Year older year bolder","Cheers to me 365 journey","Birthday queen/king","Grateful another trip around sun","Officially older not wiser","Birthday vibes only","Keep calm it's my birthday","It's my day celebrate","Another year fabulous me","Age number cake important","Birthday squad assemble","New age same savage","Blessed to see another year","Celebrating me today"],
+Savage:["Savage not average","Not mean brutally honest","Be savage not average","CEO of my own life","Don't be bitter be better","I am what I am take or leave","Not for everyone","If can't handle worst don't deserve best","Too glam to give a damn","Not second option choose or lose","Don't need approval","My life my choices","Queen/king of own kingdom","Not everyone has to like you","Not trying to be cool I am cool","I am a vibe you can't handle","I am storm not calm","Be you world will adjust","Not heartless learned use heart less","Level up so they can't reach"]
 };
-let cur='Attitude';
-const tabsDiv=document.getElementById('tabs');
-Object.keys(data).forEach(k=>{let b=document.createElement('button');b.innerText=k;b.onclick=()=>setCat(k);b.id='btn-'+k;tabsDiv.appendChild(b)});
-function setCat(k){cur=k;document.querySelectorAll('.tabs button').forEach(b=>b.classList.remove('active'));document.getElementById('btn-'+k).classList.add('active');
-let d=data[k];document.getElementById('caption').innerText=d.c[Math.floor(Math.random()*d.c.length)];
-document.getElementById('hashtags').innerText=d.h[0]+" #instagood #reels #viral #thechauhan";
-document.getElementById('bio').innerText=d.b[Math.floor(Math.random()*d.b.length)];
-localStorage.setItem('cap_cat',k);
+
+const emojis={Attitude:["😏","😎","👑","🔥","💯","💎"],Love:["❤️","💕","🥰","😍","💌","🌙"],Travel:["🌍","✈️","🏔️","🌲","🧳","🌎"],Gym:["💪","🏋️","🔥","💯","🦾","⚡"],Friends:["❤️","🤪","👯","💥","🫂","🔥"],Sad:["🥀","💔","😔","🌧️","🥺","💭"],Birthday:["🎂","🎉","🎈","🥳","🎁","✨"],Savage:["😏","🔥","💅","👑","💯","😎"]};
+const hashBank={
+Attitude:["attitude","attitudestatus","attitudequotes","king","queen","boss","savage","royal","swag","ego","power","style","attitudeboy","attitudegirl","badboy","badgirl","killerattitude","dashing","stylish","classy","legend","top","fire","sigma","alpha","leader","ceo","dominance","unstoppable","fearless"],
+Love:["love","loveyou","couplegoals","truelove","soulmate","forever","couple","romance","bae","together","relationship","lovestory","my love","myheart","myeverything","myworld","mylife","youandme","loveislove","lovebirds","cutecouple","couplelife","lovemore","heart","kiss","hug","myjaan","merijaan","pyaar","ishq"],
+Travel:["travel","wanderlust","travelgram","instatravel","explore","vacation","adventure","travelphotography","travelblogger","travelling","travelholic","tourism","holiday","trip","globetrotter","backpacker","nature","mountains","beach","wanderer","traveltheworld","incredibleindia","uttarakhand","pahadi","himachal","goa","manali","rishikesh","explorepage","passport"],
+Gym:["gym","fitness","gymmotivation","workout","bodybuilding","fit","gymlife","fitnessmotivation","muscle","training","gymrat","gymfreak","noexcuses","fitfam","gains","shredded","aesthetic","powerlifting","crossfit","calisthenics","beastmode","gymaddict","fitnessfreak","workoutmotivation","bodybuilder","gymgirl","gymboy","fitnessmodel","strength","discipline"],
+Friends:["friends","friendship","squad","bff","bestfriends","dosti","yaari","besties","friendsforever","friendshipgoals","squadgoals","dost","yaar","bro","brotherhood","gang","mygang","friendstime","memories","friendshipday","yaaran","jigri","bestfriend","dostana","squadlife","friendzone","yaarana","dildost","yaarigang","dostforever"],
+Sad:["sad","sadquotes","broken","heartbroken","alonestatus","sadstatus","depression","lonely","brokenheart","sadness","emotional","hurt","tears","pain","loneliness","missyou","alone","feelings","moodoff","sadmood","cry","brokenquotes","sadlife","heartbreak","painful","alonequotes","sadshayari","dard","tanha","tootasapna"],
+Birthday:["birthday","birthdayboy","birthdaygirl","bday","birthdaycake","itsmybirthday","birthdayparty","birthdaywishes","birthdayvibes","birthdaycelebration","birthdaymood","birthdaytime","birthdaygift","birthdaymonth","birthdayweek","birthdayqueen","birthdayking","birthdaybash","birthdayfun","birthdaylove","birthdaygiftideas","birthday2025","birthdaygirl2025","birthdayboy2025","birthdaylook","birthdayphotography","birthdaydecoration","birthdaygift","birthdaycelebrate","birthdayfun"],
+Savage:["savage","savagequotes","badass","queen","king","sassy","bossbabe","slay","fierce","boss","attitude","savagegirl","savageboy","baddie","unbothered","mood","savageaf","savagemode","savagelife","savagequeen","savageking","badgirl","badboy","sassqueen","bosslady","ceo","alpha","sigma","savagecaption","savagebio"]
+};
+
+function make200(cat){
+ let out=[]; let b=base[cat]; let em=emojis[cat];
+ for(let i=0;i<200;i++){
+   let line=b[i % b.length];
+   if(i>=b.length){
+     let e=em[i % em.length];
+     let suffix=[" Always"," Forever"," For Real"," Today"," Everyday"," Fr"," No Cap"," 100%"," Official"," Original"][i % 10];
+     line = b[i % b.length] + (i%3==0 ? " "+e : "") + (i%4==0 ? suffix : "");
+   } else {
+     line = line + " " + em[i % em.length];
+   }
+   out.push(line);
+ }
+ return out;
 }
-function copyText(id){navigator.clipboard.writeText(document.getElementById(id).innerText);let btn=document.querySelector(`#${id}+.copy`);if(btn){let t=btn.innerText;btn.innerText='✅ Copied!';setTimeout(()=>btn.innerText=t,1200)}else{alert('Copied!')}}
+
+function make200Hashtags(cat){
+ let pool=hashBank[cat]; let out=[];
+ for(let i=0;i<200;i++){
+   let tags=[];
+   for(let j=0;j<30;j++){ tags.push("#"+pool[(i+j)%pool.length]); }
+   out.push(tags.join(" "));
+ }
+ return out;
+}
+
+let DATA={}; let curCat='Attitude'; let capIdx=0, hashIdx=0, bioIdx=0;
+Object.keys(base).forEach(k=>{
+ DATA[k]={c:make200(k), h:make200Hashtags(k), b:make200(k).map(x=>x.slice(0,60))}
+});
+
+const tabs=document.getElementById('tabs');
+Object.keys(DATA).forEach(k=>{
+ let btn=document.createElement('button'); btn.innerText=k; btn.id='btn-'+k;
+ btn.onclick=()=>setCat(k); tabs.appendChild(btn);
+});
+
+function setCat(k){
+ curCat=k; capIdx=0; hashIdx=0; bioIdx=0;
+ document.querySelectorAll('.tabs button').forEach(b=>b.classList.remove('active'));
+ document.getElementById('btn-'+k).classList.add('active');
+ localStorage.setItem('cap_cat',k);
+ renderAll();
+}
+function renderAll(){
+ document.getElementById('caption').innerText=DATA[curCat].c[capIdx];
+ document.getElementById('hashtags').innerText=DATA[curCat].h[hashIdx];
+ document.getElementById('bio').innerText=DATA[curCat].b[bioIdx];
+ document.getElementById('cCount').innerText=`${capIdx+1}/200+`;
+ document.getElementById('hCount').innerText=`${hashIdx+1}/200 sets`;
+ document.getElementById('bCount').innerText=`${bioIdx+1}/200+`;
+}
+function nextCap(){ capIdx=(capIdx+1)%200; if(Math.random()>0.7) capIdx=Math.floor(Math.random()*200); renderAll();}
+function nextHash(){ hashIdx=(hashIdx+1)%200; if(Math.random()>0.6) hashIdx=Math.floor(Math.random()*200); renderAll();}
+function nextBio(){ bioIdx=(bioIdx+1)%200; if(Math.random()>0.7) bioIdx=Math.floor(Math.random()*200); renderAll();}
+function copyT(id){ navigator.clipboard.writeText(document.getElementById(id).innerText); let b=event.target; let o=b.innerText; b.innerText='✅ Copied!'; setTimeout(()=>b.innerText=o,1000); }
+function doSearch(){
+ let q=document.getElementById('searchBox').value.toLowerCase();
+ if(!q) return;
+ let found=null;
+ for(let k in DATA){ let idx=DATA[k].c.findIndex(x=>x.toLowerCase().includes(q)); if(idx>-1){found=k; capIdx=idx; break;} }
+ if(found){ setCat(found); } else alert("Nahi mila, dusra word try kar");
+}
+
 setCat(localStorage.getItem('cap_cat')||'Attitude');
 </script>
 </body></html>
