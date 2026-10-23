@@ -1,44 +1,33 @@
 export default async function handler(req, res) {
   res.setHeader("Access-Control-Allow-Origin", "*");
-  res.setHeader("Cache-Control", "s-maxage=30");
-
-  const fetchJSON = async (tab) => {
-    try{
-      const r = await fetch(`https://hs-consumer-api.espncricinfo.com/v1/pages/matches/${tab}?lang=en`,{
-        headers:{'User-Agent':'Mozilla/5.0'}
+  res.setHeader("Cache-Control", "s-maxage=20, stale-while-revalidate=60");
+  const fetchCB = async (type) => {
+    try {
+      const r = await fetch(`https://www.cricbuzz.com/api/cricket/matches/v1/${type}`, {
+        headers: { 'User-Agent': 'Mozilla/5.0', 'Referer': 'https://www.cricbuzz.com/' }
       });
       const d = await r.json();
-      return d.content?.matches || d.content?.recentMatches || [];
-    }catch(e){ return []; }
+      let matches = [];
+      (d.typeMatches || []).forEach(tm => {
+        (tm.seriesMatches || []).forEach(sm => {
+          const w = sm.seriesAdWrapper || sm;
+          (w.matches || []).forEach(m => matches.push(m));
+        });
+      });
+      return matches;
+    } catch(e){ return []; }
   };
-
-  const [live, recent, upcoming] = await Promise.all([
-    fetchJSON('live'),
-    fetchJSON('recent'),
-    fetchJSON('upcoming')
-  ]);
-
-  // Format for frontend
-  const format = (m) => {
-    const date = new Date(m.startTime);
-    const ist = date.toLocaleString('en-IN',{timeZone:'Asia/Kolkata', day:'2-digit', month:'short', hour:'2-digit', minute:'2-digit', hour12:true});
-    return {
-      series: m.series?.longName || 'International',
-      title: m.title || `${m.teams?.[0]?.team?.abbreviation} vs ${m.teams?.[1]?.team?.abbreviation}`,
-      team1: m.teams?.[0]?.team?.abbreviation || 'T1',
-      team2: m.teams?.[1]?.team?.abbreviation || 'T2',
-      score1: m.teams?.[0]?.score || '',
-      score2: m.teams?.[1]?.score || '',
-      status: m.statusText || m.status || '',
-      time: ist,
-      ground: m.ground?.smallName || '',
-      date: date
+  try {
+    const [liveRaw, recentRaw, upcomingRaw] = await Promise.all([fetchCB('live'), fetchCB('recent'), fetchCB('upcoming')]);
+    const format = (m) => {
+      const i = m.matchInfo; if(!i) return null;
+      const s1 = i.team1?.teamScore ? `${i.team1.teamScore.runs||0}/${i.team1.teamScore.wickets||0} ${i.team1.teamScore.overs ? `(${i.team1.teamScore.overs})` : ''}` : '';
+      const s2 = i.team2?.teamScore ? `${i.team2.teamScore.runs||0}/${i.team2.teamScore.wickets||0} ${i.team2.teamScore.overs ? `(${i.team2.teamScore.overs})` : ''}` : '';
+      return { series: i.seriesName, t1: i.team1?.teamSName, t2: i.team2?.teamSName, t1f: i.team1?.teamName, t2f: i.team2?.teamName, s1, s2, status: i.status, state: i.state, time: new Date(parseInt(i.startDate)).toLocaleString('en-IN',{timeZone:'Asia/Kolkata', day:'2-digit', month:'short', hour:'2-digit', minute:'2-digit', hour12:true}), ts: parseInt(i.startDate) };
     };
-  };
-
-  return res.status(200).json({
-    live: live.map(format),
-    recent: recent.slice(0,20).map(format), // 2 din purane
-    upcoming: upcoming.slice(0,20).map(format) // Aaj + Kal
-  });
+    const live = liveRaw.map(format).filter(Boolean);
+    const recent = recentRaw.map(format).filter(Boolean);
+    const upcoming = upcomingRaw.map(format).filter(Boolean);
+    return res.status(200).json({ live, recent, upcoming, all:[...live,...recent,...upcoming] });
+  } catch(e){ return res.status(200).json({ live:[], recent:[], upcoming:[] }); }
 }
