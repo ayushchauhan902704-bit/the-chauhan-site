@@ -2,70 +2,47 @@
 <html>
 <head>
 <meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Cricket Live Score - Today, Tomorrow & Recent</title>
+<title>TheChauhanSite - Free Online Tools Hub</title>
 <style>
-*{margin:0;padding:0;box-sizing:border-box;font-family:Arial} body{background:#e3e6e3}
-.h{background:#009270;color:#fff;padding:14px;display:flex;justify-content:space-between}
-.tabs{background:#009270;display:flex;gap:20px;padding:0 14px 10px;color:#fff;font-weight:bold;position:sticky;top:0;z-index:5}
-.tabs span{opacity:.6;border-bottom:3px solid transparent;padding-bottom:6px;cursor:pointer}
-.tabs span.active{opacity:1;border-color:#fff}
-.card{background:#fff;margin:8px 0}
-.shead{background:#d6d6d6;padding:8px 12px;font-size:12px;font-weight:bold;display:flex;justify-content:space-between}
-.match{padding:10px 12px;border-bottom:1px solid #eee}
-.team{display:flex;justify-content:space-between;margin:3px 0} .sc{font-weight:bold}
-.res{color:#d0021b;font-size:12px;margin-top:3px} .time{font-size:11px;color:#666}
-.dot{width:8px;height:8px;background:red;border-radius:50%;display:inline-block;animation:b 1s infinite} @keyframes b{50%{opacity:0}}
-.search{width:calc(100% - 20px);margin:10px;padding:10px;border-radius:8px;border:1px solid #ccc}
+*{margin:0;padding:0;box-sizing:border-box;font-family:system-ui}
+body{background:#0f0f0f;color:#fff;padding:16px}
+.header{text-align:center;padding:20px 0}
+.header h1{font-size:28px} .header p{color:#aaa;margin-top:6px}
+.grid{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-top:20px}
+.card{background:#1e1e1e;border-radius:16px;padding:16px;text-decoration:none;color:#fff;border:1px solid #2a2a2a}
+.card h3{font-size:16px;margin-bottom:4px} .card p{font-size:12px;color:#aaa}
+.card.live{border-color:#009270;background:linear-gradient(135deg,#1e1e1e,#0a2e26)}
+.badge{background:#009270;color:#fff;font-size:10px;padding:2px 6px;border-radius:6px;margin-left:6px}
 </style>
 </head>
 <body>
-<div class="h"><b style="font-size:22px">cricbuzz</b><span style="border:1px solid #fff;padding:4px 8px;border-radius:4px;font-size:12px">LIVE</span></div>
-<div class="tabs">
-<span class="active" data-t="live">Live</span>
-<span data-t="today">Today</span>
-<span data-t="tomorrow">Tomorrow</span>
-<span data-t="recent">Last 2 Days</span>
+<div class="header">
+<h1>TheChauhanSite</h1>
+<p>Free Online Tools Hub | 100% Free & Fast</p>
 </div>
-<input id="q" class="search" placeholder="Search IND PAK AUS...">
-<div id="root" style="padding-bottom:80px">Loading...</div>
-<script>
-let DATA={live:[],recent:[],upcoming:[]};
-async function load(){
-  const r=await fetch('/api/cricket'); DATA=await r.json(); render('live');
-}
-function render(type){
-  const q=document.getElementById('q').value.toLowerCase();
-  let list=[];
-  if(type==='live') list=DATA.live;
-  else if(type==='today') list=DATA.upcoming.filter(m=>{let d=new Date(); return m.date ? new Date(m.date).getDate()===d.getDate() : true}).slice(0,10);
-  else if(type==='tomorrow') list=DATA.upcoming.slice(0,10);
-  else list=DATA.recent;
 
-  let groups={};
-  list.forEach(m=>{ if(!groups[m.series]) groups[m.series]=[]; groups[m.series].push(m); });
+<div class="grid">
+<a class="card live" href="/tools/cricket-live/">
+<h3>🏏 Live Match <span class="badge">LIVE</span></h3>
+<p>Cricket Live Score - Today, Tomorrow & Last 2 Days</p>
+</a>
 
-  let html='';
-  for(let s in groups){
-    html+=`<div class="card"><div class="shead"><span>${s}</span><span>></span></div>`;
-    groups[s].forEach(m=>{
-      if(q && !`${m.team1} ${m.team2} ${s}`.toLowerCase().includes(q)) return;
-      html+=`<div class="match">
-        <div class="time">${type==='live' ? '<span class=dot></span> LIVE' : ''} ${m.time} • ${m.ground}</div>
-        <div class="team"><span>🏳️ ${m.team1}</span><span class="sc">${m.score1}</span></div>
-        <div class="team"><span>🏳️ ${m.team2}</span><span class="sc">${m.score2}</span></div>
-        <div class="res">${m.status}</div>
-      </div>`;
-    });
-    html+=`</div>`;
-  }
-  document.getElementById('root').innerHTML=html || '<div style="padding:20px">No matches found</div>';
-}
-document.querySelectorAll('.tabs span').forEach(el=>{
-  el.onclick=()=>{document.querySelectorAll('.tabs span').forEach(x=>x.classList.remove('active')); el.classList.add('active'); render(el.dataset.t);}
-});
-document.getElementById('q').addEventListener('input',()=>render(document.querySelector('.tabs span.active').dataset.t));
-load();
-setInterval(load, 30000);
-</script>
+<a class="card" href="#">
+<h3>⚽ Football Score</h3>
+<p>Coming Soon</p>
+</a>
+
+<a class="card" href="#">
+<h3>📝 Word Counter</h3>
+<p>Coming Soon</p>
+</a>
+
+<a class="card" href="#">
+<h3>🎨 Image Tools</h3>
+<p>Coming Soon</p>
+</a>
+</div>
+
+<p style="text-align:center;color:#555;margin-top:30px;font-size:12px">the-chauhan-site.vercel.app • Made by Ayush</p>
 </body>
 </html>
