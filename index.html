@@ -4,87 +4,82 @@
 <meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1">
 <title>TheChauhanSite - Free Online Tools Hub</title>
 <meta name="theme-color" content="#0a2810">
-<link rel="manifest" href="/manifest.json">
 <style>
-*{margin:0;padding:0;box-sizing:border-box;font-family:Inter,system-ui, -apple-system}
+*{margin:0;padding:0;box-sizing:border-box;font-family:Inter,system-ui}
 body{background:radial-gradient(600px at 0% 0%, #143d1f 0%, #0f0f0f 60%);color:#fff;min-height:100vh;padding:16px}
-.header{text-align:center;padding:32px 12px 10px}
-.logo{width:56px;height:56px;background:linear-gradient(135deg,#00c896,#009270);border-radius:16px;display:inline-flex;align-items:center;justify-content:center;font-weight:900;font-size:22px;box-shadow:0 8px 24px rgba(0,200,150,.3)}
-.header h1{font-size:30px;font-weight:800;margin-top:14px;letter-spacing:-.5px}
-.header h1 span{color:#00c896}
-.header p{color:#8a8a8a;margin-top:8px;font-size:13px;letter-spacing:.3px}
-.search{max-width:520px;margin:22px auto 0;background:#1a1a1a;border:1px solid #2a2a2a;border-radius:30px;display:flex;align-items:center;padding:6px 6px 6px 18px}
-.search input{flex:1;background:transparent;border:none;color:#fff;outline:none;font-size:14px}
-.search button{background:#fff;color:#000;border:none;padding:8px 16px;border-radius:20px;font-weight:700;font-size:13px}
-.grid{display:grid;grid-template-columns:1fr 1fr;gap:14px;margin:26px auto 0;max-width:680px}
-.card{background:rgba(255,255,255,.06);border:1px solid rgba(255,255,255,.10);backdrop-filter:blur(12px);border-radius:20px;padding:18px;text-decoration:none;color:#fff;transition:.25s;position:relative;overflow:hidden}
-.card:hover{transform:translateY(-3px);border-color:rgba(255,255,255,.18);box-shadow:0 12px 30px rgba(0,0,0,.3)}
-.card .icon{width:38px;height:38px;border-radius:12px;display:flex;align-items:center;justify-content:center;font-size:18px;margin-bottom:12px}
-.card h3{font-size:15px;font-weight:700;display:flex;align-items:center;flex-wrap:wrap}
-.card p{font-size:11.5px;color:#9a9a9a;margin-top:6px;line-height:1.4}
-.card.live{border-color:#00c89666;background:linear-gradient(135deg, rgba(30,30,30,.9), rgba(10,46,38,.9));}
-.card.live .icon{background:rgba(0,200,150,.15)}
-.badge{background:#00c896;color:#000;font-size:9px;padding:3px 7px;border-radius:20px;margin-left:6px;font-weight:800;letter-spacing:.5px}
-.card.timer .icon{background:rgba(255,255,255,.12)}
-.card.timer.live{border-color:#ffffff30}
-.new-dot{width:6px;height:6px;background:#00c896;border-radius:50%;display:inline-block;margin-left:6px;box-shadow:0 0 8px #00c896}
-.footer{text-align:center;color:#444;margin:40px 0 20px;font-size:11px}
-@media(min-width:700px){.grid{grid-template-columns:1fr 1fr 1fr}}
+.header{text-align:center;padding:28px 12px 10px}
+.logo{width:52px;height:52px;background:linear-gradient(135deg,#00c896,#009270);border-radius:16px;display:inline-flex;align-items:center;justify-content:center;font-weight:900;font-size:20px}
+.header h1{font-size:30px;font-weight:800;margin-top:12px} .header h1 span{color:#00c896}
+.header p{color:#8a8a8a;margin-top:6px;font-size:13px}
+
+/* PRO AGE TIMER - Slim */
+.timer-wrap{display:none;flex-direction:column;align-items:center;padding-top:20px;animation:fade .3s}
+.timer-wrap.active{display:flex}
+.top{display:flex;gap:12px;margin-bottom:22px}
+.top button{background:rgba(255,255,255,.14);border:1px solid rgba(255,255,255,.25);color:#fff;padding:10px 22px;border-radius:30px;font-weight:600;cursor:pointer}
+.top button.active{background:rgba(255,255,255,.28);border-color:#fff}
+.card{background:rgba(255,255,255,.16);border:1px solid rgba(255,255,255,.22);backdrop-filter:blur(18px);border-radius:28px;padding:20px 10px;width:92%;max-width:520px;transition:.35s}
+.title{text-align:center;color:rgba(255,255,255,.7);letter-spacing:5px;font-size:11px;font-weight:700;margin-bottom:16px}
+.row{display:flex} .col{flex:1;text-align:center;border-right:1px solid rgba(255,255,255,.15);padding:6px 2px}
+.col:last-child{border:none} .col i{font-style:normal;color:rgba(255,255,255,.5);font-size:8px;letter-spacing:1.5px;display:block;font-weight:700}
+.col b{color:#fff;font-size:21px;font-weight:800;display:block;margin-top:6px}
+.dob-pill{margin-top:22px;background:rgba(255,255,255,.14);border:1px solid rgba(255,255,255,.22);border-radius:40px;display:flex;align-items:center;padding:6px 6px 6px 18px;gap:12px;width:90%;max-width:360px}
+.dob-pill span{color:#fff;font-size:14px;flex:1;font-weight:600} .dob-pill button{background:#fff;color:#0a2810;border:none;padding:10px 18px;border-radius:30px;font-weight:800;cursor:pointer}
+.back{margin-top:18px;background:transparent;border:1px solid #ffffff22;color:#aaa;padding:8px 16px;border-radius:20px;cursor:pointer}
+
+.grid{display:grid;grid-template-columns:1fr 1fr;gap:14px;margin:24px auto 0;max-width:680px}
+.grid.hidden{display:none}
+.tool{background:rgba(255,255,255,.06);border:1px solid rgba(255,255,255,.10);border-radius:20px;padding:18px;color:#fff;text-decoration:none;transition:.25s;cursor:pointer}
+.tool:hover{transform:translateY(-2px)} .tool h3{font-size:15px} .tool p{font-size:11px;color:#9a9a9a;margin-top:6px}
+.tool.live{border-color:#00c89666;background:linear-gradient(135deg,rgba(30,30,30,.9),rgba(10,46,38,.9))}
+.badge{background:#00c896;color:#000;font-size:9px;padding:3px 7px;border-radius:20px;margin-left:6px;font-weight:800}
+.footer{text-align:center;color:#444;margin:36px 0 10px;font-size:11px}
+#dobInput{position:absolute;left:-9999px}
+body.size-small .card{max-width:420px;transform:scale(.88)} body.size-large .card{max-width:620px;transform:scale(1.08)}
+@keyframes fade{from{opacity:0;transform:translateY(10px)}to{opacity:1;transform:translateY(0)}}
 </style>
 </head>
 <body>
-<div class="header">
-<div class="logo">TC</div>
-<h1>The<span>Chauhan</span>Site</h1>
-<p>Free Online Tools Hub • Fast • Offline • Pro</p>
-<div class="search">
-<input placeholder="Search tools...">
-<button>Search</button>
-</div>
-</div>
-
+<div id="homeView">
+<div class="header"><div class="logo">TC</div><h1>The<span>Chauhan</span>Site</h1><p>Free Online Tools Hub • Pro • Offline</p></div>
 <div class="grid">
-<a class="card live" href="/tools/cricket-live/">
-<div class="icon">🏏</div>
-<h3>Live Match <span class="badge">LIVE</span></h3>
-<p>Cricket Live Score - Today, Tomorrow & Last 2 Days</p>
-</a>
-
-<a class="card live timer" href="/tools/age-timer/">
-<div class="icon">⏳</div>
-<h3>Age Timer <span class="badge">NEW</span><span class="new-dot"></span></h3>
-<p>Total Years • Total Months • 7123 Days • 24H Clock • Offline + Add to Screen</p>
-</a>
-
-<a class="card" href="#">
-<div class="icon" style="background:rgba(96,165,250,.15)">⚽</div>
-<h3>Football Score</h3>
-<p>Coming Soon</p>
-</a>
-
-<a class="card" href="#">
-<div class="icon" style="background:rgba(251,146,60,.15)">📝</div>
-<h3>Word Counter</h3>
-<p>Coming Soon</p>
-</a>
-
-<a class="card" href="#">
-<div class="icon" style="background:rgba(192,132,252,.15)">🎨</div>
-<h3>Image Tools</h3>
-<p>Coming Soon</p>
-</a>
-
-<a class="card" href="#">
-<div class="icon" style="background:rgba(74,222,128,.15)">🔗</div>
-<h3>More Tools</h3>
-<p>Request a Tool - We Build Fast</p>
-</a>
+<div class="tool live" onclick="openTool('cricket')"><h3>🏏 Live Match <span class="badge">LIVE</span></h3><p>Cricket Live Score</p></div>
+<div class="tool live" onclick="openTool('timer')"><h3>⏳ Age Timer <span class="badge">NEW</span></h3><p>Total Years • 234 Months • 7123 Days • Offline + Add to Screen</p></div>
+<div class="tool"><h3>⚽ Football</h3><p>Coming Soon</p></div>
+<div class="tool"><h3>📝 Word Counter</h3><p>Coming Soon</p></div>
+</div>
 </div>
 
-<p class="footer">the-chauhan-site.vercel.app • Made by Ayush • v2 Pro</p>
+<div id="timerView" class="timer-wrap">
+<div class="top"><button id="bS" onclick="setSize('small')">Chota</button><button id="bM" class="active" onclick="setSize('medium')">Medium</button><button id="bL" onclick="setSize('bada')">Bada</button></div>
+<div class="card"><div class="title">AGE TIMER</div><div class="row">
+<div class="col"><i>YEAR</i><b id="y">00</b></div><div class="col"><i>MONTH</i><b id="mo">00</b></div><div class="col"><i>DAYS</i><b id="d">00</b></div><div class="col"><i>HOURS</i><b id="h">00</b></div><div class="col"><i>MINTS</i><b id="mi">00</b></div><div class="col"><i>SECS</i><b id="s">00</b></div>
+</div></div>
+<div class="dob-pill"><span id="dobText">00-00-0000</span><button id="setDobBtn">Set DOB</button></div>
+<button class="back" onclick="closeTool()">← Back to Home</button>
+<button id="installBtn" style="display:none;margin-top:12px;background:#ffffff22;border:1px dashed #ffffff55;color:#fff;padding:8px 14px;border-radius:20px;font-size:12px">📲 Screen pe Add Karo</button>
+</div>
+
+<input type="date" id="dobInput">
+<p class="footer">the-chauhan-site.vercel.app • Made by Ayush</p>
 
 <script>
+let t,deferredPrompt;
+const dobInput=document.getElementById('dobInput'), dobText=document.getElementById('dobText');
+function fmt(d){return new Date(d).toLocaleDateString('en-GB',{day:'2-digit',month:'short',year:'numeric'})}
+function showZero(){['y','mo','d','h','mi','s'].forEach(i=>document.getElementById(i).innerText='00');dobText.innerText='00-00-0000'}
+function start(dob){clearInterval(t);localStorage.setItem('dob_pro',dob);dobText.innerText=fmt(dob);t=setInterval(()=>{let b=new Date(dob),n=new Date(),diff=n-b;document.getElementById('y').innerText=Math.floor(diff/31557600000);document.getElementById('mo').innerText=Math.floor(diff/2629800000);document.getElementById('d').innerText=Math.floor(diff/86400000);document.getElementById('h').innerText=Math.floor((diff%86400000)/3600000);document.getElementById('mi').innerText=Math.floor((diff%3600000)/60000);document.getElementById('s').innerText=Math.floor((diff%60000)/1000)},1000)}
+function setSize(s){document.body.className='size-'+s;document.querySelectorAll('.top button').forEach(b=>b.classList.remove('active'));document.getElementById(s==='small'?'bS':s==='medium'?'bM':'bL').classList.add('active');localStorage.setItem('timer_size',s)}
+function openTool(v){if(v==='timer'){document.getElementById('homeView').style.display='none';document.getElementById('timerView').classList.add('active');history.pushState({},'','/tools/age-timer/')}else{location.href='/tools/cricket-live/'}}
+function closeTool(){document.getElementById('homeView').style.display='block';document.getElementById('timerView').classList.remove('active');history.pushState({},'','/')}
+document.getElementById('setDobBtn').onclick=()=>dobInput.showPicker?dobInput.showPicker():dobInput.click();
+dobInput.onchange=e=>{if(e.target.value)start(e.target.value)}
+let saved=localStorage.getItem('dob_pro'),sz=localStorage.getItem('timer_size')||'medium';if(saved){dobInput.value=saved;start(saved)}else showZero();setSize(sz);
+window.addEventListener('beforeinstallprompt',e=>{e.preventDefault();deferredPrompt=e;document.getElementById('installBtn').style.display='block'});
+document.getElementById('installBtn').onclick=async()=>{if(deferredPrompt){deferredPrompt.prompt();await deferredPrompt.userChoice;deferredPrompt=null}};
 if('serviceWorker' in navigator){navigator.serviceWorker.register('/sw.js')}
+window.onpopstate=()=>{if(location.pathname.includes('age-timer'))openTool('timer');else closeTool()}
+if(location.pathname.includes('age-timer'))openTool('timer');
 </script>
 </body>
 </html>
