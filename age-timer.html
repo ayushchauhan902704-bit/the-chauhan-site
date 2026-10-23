@@ -1,50 +1,44 @@
 <!DOCTYPE html>
-<html lang="en">
+<html>
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Age Timer - TheChauhanSite</title>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Age Timer</title>
 <style>
 *{margin:0;padding:0;box-sizing:border-box}
 body{
-  background: linear-gradient(135deg,#1a3a1a,#2d5a2d);
-  min-height:100vh; display:flex; flex-direction:column;
-  align-items:center; justify-content:center; padding:20px;
-  font-family: -apple-system, BlinkMacSystemFont, sans-serif;
+  background: #234a2a; background: radial-gradient(circle at top, #2f5d36, #1a321e);
+  min-height:100vh; display:flex; flex-direction:column; align-items:center; 
+  justify-content:center; padding:20px; font-family: -apple-system, sans-serif;
 }
-.size-control{display:flex;gap:8px;margin-bottom:18px}
+.size-control{display:flex;gap:10px;margin-bottom:24px}
 .size-control button{
-  padding:8px 18px; border-radius:20px; border:1px solid rgba(255,255,255,0.3);
-  background: rgba(255,255,255,0.15); backdrop-filter:blur(10px);
-  color:white; cursor:pointer; font-weight:500;
+  padding:8px 20px;border-radius:25px;border:1px solid rgba(255,255,255,0.25);
+  background:rgba(255,255,255,0.12);backdrop-filter:blur(10px);color:white;cursor:pointer
 }
-.size-control button:hover{background:rgba(255,255,255,0.25)}
-.age-bubble{
-  background: rgba(110, 160, 110, 0.45);
-  backdrop-filter: blur(30px); -webkit-backdrop-filter: blur(30px);
-  border-radius: 32px; padding: 22px; width: 100%; max-width: 720px;
+.main-bubble{
+  background: linear-gradient(180deg, rgba(170,210,170,0.35), rgba(90,140,95,0.35));
+  backdrop-filter: blur(35px); -webkit-backdrop-filter: blur(35px);
+  border-radius: 40px; padding: 32px 28px; width:100%; max-width:520px;
   border: 1.5px solid rgba(255,255,255,0.25);
-  box-shadow: 0 15px 40px rgba(0,0,0,0.25);
-  transition: transform 0.3s ease;
+  box-shadow: 0 20px 60px rgba(0,0,0,0.35), inset 0 1px 1px rgba(255,255,255,0.3);
 }
-.header{text-align:center;color:white;font-weight:700;letter-spacing:2px;margin-bottom:14px}
-.content{
-  display:flex; background: rgba(255,255,255,0.14);
-  border-radius:22px; overflow:hidden; padding:14px 0;
+.header{ text-align:center; color:white; font-weight:800; font-size:20px; letter-spacing:3px; margin-bottom:4px}
+.sub{ text-align:center; color:white; opacity:0.6; font-size:11px; letter-spacing:1.5px; margin-bottom:28px}
+.grid{ display:grid; grid-template-columns: repeat(3,1fr); gap:16px; }
+.card{
+  background: linear-gradient(180deg, rgba(255,255,255,0.18), rgba(255,255,255,0.08));
+  border:1px solid rgba(255,255,255,0.2); border-radius:20px;
+  padding:18px 8px; text-align:center;
+  box-shadow: 0 8px 20px rgba(0,0,0,0.15), inset 0 1px 0 rgba(255,255,255,0.2);
 }
-.box{flex:1;text-align:center;border-right:1px solid rgba(255,255,255,0.18)}
-.box:last-child{border:none}
-.box span{display:block;font-size:11px;color:white;opacity:0.85;letter-spacing:1px}
-.box b{display:block;font-size:34px;color:white;font-weight:700;margin-top:6px}
-.size-small{transform:scale(0.78)}
-.size-medium{transform:scale(1)}
-.size-large{transform:scale(1.12)}
-.size-small .box b{font-size:24px}
-.size-large .box b{font-size:44px}
-.input-box{margin-top:20px;background:rgba(255,255,255,0.15);padding:12px 18px;border-radius:20px;display:flex;gap:10px}
-.input-box input{border:none;background:transparent;color:white;outline:none}
-.input-box input::placeholder{color:rgba(255,255,255,0.6)}
-.input-box button{border:none;padding:6px 14px;border-radius:12px;background:white;color:#2d5a2d;font-weight:600;cursor:pointer}
+.card span{ display:block; font-size:11px; color:white; opacity:0.7; font-weight:600; letter-spacing:1px; margin-bottom:10px}
+.card b{ display:block; font-size:22px; color:white; font-weight:800; word-break:break-all; line-height:1.1}
+@media(max-width:400px){ .card b{font-size:16px} }
+.size-small{transform:scale(0.85)} .size-medium{transform:scale(1)} .size-large{transform:scale(1.08)}
+.input-box{margin-top:24px;background:rgba(255,255,255,0.12);padding:10px 16px;border-radius:24px;display:flex;gap:10px;align-items:center;backdrop-filter:blur(10px)}
+.input-box input{border:none;background:transparent;color:white;outline:none;color-scheme:dark}
+.input-box button{border:none;padding:8px 18px;border-radius:14px;background:white;color:#1e3d1e;font-weight:800;cursor:pointer}
 </style>
 </head>
 <body>
@@ -55,37 +49,39 @@ body{
   <button onclick="setSize('large')">Bada</button>
 </div>
 
-<div id="timer" class="age-bubble size-medium">
+<div id="timer" class="main-bubble size-medium">
   <div class="header">AGE TIMER</div>
-  <div class="content">
-    <div class="box"><span>YEAR</span><b id="y">0</b></div>
-    <div class="box"><span>MONTH</span><b id="mo">0</b></div>
-    <div class="box"><span>DAYS</span><b id="d">0</b></div>
-    <div class="box"><span>HOURS</span><b id="h">00</b></div>
-    <div class="box"><span>MINT</span><b id="m">00</b></div>
-    <div class="box"><span>SEC</span><b id="s">00</b></div>
+  <div class="sub">YOUR LIFE SO FAR • LIVE COUNTER</div>
+  <div class="grid">
+    <div class="card"><span>YEAR</span><b id="y">0</b></div>
+    <div class="card"><span>MONTH</span><b id="mo">0</b></div>
+    <div class="card"><span>DAYS</span><b id="d">0</b></div>
+    <div class="card"><span>HOURS</span><b id="h">0</b></div>
+    <div class="card"><span>MINTS</span><b id="m">0</b></div>
+    <div class="card"><span>SECS</span><b id="s">0</b></div>
   </div>
 </div>
 
 <div class="input-box">
-  <input type="date" id="dobInput">
+  <input type="date" id="dob">
   <button onclick="saveDOB()">Set DOB</button>
 </div>
 
 <script>
+let dobEl = document.getElementById('dob');
 let saved = localStorage.getItem('thachauhan_dob');
-let sizeSaved = localStorage.getItem('thachauhan_size') || 'medium';
-document.getElementById('timer').className = 'age-bubble size-'+sizeSaved;
-if(saved) document.getElementById('dobInput').value = saved;
+if(saved) dobEl.value = saved;
+let sz = localStorage.getItem('thachauhan_size') || 'medium';
+document.getElementById('timer').className = 'main-bubble size-'+sz;
 
 function setSize(s){
-  document.getElementById('timer').className = 'age-bubble size-'+s;
+  document.getElementById('timer').className = 'main-bubble size-'+s;
   localStorage.setItem('thachauhan_size', s);
 }
 function saveDOB(){
-  let v = document.getElementById('dobInput').value;
-  if(v){ localStorage.setItem('thachauhan_dob', v); alert('Saved! Ab offline bhi chalega'); }
+  if(dobEl.value){ localStorage.setItem('thachauhan_dob', dobEl.value); alert('Saved! Offline chalega'); }
 }
+
 function update(){
   let dobStr = localStorage.getItem('thachauhan_dob');
   if(!dobStr) return;
@@ -93,20 +89,27 @@ function update(){
   let now = new Date();
   let diff = now - birth;
   if(diff<0) return;
-  let s = Math.floor(diff/1000);
-  let yrs = Math.floor(s/31536000); s%=31536000;
-  let mons = Math.floor(s/2592000); s%=2592000;
-  let dys = Math.floor(s/86400); s%=86400;
-  let hrs = Math.floor(s/3600); s%=3600;
-  let mins = Math.floor(s/60); s%=60;
-  document.getElementById('y').innerText=yrs;
-  document.getElementById('mo').innerText=mons;
-  document.getElementById('d').innerText=dys;
-  document.getElementById('h').innerText=String(hrs).padStart(2,'0');
-  document.getElementById('m').innerText=String(mins).padStart(2,'0');
-  document.getElementById('s').innerText=String(s).padStart(2,'0');
+
+  let totalSec = Math.floor(diff/1000);
+  let totalMin = Math.floor(totalSec/60);
+  let totalHours = Math.floor(totalMin/60);
+  let totalDays = Math.floor(totalHours/24);
+
+  let years = now.getFullYear() - birth.getFullYear();
+  let m = now.getMonth() - birth.getMonth();
+  let totalMonths = years*12 + m;
+  if(now.getDate() < birth.getDate()) totalMonths--;
+  if(now < new Date(birth.getFullYear()+years, birth.getMonth(), birth.getDate())) years--;
+  
+  document.getElementById('y').innerText = years;
+  document.getElementById('mo').innerText = totalMonths;
+  document.getElementById('d').innerText = totalDays.toLocaleString('en-IN');
+  document.getElementById('h').innerText = totalHours.toLocaleString('en-IN');
+  document.getElementById('m').innerText = totalMin.toLocaleString('en-IN');
+  document.getElementById('s').innerText = totalSec.toLocaleString('en-IN');
 }
-setInterval(update,1000); update();
+setInterval(update, 1000);
+update();
 </script>
 </body>
 </html>
