@@ -1,65 +1,63 @@
 <!DOCTYPE html>
-<html lang="en">
+<html>
 <head>
-<meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1">
 <title>All Sport Fast Score</title>
 <style>
-body{background:#121212;color:#fff;font-family:system-ui;margin:0;padding:16px}
-h1{text-align:center}
-.search{width:100%;padding:12px;border-radius:12px;border:none;background:#1e1e1e;color:#fff;margin:12px 0}
-.tabs{display:flex;gap:8px;overflow:auto;margin-bottom:12px}
-.tab{padding:8px 16px;border-radius:20px;background:#1e1e1e;border:none;color:#fff;white-space:nowrap}
-.tab.active{background:#2962ff}
-.card{background:#1e1e1e;border-radius:16px;padding:16px;margin-bottom:10px;display:flex;justify-content:space-between;align-items:center}
-.team{text-align:center}.team span{display:block;margin-top:4px;padding:2px 8px;border-radius:6px;font-size:12px;font-weight:bold}
-.ind{background:#1976d2}.pak{background:#2e7d32}
-.score{font-weight:bold;font-size:18px}
+body{background:#121212;color:#fff;font-family:system-ui;padding:16px;margin:0}
+.search{width:100%;padding:14px;border-radius:14px;border:none;background:#1e1e1e;color:#fff;margin:10px 0;box-sizing:border-box}
+.tabs{display:flex;gap:8px;overflow:auto;padding-bottom:8px}
+.tab{padding:9px 18px;border-radius:20px;background:#1e1e1e;border:none;color:#aaa}
+.tab.active{background:#2962ff;color:#fff}
+h2{margin:20px 0 10px;font-size:18px;color:#aaa}
+.card{background:#1e1e1e;border-radius:16px;padding:14px;margin-bottom:10px;display:flex;justify-content:space-between;align-items:center}
+.team{font-weight:bold}.score{font-size:18px;font-weight:900}
+.live-dot{width:8px;height:8px;background:#ff1744;border-radius:50%;display:inline-block;animation:blink 1s infinite}
+@keyframes blink{50%{opacity:0}}
 </style>
 </head>
 <body>
-<h1>All Sport Fast Score</h1>
-<input id="search" class="search" placeholder="Search IND PAK AUS ENG">
+<h1 style="text-align:center">All Sport Fast Score</h1>
+<input id="q" class="search" placeholder="Search IND PAK AUS ENG...">
 <div class="tabs">
-<button class="tab active">🏏 cricket</button>
-<button class="tab">⚽ football</button>
-<button class="tab">🎾 tennis</button>
-<button class="tab">🏀 basketb</button>
+<button class="tab active" data-s="cricket">🏏 cricket</button>
+<button class="tab" data-s="football">⚽ football</button>
+<button class="tab" data-s="basketball">🏀 basket</button>
+<button class="tab" data-s="tennis">🎾 tennis</button>
 </div>
-<div id="list"><div class="card">Fastest LIVE la raha hu...</div></div>
+
+<h2><span class="live-dot"></span> LIVE</h2>
+<div id="live">Fastest LIVE la raha hu...</div>
+
+<h2>📅 Aaj & Kal ke Matches</h2>
+<div id="upcoming"></div>
 
 <script>
+let sport='cricket';
 async function load(){
-  try{
-    const r = await fetch('/api/live'); // Secure API - Key yaha nahi hai
-    const j = await r.json();
-    const list = document.getElementById('list');
-    const matches = j.response || [];
-    if(matches.length===0){ list.innerHTML='<div class="card">Aaj koi LIVE match nahi hai, kal check karo!</div>'; return; }
-    
-    list.innerHTML = matches.slice(0,20).map(m=>{
-      const home = m.teams?.home?.name || 'Team1';
-      const away = m.teams?.away?.name || 'Team2';
-      const gh = m.goals?.home ?? m.score?.fulltime?.home ?? '-';
-      const ga = m.goals?.away ?? m.score?.fulltime?.away ?? '-';
-      const status = m.fixture?.status?.short || 'LIVE';
-      return `<div class="card">
-        <div class="team">👨 ${home.substring(0,3).toUpperCase()}<span class="ind">${gh}</span></div>
-        <div style="text-align:center">🏏<br><small>${status}</small><div class="score">${gh} - ${ga}</div></div>
-        <div class="team">👨 ${away.substring(0,3).toUpperCase()}<span class="pak">${ga}</span></div>
-      </div>`;
-    }).join('');
-  }catch(e){
-    document.getElementById('list').innerHTML = '<div class="card">Error: '+e.message+'</div>';
-  }
+  const res = await fetch(`/api/live?sport=${sport}`);
+  const j = await res.json();
+  const liveDiv = document.getElementById('live');
+  const upDiv = document.getElementById('upcoming');
+
+  const render = (m)=>`
+    <div class="card" data-search="${m.name} ${m.home} ${m.away}">
+      <div class="team">${m.home}<br><small style="color:#aaa">${m.scoreHome}</small></div>
+      <div style="text-align:center"><small style="color:${m.isLive?'#ff1744':'#aaa'}">${m.timeStr}</small><br><b class="score">${m.scoreHome} - ${m.scoreAway}</b><br><small>${m.status}</small></div>
+      <div class="team">${m.away}<br><small style="color:#aaa">${m.scoreAway}</small></div>
+    </div>`;
+
+  liveDiv.innerHTML = j.live.length ? j.live.map(render).join('') : '<div class="card">Abhi koi LIVE nahi hai</div>';
+  upDiv.innerHTML = j.upcoming.length ? j.upcoming.map(render).join('') : j.all.map(render).join('') || '<div class="card">No matches</div>';
 }
-load();
-setInterval(load, 30000); // Har 30 sec auto-refresh
-document.getElementById('search').addEventListener('input', (e)=>{
-  const q = e.target.value.toLowerCase();
-  document.querySelectorAll('.card').forEach(c=>{
-    c.style.display = c.innerText.toLowerCase().includes(q) ? 'flex' : 'none';
-  });
+document.querySelectorAll('.tab').forEach(b=>{
+  b.onclick=()=>{document.querySelectorAll('.tab').forEach(x=>x.classList.remove('active'));b.classList.add('active');sport=b.dataset.s;load();}
 });
+document.getElementById('q').addEventListener('input',e=>{
+  const q=e.target.value.toLowerCase();
+  document.querySelectorAll('.card').forEach(c=>{c.style.display=c.dataset.search.toLowerCase().includes(q)?'flex':'none'});
+});
+load(); setInterval(load, 20000);
 </script>
 </body>
 </html>
