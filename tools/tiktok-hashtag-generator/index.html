@@ -1,0 +1,129 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>TikTok Hashtag Generator - Viral Hashtags for Reels | TheChauhanSite</title>
+<meta name="description" content="Generate viral TikTok hashtags for your reels. Get trending, niche & broad hashtags. Free by TheChauhanSite - Ayush Chauhan">
+<style>
+*{box-sizing:border-box;margin:0;padding:0;font-family:Inter,system-ui,sans-serif}
+body{background:radial-gradient(800px at 0% 0%, #102a1f 0%, #0f0f0f 70%);color:#fff;min-height:100vh;padding:18px;display:flex;justify-content:center}
+.box{max-width:750px;width:100%}
+.top a{color:#00c896;text-decoration:none;font-size:13px}
+.card{margin-top:20px;background:rgba(255,255,255,.06);border:1px solid rgba(255,255,255,.1);backdrop-filter:blur(20px);border-radius:24px;padding:22px}
+h1{font-size:28px;font-weight:900}h1 span{color:#00c896}
+.sub{color:#aaa;font-size:13px;margin:8px 0 16px;line-height:1.6}
+label{font-size:12px;color:#aaa;margin:10px 0 5px;display:block}
+input,select{width:100%;background:#151515;border:1px solid #2a2a2a;border-radius:12px;padding:12px 14px;color:#fff;outline:none;font-size:14px}
+.row{display:grid;grid-template-columns:1fr 1fr;gap:10px}
+.btn{width:100%;background:#00c896;color:#000;border:none;padding:13px;border-radius:22px;font-weight:900;font-size:14px;margin-top:14px;cursor:pointer}
+.btn2{background:#1f1f1f;color:#fff;border:1px solid #333;margin-top:8px}
+.output{margin-top:16px;background:#111;border:1px dashed #2a2a2a;border-radius:16px;padding:14px;min-height:80px}
+.tag{display:inline-block;background:#1c1c1c;border:1px solid #2a2a2a;padding:6px 10px;border-radius:20px;font-size:12px;margin:4px;color:#00c896;cursor:pointer}
+.tag.broad{color:#fff}.tag.viral{color:#ff5a5a;border-color:#ff5a5a33;background:#ff5a5a11}
+.footer{margin-top:20px;text-align:center;color:#555;font-size:11px}
+.footer a{color:#777;text-decoration:none;margin:0 6px}
+</style>
+</head>
+<body>
+<div class="box">
+<div class="top"><a href="/">← Back to Home</a></div>
+<div class="card">
+<h1>TikTok <span>Hashtag Generator</span> 🚀</h1>
+<p class="sub">Enter your video topic and get 30 viral, trending hashtags. Copy in 1 click.</p>
+
+<label>Video Topic / Keyword</label>
+<input id="topic" placeholder="e.g. dance, motivation, funny cat, gym...">
+
+<div class="row">
+<div>
+<label>Niche</label>
+<select id="niche">
+<option value="general">General / Trending</option>
+<option value="dance">Dance & Music</option>
+<option value="comedy">Comedy / Funny</option>
+<option value="fashion">Fashion / Beauty</option>
+<option value="motivation">Motivation / Gym</option>
+<option value="food">Food / Cooking</option>
+<option value="travel">Travel</option>
+<option value="study">Study / Education</option>
+</select>
+</div>
+<div>
+<label>Count</label>
+<select id="count">
+<option value="20">20 Hashtags</option>
+<option value="30" selected>30 Hashtags (Viral)</option>
+<option value="10">10 Hashtags</option>
+</select>
+</div>
+</div>
+
+<button class="btn" onclick="generate()">Generate Hashtags ✨</button>
+<button class="btn btn2" onclick="copyAll()">Copy All Hashtags 📋</button>
+
+<div class="output" id="output"><span style="color:#555;font-size:12px">Your hashtags will appear here...</span></div>
+
+</div>
+<div class="footer">
+<a href="/about/">About</a> <a href="/contact/">Contact</a> <a href="/privacy/">Privacy</a>
+<p style="margin-top:8px">© 2026 TheChauhanSite • Ayush Chauhan • ayushchauhan902704@gmail.com</p>
+</div>
+</div>
+
+<script>
+const baseTags = {
+ general: ["#fyp","#foryou","#viral","#tiktok","#trending","#foryoupage","#explore","#tiktokindia"],
+ dance: ["#dance","#dancechallenge","#dancetrend","#choreography","#dancer","#music","#beat","#groove"],
+ comedy: ["#funny","#comedy","#memes","#lol","#funnymemes","#joke","#haha","#relatable"],
+ fashion: ["#fashion","#ootd","#style","#beauty","#makeup","#outfit","#fashionista","#grwm"],
+ motivation: ["#motivation","#gym","#fitness","#mindset","#success","#workout","#inspiration","#grind"],
+ food: ["#food","#foodie","#cooking","#recipe","#foodtok","#yummy","#homemade","#tasty"],
+ travel: ["#travel","#wanderlust","#adventure","#explorepage","#traveltok","#vacation","#nature","#trip"],
+ study: ["#study","#studytok","#education","#student","#studytips","#exam","#learning","#knowledge"]
+};
+
+function generate(){
+ let topic = document.getElementById('topic').value.trim().toLowerCase();
+ let niche = document.getElementById('niche').value;
+ let count = parseInt(document.getElementById('count').value);
+ if(!topic){ alert("Enter your video topic first!"); return; }
+ 
+ let tags = [];
+ // 1. topic based
+ tags.push("#"+topic.replace(/\s+/g,''));
+ tags.push("#"+topic.replace(/\s+/g,'')+"tok");
+ tags.push("#"+topic.replace(/\s+/g,'')+"viral");
+ 
+ // 2. niche tags
+ tags = tags.concat(baseTags[niche] || baseTags.general);
+ 
+ // 3. extra viral mix
+ let extra = ["#reels","#tiktokviral","#tiktoktrend","#tiktok4you","#follow","#like","#share","#mustwatch","#newtrend","#2026viral","#indiatiktok","#desi"];
+ tags = tags.concat(extra);
+ 
+ // unique + shuffle
+ tags = [...new Set(tags)].sort(()=>0.5-Math.random()).slice(0,count);
+ 
+ let html = tags.map(t=>{
+  let cls = t.includes("fyp")||t.includes("viral")?"viral": (t.length<8?"":"broad");
+  return `<span class="tag ${cls}" onclick="copyOne('${t}')">${t}</span>`;
+ }).join("");
+ document.getElementById('output').innerHTML = html;
+}
+
+function copyAll(){
+ let text = [...document.querySelectorAll('.tag')].map(e=>e.innerText).join(" ");
+ if(!text){alert("First generate hashtags!"); return;}
+ navigator.clipboard.writeText(text);
+ alert("Copied " + text.split(" ").length + " hashtags! 🚀");
+}
+function copyOne(t){
+ navigator.clipboard.writeText(t);
+ // small feedback
+ event.target.style.background="#00c896"; event.target.style.color="#000";
+ setTimeout(()=>{event.target.style.background=""; event.target.style.color="";}, 400);
+}
+</script>
+</body>
+</html>
