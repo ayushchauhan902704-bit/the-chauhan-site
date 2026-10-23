@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="hi">
+<head>
+<meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Desi Fast Live Score - TheChauhanSite</title>
+<style>
+body{margin:0;background:#0e1218;color:#fff;font-family:system-ui;padding:10px}
+h2{text-align:center}
+.search{width:100%;box-sizing:border-box;padding:13px;border-radius:12px;background:#1d2632;border:1px solid #2a384c;color:#fff}
+.tabs{display:flex;gap:8px;margin:12px 0;overflow:auto}
+.tab{padding:8px 16px;border-radius:20px;background:#222e3d;font-size:14px;cursor:pointer;white-space:nowrap}
+.tab.active{background:#2fa8ff;color:#000;font-weight:bold}
+.stage{background:linear-gradient(#132033,#0e1218);border-radius:16px;border:1px solid #223044;height:130px;display:flex;justify-content:space-around;align-items:end;padding:10px;position:relative;overflow:hidden}
+.player{width:45px;text-align:center;animation:bounce .6s infinite alternate}
+.player .head{width:32px;height:32px;background:#ffdbac;border-radius:50%;margin:auto;border:2px solid #333;font-size:18px;display:flex;align-items:center;justify-content:center}
+.jersey{width:36px;height:22px;border-radius:6px;margin:2px auto;font-size:10px;color:#fff;display:flex;align-items:center;justify-content:center;font-weight:bold}
+@keyframes bounce{to{transform:translateY(-6px)}}
+.bat{font-size:18px;margin-left:-8px}
+.stumps{font-size:22px}
+.card{background:#172131;padding:12px;border-radius:12px;margin:8px 0;display:flex;justify-content:space-between;border:1px solid #223044}
+.live{color:#ff4141;font-size:12px;font-weight:bold}
+</style>
+</head>
+<body>
+<h2>All Sport Fast Score</h2>
+<input class="search" id="search" placeholder="Search match IND PAK likh ke dekho" onkeyup="filterCards()">
+<div class="tabs">
+<div class="tab active" onclick="getLive('cricket',this)">🏏 cricket</div>
+<div class="tab" onclick="getLive('football',this)">⚽ football</div>
+<div class="tab" onclick="getLive('kabaddi',this)">🤼 kabaddi</div>
+</div>
+
+<!-- CHOTE CUTE DESI PLAYERS -->
+<div class="stage" id="stage">
+<div class="player"><div class="head">🧒</div><div class="jersey" style="background:#1a75d2">IND</div><div class="bat">🏏</div></div>
+<div class="stumps">🏏</div>
+<div class="player"><div class="head">🧒</div><div class="jersey" style="background:#0a8a3a">PAK</div><div>⚾</div></div>
+</div>
+
+<div id="list"><div class="card">Live score load ho raha hai...</div></div>
+
+<script>
+let current='cricket';
+async function getLive(sport,el){
+ current=sport;
+ if(el){document.querySelectorAll('.tab').forEach(t=>t.classList.remove('active'));el.classList.add('active');}
+ let stage=document.getElementById('stage');
+ if(sport==='cricket'){
+   stage.innerHTML=`<div class="player"><div class="head">🧒</div><div class="jersey" style="background:#1a75d2">IND</div><div class="bat">🏏</div></div><div class="stumps">| | |</div><div class="player"><div class="head">🧒</div><div class="jersey" style="background:#0a8a3a">PAK</div><div>🥎</div></div>`;
+ } else if(sport==='football'){
+   stage.innerHTML=`<div class="player"><div class="head">🧒</div><div class="jersey" style="background:#1a75d2">IND</div></div><div style="font-size:28px">⚽</div><div class="player"><div class="head">🧒</div><div class="jersey" style="background:#0a8a3a">PAK</div></div>`;
+ } else {
+   stage.innerHTML=`<div class="player"><div class="head">🧒</div><div class="jersey" style="background:#ff6a00">DESI</div></div><div style="font-size:24px">🤼</div><div class="player"><div class="head">🧒</div><div class="jersey" style="background:#222">PAK</div></div>`;
+ }
+
+ document.getElementById('list').innerHTML='<div class="card">Fastest Live la raha hu...</div>';
+ try{
+  let url = sport==='cricket' ? 'https://site.api.espn.com/apis/site/v2/sports/cricket/16/scoreboard' : 'https://site.api.espn.com/apis/site/v2/sports/soccer/eng.1/scoreboard';
+  let res = await fetch(url); let data = await res.json();
+  let html='';
+  data.events.slice(0,8).forEach(e=>{
+    let c=e.competitions[0]; let s=e.status.type.detail;
+    html+=`<div class="card"><div><b>${c.competitors[0].team.abbreviation} vs ${c.competitors[1].team.abbreviation}</b><br><small>${s}</small></div><div style="text-align:right"><span class="live">${e.status.type.state!=='pre'?'● LIVE':'UPCOMING'}</span><br><b>${c.competitors[0].score||0}-${c.competitors[1].score||0}</b></div></div>`;
+  });
+  document.getElementById('list').innerHTML=html||'<div class="card">Abhi koi live nahi hai bhai</div>';
+ }catch(err){document.getElementById('list').innerHTML='<div class="card">Net slow hai - fir try karo</div>';}
+}
+function filterCards(){let q=document.getElementById('search').value.toLowerCase();document.querySelectorAll('#list .card').forEach(c=>{c.style.display=c.innerText.toLowerCase().includes(q)?'flex':'none'});}
+getLive('cricket');
+setInterval(()=>getLive(current),10000);
+</script>
+</body>
+</html>
