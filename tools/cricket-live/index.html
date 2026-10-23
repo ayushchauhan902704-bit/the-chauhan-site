@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Live Match - Cricket Live Score</title>
+<style>
+*{margin:0;padding:0;box-sizing:border-box;font-family:Arial} body{background:#e3e6e3}
+.h{background:#009270;color:#fff;padding:14px;display:flex;justify-content:space-between;align-items:center}
+.h b{font-size:20px}
+.tabs{background:#009270;display:flex;gap:20px;padding:0 14px 12px;color:#fff;font-weight:bold;position:sticky;top:0;overflow:auto}
+.tabs span{opacity:.6;border-bottom:3px solid transparent;padding-bottom:6px;white-space:nowrap;cursor:pointer}
+.tabs span.active{opacity:1;border-color:#fff}
+.card{background:#fff;margin:8px 0}
+.shead{background:#d6d6d6;padding:8px 12px;font-size:12px;font-weight:bold}
+.match{padding:10px 12px;border-bottom:1px solid #eee}
+.team{display:flex;justify-content:space-between;margin:4px 0} .sc{font-weight:bold}
+.res{color:#d0021b;font-size:12px;margin-top:4px} .time{font-size:11px;color:#666}
+.dot{width:8px;height:8px;background:red;border-radius:50%;display:inline-block}
+.search{width:calc(100% - 20px);margin:10px;padding:12px;border-radius:8px;border:1px solid #ccc;display:block}
+</style>
+</head>
+<body>
+<div class="h"><b>Live Match</b><span style="border:1px solid #fff;padding:4px 10px;border-radius:6px;font-size:12px">LIVE</span></div>
+<div class="tabs">
+<span class="active" data-t="live">Live</span>
+<span data-t="today">Today</span>
+<span data-t="tomorrow">Tomorrow</span>
+<span data-t="recent">Last 2 Days</span>
+</div>
+<input id="q" class="search" placeholder="Search IND PAK AUS ENG...">
+<div id="root" style="padding-bottom:20px">Loading live cricket...</div>
+
+<script>
+const ESPN_URL = 'https://site.api.espn.com/apis/site/v2/sports/cricket/16/scoreboard';
+let allEvents = [];
+
+async function load(){
+  try{
+    // ESPN works with CORS - no api needed
+    const r = await fetch(ESPN_URL);
+    const d = await r.json();
+    allEvents = (d.events || []).map(e=>{
+      const c = e.competitions[0];
+      const date = new Date(c.date);
+      const ist = date.toLocaleString('en-IN',{timeZone:'Asia/Kolkata', day:'2-digit', month:'short', hour:'2-digit', minute:'2-digit', hour12:true});
+      const home = c.competitors.find(x=>x.homeAway==='home') || c.competitors[0];
+      const away = c.competitors.find(x=>x.homeAway==='away') || c.competitors[1];
+      return {
+        series: e.season?.name || 'International',
+        team1: home.team.abbreviation,
+        team2: away.team.abbreviation,
+        team1Full: home.team.displayName,
+        team2Full: away.team.displayName,
+        score1: home.score || home.linescores?.[0]?.displayValue || '',
+        score2: away.score || away.linescores?.[0]?.displayValue || '',
+        status: c.status.type.shortDetail + ' - ' + (c.status.type.detail || ''),
+        state: c.status.type.state, // in, pre, post
+        time: ist,
+        ground: c.venue?.fullName || ''
+      };
+    });
+    render('live');
+  }catch(err){
+    document.getElementById('root').innerHTML = 'Error loading: '+err.message+'<br>Try reload';
+  }
+}
+
+function render(type){
+  const q = document.getElementById('q').value.toLowerCase();
+  let list = [];
+  if(type==='live') list = allEvents.filter(m=>m.state==='in');
+  else if(type==='today') list = allEvents.filter(m=>m.state==='pre');
+  else if(type==='tomorrow') list = allEvents; // ESPN gives today only, so show all upcoming
+  else list = allEvents.filter(m=>m.state==='post');
+
+  if(list.length===0 && type==='live') list = allEvents; // if no live, show all
+
+  let groups={};
+  list.forEach(m=>{ if(!groups[m.series]) groups[m.series]=[]; groups[m.series].push(m); });
+
+  let html='';
+  for(let s in groups){
+    html+=`<div class="card"><div class="shead"><span>${s}</span></div>`;
+    groups[s].forEach(m=>{
+      if(q && !`${m.team1} ${m.team2} ${m.team1Full}`.toLowerCase().includes(q)) return;
+      html+=`<div class="match">
+        <div class="time">${m.state==='in' ? '<span class=dot></span> LIVE • ' : ''}${m.time} • ${m.ground}</div>
+        <div class="team"><span>${m.team1Full} (${m.team1})</span><span class="sc">${m.score1}</span></div>
+        <div class="team"><span>${m.team2Full} (${m.team2})</span><span class="sc">${m.score2}</span></div>
+        <div class="res">${m.status}</div>
+      </div>`;
+    });
+    html+=`</div>`;
+  }
+  document.getElementById('root').innerHTML = html || `<div style="padding:20px">No matches in ${type}. Showing all<br><br></div>` + (type!=='recent' ? '' : '');
+  if(html==='' && list.length===0){
+    // If still empty, show all events
+    renderAllFallback();
+  }
+}
+
+function renderAllFallback(){
+  if(allEvents.length===0) return;
+  let html='<div class="card"><div class="shead">All Matches</div>';
+  allEvents.forEach(m=>{
+    html+=`<div class="match"><div class="time">${m.time}</div><div class="team"><span>${m.team1Full}</span><span class="sc">${m.score1}</span></div><div class="team"><span>${m.team2Full}</span><span class="sc">${m.score2}</span></div><div class="res">${m.status}</div></div>`;
+  });
+  html+='</div>';
+  document.getElementById('root').innerHTML = html;
+}
+
+document.querySelectorAll('.tabs span').forEach(el=>{
+  el.onclick=()=>{document.querySelectorAll('.tabs span').forEach(x=>x.classList.remove('active')); el.classList.add('active'); render(el.dataset.t);}
+});
+document.getElementById('q').addEventListener('input',()=>render(document.querySelector('.tabs span.active').dataset.t));
+
+load();
+setInterval(load, 30000);
+</script>
+</body>
+</html>
