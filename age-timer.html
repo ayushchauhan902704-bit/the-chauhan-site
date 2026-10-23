@@ -1,103 +1,107 @@
 <!DOCTYPE html>
-<html>
-<head>
-<meta name="viewport" content="width=device-width, initial-scale=1">
+<html lang="en"><head>
+<meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Age Timer Pro</title>
 <style>
-*{box-sizing:border-box;margin:0;padding:0;font-family:system-ui}
-body{min-height:100vh;background:#0a2810;display:flex;flex-direction:column;align-items:center;padding-top:80px}
-.top{display:flex;gap:12px;margin-bottom:25px}
-.top button{background:#ffffff22;border:1px solid #ffffff44;color:#fff;padding:12px 26px;border-radius:30px;font-size:14px;cursor:pointer}
-.card{background:#ffffff26;border:1px solid #ffffff33;backdrop-filter:blur(12px);border-radius:32px;padding:18px 12px;width:92%;max-width:620px;overflow:hidden}
-.title{color:#ffffffcc;text-align:center;letter-spacing:5px;font-size:11px;margin-bottom:14px;font-weight:600}
-.row{display:flex;overflow-x:auto;scrollbar-width:none}
-.row::-webkit-scrollbar{display:none}
-.col{flex:1;min-width:58px;text-align:center;border-right:1px solid #ffffff26;padding:0 4px}
-.col:last-child{border:none;min-width:75px}
-.col i{font-style:normal;color:#ffffff99;font-size:8px;letter-spacing:1.5px;display:block}
-.col b{color:#fff;font-size:clamp(12px, 3.6vw, 17px);display:block;margin-top:6px;white-space:nowrap}
-.dob-pill{margin-top:25px;background:#ffffff22;border:1px solid #ffffff33;border-radius:40px;display:flex;align-items:center;padding:6px 6px 6px 18px;gap:12px}
-.dob-pill span{color:#fff;font-size:14px;flex:1}
-.dob-pill button{background:#fff;color:#000;border:none;padding:10px 18px;border-radius:30px;font-weight:700;font-size:13px;cursor:pointer}
-input[type=date]{position:absolute;opacity:0;pointer-events:none}
+*{box-sizing:border-box;margin:0;padding:0;font-family:Inter,system-ui, -apple-system}
+body{min-height:100vh;background:linear-gradient(180deg,#1a3c22 0%, #0a2810 100%);display:flex;flex-direction:column;align-items:center;padding-top:70px;transition:all .3s ease}
+.top{display:flex;gap:12px;margin-bottom:28px}
+.top button{background:rgba(255,255,255,.14);border:1px solid rgba(255,255,255,.25);color:#fff;padding:12px 26px;border-radius:30px;font-size:14px;font-weight:600;cursor:pointer;backdrop-filter:blur(10px);transition:.2s}
+.top button.active{background:rgba(255,255,255,.28);border-color:#fff;box-shadow:0 4px 20px rgba(0,0,0,.2)}
+.card{background:rgba(255,255,255,.18);border:1px solid rgba(255,255,255,.25);backdrop-filter:blur(18px);border-radius:28px;padding:22px 12px;width:90%;max-width:520px;transition:all .35s cubic-bezier(.4,0,.2,1);box-shadow:0 10px 40px rgba(0,0,0,.25)}
+.title{text-align:center;color:rgba(255,255,255,.75);letter-spacing:5px;font-size:11px;font-weight:700;margin-bottom:18px}
+.row{display:flex}
+.col{flex:1;text-align:center;border-right:1px solid rgba(255,255,255,.15);padding:6px 2px;min-width:0}
+.col:last-child{border:none}
+.col i{font-style:normal;color:rgba(255,255,255,.55);font-size:8px;letter-spacing:1.8px;display:block;font-weight:700}
+.col b{color:#fff;font-size:22px;font-weight:800;display:block;margin-top:8px;letter-spacing:-0.5px}
+.dob-pill{margin-top:30px;background:rgba(255,255,255,.14);border:1px solid rgba(255,255,255,.22);border-radius:40px;display:flex;align-items:center;padding:6px 6px 6px 18px;gap:12px;width:90%;max-width:360px;backdrop-filter:blur(12px);transition:all .35s}
+.dob-pill .cal{color:#fff;font-size:18px}
+.dob-pill span{color:#fff;font-size:14px;flex:1;font-weight:600}
+.dob-pill button{background:#fff;color:#0a2810;border:none;padding:11px 20px;border-radius:30px;font-weight:800;font-size:13px;cursor:pointer}
+#dobInput{position:absolute;left:-9999px}
+
+/* SIZE MODES */
+body.size-small .card{max-width:420px;transform:scale(.88)}
+body.size-small .dob-pill{max-width:300px}
+body.size-medium .card{max-width:520px;transform:scale(1)}
+body.size-large .card{max-width:620px;transform:scale(1.08);padding:28px 14px}
+body.size-large .col b{font-size:26px}
+body.size-large .dob-pill{max-width:420px}
 </style>
-</head>
-<body>
+</head><body class="size-medium">
 
 <div class="top">
-  <button onclick="setSize('small')">Chota</button>
-  <button onclick="setSize('medium')">Medium</button>
-  <button onclick="setSize('big')">Bada</button>
+<button id="bSmall" onclick="setSize('small')">Chota</button>
+<button id="bMedium" class="active" onclick="setSize('medium')">Medium</button>
+<button id="bBada" onclick="setSize('bada')">Bada</button>
 </div>
 
-<div class="card">
-  <div class="title">AGE TIMER</div>
-  <div class="row">
-    <div class="col"><i>YEAR</i><b id="y">19</b></div>
-    <div class="col"><i>MONTH</i><b id="mo">234</b></div>
-    <div class="col"><i>DAYS</i><b id="d">7123</b></div>
-    <div class="col"><i>HOURS</i><b id="h">170965</b></div>
-    <div class="col"><i>MINTS</i><b id="mi">10257935</b></div>
-    <div class="col"><i>SECS</i><b id="s">615476116</b></div>
-  </div>
+<div class="card" id="mainCard">
+<div class="title">AGE TIMER</div>
+<div class="row">
+<div class="col"><i>YEAR</i><b id="y">19</b></div>
+<div class="col"><i>MONTH</i><b id="mo">234</b></div>
+<div class="col"><i>DAYS</i><b id="d">7123</b></div>
+<div class="col"><i>HOURS</i><b id="h">12</b></div>
+<div class="col"><i>MINTS</i><b id="mi">45</b></div>
+<div class="col"><i>SECS</i><b id="s">22</b></div>
+</div>
 </div>
 
-<div class="dob-pill">
-  <span id="dobText">23 Apr 2007</span>
-  <button id="setDobBtn">Set DOB</button>
+<div class="dob-pill" id="dobPill">
+<span class="cal">📅</span>
+<span id="dobText">23 Apr 2007</span>
+<button id="setDobBtn">Set DOB</button>
 </div>
 
 <input type="date" id="dobInput">
 
 <script>
-const dobInput = document.getElementById('dobInput');
-const dobText = document.getElementById('dobText');
-const setBtn = document.getElementById('setDobBtn');
-let timer;
+const dobInput=document.getElementById('dobInput');
+const dobText=document.getElementById('dobText');
+const setBtn=document.getElementById('setDobBtn');
+let t;
+function fmt(d){return new Date(d).toLocaleDateString('en-GB',{day:'2-digit',month:'short',year:'numeric'})}
 
-function formatDate(d){
-  const dt = new Date(d);
-  return dt.toLocaleDateString('en-GB',{day:'2-digit',month:'short',year:'numeric'});
+function start(dobStr){
+clearInterval(t);
+localStorage.setItem('dob_pro_final',dobStr);
+dobText.innerText=fmt(dobStr);
+t=setInterval(()=>{
+ let birth=new Date(dobStr);
+ let now=new Date();
+ let diff=now-birth;
+ let totalYears=Math.floor(diff/31557600000);
+ let totalMonths=Math.floor(diff/2629800000);
+ let totalDays=Math.floor(diff/86400000);
+ let hours=Math.floor((diff%(86400000))/3600000);
+ let mints=Math.floor((diff%3600000)/60000);
+ let secs=Math.floor((diff%60000)/1000);
+ document.getElementById('y').innerText=totalYears;
+ document.getElementById('mo').innerText=totalMonths;
+ document.getElementById('d').innerText=totalDays;
+ document.getElementById('h').innerText=hours;
+ document.getElementById('mi').innerText=mints;
+ document.getElementById('s').innerText=secs;
+},1000);
 }
 
-function startLive(dobStr){
-  clearInterval(timer);
-  localStorage.setItem('green_dob', dobStr);
-  dobText.innerText = formatDate(dobStr);
-  timer = setInterval(()=>{
-    const birth = new Date(dobStr);
-    const now = new Date();
-    const diff = now - birth;
-    const years = Math.floor(diff / (1000*60*60*24*365.25));
-    const months = Math.floor(diff / (1000*60*60*24*30.44));
-    const days = Math.floor(diff / (1000*60*60*24));
-    const hours = Math.floor(diff / (1000*60*60));
-    const mints = Math.floor(diff / (1000*60));
-    const secs = Math.floor(diff / 1000);
-    document.getElementById('y').innerText = years;
-    document.getElementById('mo').innerText = months;
-    document.getElementById('d').innerText = days;
-    document.getElementById('h').innerText = hours.toLocaleString('en-IN');
-    document.getElementById('mi').innerText = mints.toLocaleString('en-IN');
-    document.getElementById('s').innerText = secs.toLocaleString('en-IN');
-  },1000);
-}
-
-// DOB CHANGE FIX
-setBtn.addEventListener('click', ()=>{
-  dobInput.showPicker ? dobInput.showPicker() : dobInput.click();
-});
-dobInput.addEventListener('change', (e)=>{
-  if(e.target.value) startLive(e.target.value);
-});
-
+// SIZE ADJUST - Lamba Choda kam jyada
 function setSize(s){
-  document.querySelector('.card').style.transform = s==='small'?'scale(0.85)':s==='big'?'scale(1.1)':'scale(1)';
+document.body.className='size-'+s;
+document.querySelectorAll('.top button').forEach(b=>b.classList.remove('active'));
+if(s==='small') document.getElementById('bSmall').classList.add('active');
+if(s==='medium') document.getElementById('bMedium').classList.add('active');
+if(s==='bada') document.getElementById('bBada').classList.add('active');
+localStorage.setItem('timer_size',s);
 }
 
-// load
-const saved = localStorage.getItem('green_dob') || '2007-04-23';
-dobInput.value = saved;
-startLive(saved);
+setBtn.onclick=()=>{dobInput.showPicker?dobInput.showPicker():dobInput.click()};
+dobInput.onchange=e=>{if(e.target.value)start(e.target.value)};
+
+let saved=localStorage.getItem('dob_pro_final')||'2007-04-23';
+let savedSize=localStorage.getItem('timer_size')||'medium';
+dobInput.value=saved;start(saved);setSize(savedSize);
 </script>
-</body>
-</html>
+</body></html>
