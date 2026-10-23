@@ -1,35 +1,31 @@
 <!DOCTYPE html>
 <html lang="en"><head>
 <meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="theme-color" content="#0a2810">
+<link rel="manifest" href="manifest.json">
 <title>Age Timer Pro</title>
 <style>
-*{box-sizing:border-box;margin:0;padding:0;font-family:Inter,system-ui, -apple-system}
-body{min-height:100vh;background:linear-gradient(180deg,#1a3c22 0%, #0a2810 100%);display:flex;flex-direction:column;align-items:center;padding-top:70px;transition:all .3s ease}
+*{box-sizing:border-box;margin:0;padding:0;font-family:Inter,system-ui}
+body{min-height:100vh;background:linear-gradient(180deg,#1a3c22 0%, #0a2810 100%);display:flex;flex-direction:column;align-items:center;padding-top:70px;transition:.3s}
 .top{display:flex;gap:12px;margin-bottom:28px}
-.top button{background:rgba(255,255,255,.14);border:1px solid rgba(255,255,255,.25);color:#fff;padding:12px 26px;border-radius:30px;font-size:14px;font-weight:600;cursor:pointer;backdrop-filter:blur(10px);transition:.2s}
-.top button.active{background:rgba(255,255,255,.28);border-color:#fff;box-shadow:0 4px 20px rgba(0,0,0,.2)}
-.card{background:rgba(255,255,255,.18);border:1px solid rgba(255,255,255,.25);backdrop-filter:blur(18px);border-radius:28px;padding:22px 12px;width:90%;max-width:520px;transition:all .35s cubic-bezier(.4,0,.2,1);box-shadow:0 10px 40px rgba(0,0,0,.25)}
+.top button{background:rgba(255,255,255,.14);border:1px solid rgba(255,255,255,.25);color:#fff;padding:12px 26px;border-radius:30px;font-weight:600;cursor:pointer;backdrop-filter:blur(10px)}
+.top button.active{background:rgba(255,255,255,.28);border-color:#fff}
+.card{background:rgba(255,255,255,.18);border:1px solid rgba(255,255,255,.25);backdrop-filter:blur(18px);border-radius:28px;padding:22px 12px;width:90%;max-width:520px;transition:.35s;box-shadow:0 10px 40px rgba(0,0,0,.25)}
 .title{text-align:center;color:rgba(255,255,255,.75);letter-spacing:5px;font-size:11px;font-weight:700;margin-bottom:18px}
 .row{display:flex}
 .col{flex:1;text-align:center;border-right:1px solid rgba(255,255,255,.15);padding:6px 2px;min-width:0}
 .col:last-child{border:none}
 .col i{font-style:normal;color:rgba(255,255,255,.55);font-size:8px;letter-spacing:1.8px;display:block;font-weight:700}
-.col b{color:#fff;font-size:22px;font-weight:800;display:block;margin-top:8px;letter-spacing:-0.5px}
-.dob-pill{margin-top:30px;background:rgba(255,255,255,.14);border:1px solid rgba(255,255,255,.22);border-radius:40px;display:flex;align-items:center;padding:6px 6px 6px 18px;gap:12px;width:90%;max-width:360px;backdrop-filter:blur(12px);transition:all .35s}
-.dob-pill .cal{color:#fff;font-size:18px}
+.col b{color:#fff;font-size:22px;font-weight:800;display:block;margin-top:8px}
+.dob-pill{margin-top:24px;background:rgba(255,255,255,.14);border:1px solid rgba(255,255,255,.22);border-radius:40px;display:flex;align-items:center;padding:6px 6px 6px 18px;gap:12px;width:90%;max-width:360px;backdrop-filter:blur(12px)}
 .dob-pill span{color:#fff;font-size:14px;flex:1;font-weight:600}
-.dob-pill button{background:#fff;color:#0a2810;border:none;padding:11px 20px;border-radius:30px;font-weight:800;font-size:13px;cursor:pointer}
+.dob-pill button{background:#fff;color:#0a2810;border:none;padding:11px 20px;border-radius:30px;font-weight:800;cursor:pointer}
+.install-btn{margin-top:16px;background:#ffffff22;border:1px dashed #ffffff55;color:#fff;padding:10px 18px;border-radius:30px;font-size:12px;cursor:pointer;display:none}
 #dobInput{position:absolute;left:-9999px}
-
-/* SIZE MODES */
 body.size-small .card{max-width:420px;transform:scale(.88)}
-body.size-small .dob-pill{max-width:300px}
-body.size-medium .card{max-width:520px;transform:scale(1)}
-body.size-large .card{max-width:620px;transform:scale(1.08);padding:28px 14px}
+body.size-large .card{max-width:620px;transform:scale(1.08)}
 body.size-large .col b{font-size:26px}
-body.size-large .dob-pill{max-width:420px}
-</style>
-</head><body class="size-medium">
+</style></head><body class="size-medium">
 
 <div class="top">
 <button id="bSmall" onclick="setSize('small')">Chota</button>
@@ -37,23 +33,24 @@ body.size-large .dob-pill{max-width:420px}
 <button id="bBada" onclick="setSize('bada')">Bada</button>
 </div>
 
-<div class="card" id="mainCard">
+<div class="card">
 <div class="title">AGE TIMER</div>
 <div class="row">
-<div class="col"><i>YEAR</i><b id="y">19</b></div>
-<div class="col"><i>MONTH</i><b id="mo">234</b></div>
-<div class="col"><i>DAYS</i><b id="d">7123</b></div>
-<div class="col"><i>HOURS</i><b id="h">12</b></div>
-<div class="col"><i>MINTS</i><b id="mi">45</b></div>
-<div class="col"><i>SECS</i><b id="s">22</b></div>
+<div class="col"><i>YEAR</i><b id="y">00</b></div>
+<div class="col"><i>MONTH</i><b id="mo">00</b></div>
+<div class="col"><i>DAYS</i><b id="d">00</b></div>
+<div class="col"><i>HOURS</i><b id="h">00</b></div>
+<div class="col"><i>MINTS</i><b id="mi">00</b></div>
+<div class="col"><i>SECS</i><b id="s">00</b></div>
 </div>
 </div>
 
-<div class="dob-pill" id="dobPill">
-<span class="cal">📅</span>
-<span id="dobText">23 Apr 2007</span>
+<div class="dob-pill">
+<span id="dobText">00-00-0000</span>
 <button id="setDobBtn">Set DOB</button>
 </div>
+
+<button id="installBtn" class="install-btn">📲 Screen pe Add Karo (Home / Lock Screen)</button>
 
 <input type="date" id="dobInput">
 
@@ -61,47 +58,52 @@ body.size-large .dob-pill{max-width:420px}
 const dobInput=document.getElementById('dobInput');
 const dobText=document.getElementById('dobText');
 const setBtn=document.getElementById('setDobBtn');
-let t;
+const installBtn=document.getElementById('installBtn');
+let t, deferredPrompt;
+
 function fmt(d){return new Date(d).toLocaleDateString('en-GB',{day:'2-digit',month:'short',year:'numeric'})}
+function showZero(){['y','mo','d','h','mi','s'].forEach(id=>document.getElementById(id).innerText='00'); dobText.innerText='00-00-0000';}
 
 function start(dobStr){
 clearInterval(t);
 localStorage.setItem('dob_pro_final',dobStr);
 dobText.innerText=fmt(dobStr);
 t=setInterval(()=>{
- let birth=new Date(dobStr);
- let now=new Date();
- let diff=now-birth;
- let totalYears=Math.floor(diff/31557600000);
- let totalMonths=Math.floor(diff/2629800000);
- let totalDays=Math.floor(diff/86400000);
- let hours=Math.floor((diff%(86400000))/3600000);
- let mints=Math.floor((diff%3600000)/60000);
- let secs=Math.floor((diff%60000)/1000);
- document.getElementById('y').innerText=totalYears;
- document.getElementById('mo').innerText=totalMonths;
- document.getElementById('d').innerText=totalDays;
- document.getElementById('h').innerText=hours;
- document.getElementById('mi').innerText=mints;
- document.getElementById('s').innerText=secs;
+ let birth=new Date(dobStr); let now=new Date(); let diff=now-birth;
+ document.getElementById('y').innerText=Math.floor(diff/31557600000);
+ document.getElementById('mo').innerText=Math.floor(diff/2629800000);
+ document.getElementById('d').innerText=Math.floor(diff/86400000);
+ document.getElementById('h').innerText=Math.floor((diff%86400000)/3600000);
+ document.getElementById('mi').innerText=Math.floor((diff%3600000)/60000);
+ document.getElementById('s').innerText=Math.floor((diff%60000)/1000);
 },1000);
 }
 
-// SIZE ADJUST - Lamba Choda kam jyada
 function setSize(s){
 document.body.className='size-'+s;
 document.querySelectorAll('.top button').forEach(b=>b.classList.remove('active'));
-if(s==='small') document.getElementById('bSmall').classList.add('active');
-if(s==='medium') document.getElementById('bMedium').classList.add('active');
-if(s==='bada') document.getElementById('bBada').classList.add('active');
+document.getElementById(s==='small'?'bSmall':s==='medium'?'bMedium':'bBada').classList.add('active');
 localStorage.setItem('timer_size',s);
 }
 
 setBtn.onclick=()=>{dobInput.showPicker?dobInput.showPicker():dobInput.click()};
 dobInput.onchange=e=>{if(e.target.value)start(e.target.value)};
 
-let saved=localStorage.getItem('dob_pro_final')||'2007-04-23';
+// FIRST TIME = 00-00-00
+let saved=localStorage.getItem('dob_pro_final');
 let savedSize=localStorage.getItem('timer_size')||'medium';
-dobInput.value=saved;start(saved);setSize(savedSize);
+if(saved){ dobInput.value=saved; start(saved); } else { showZero(); }
+setSize(savedSize);
+
+// PWA - Add to Home Screen + Offline
+if('serviceWorker' in navigator){ navigator.serviceWorker.register('sw.js'); }
+
+window.addEventListener('beforeinstallprompt', (e)=>{
+ e.preventDefault(); deferredPrompt=e; installBtn.style.display='block';
+});
+installBtn.onclick=async()=>{
+ if(deferredPrompt){ deferredPrompt.prompt(); const r=await deferredPrompt.userChoice; if(r.outcome==='accepted'){installBtn.style.display='none'} deferredPrompt=null; }
+ else{ alert('Browser menu > Add to Home Screen pe click karo - ye lock screen widget ki tarah bhi kaam karega!'); }
+};
 </script>
 </body></html>
