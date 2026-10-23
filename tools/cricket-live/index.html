@@ -1,98 +1,31 @@
 <!DOCTYPE html>
-<html>
-<head>
-<meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1">
+<html><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1">
 <title>Live Match</title>
-<style>
-*{margin:0;padding:0;box-sizing:border-box;font-family:Arial} body{background:#e3e6e3}
-.h{background:#009270;color:#fff;padding:14px;display:flex;justify-content:space-between}
-.tabs{background:#009270;display:flex;gap:20px;padding:0 14px 12px;color:#fff;font-weight:bold;position:sticky;top:0;overflow:auto}
-.tabs span{opacity:.6;border-bottom:3px solid #fff0;padding-bottom:6px;cursor:pointer;white-space:nowrap}
-.tabs span.active{opacity:1;border-color:#fff}
-.card{background:#fff;margin:8px 0} .shead{background:#cfcfcf;padding:8px 12px;font-size:12px;font-weight:bold}
-.match{padding:10px 12px;border-bottom:1px solid #eee}
-.team{display:flex;justify-content:space-between;margin:4px 0} .sc{font-weight:bold}
-.res{color:#d0021b;font-size:12px;margin-top:4px} .time{font-size:11px;color:#666}
-.search{width:calc(100% - 20px);margin:10px;padding:12px;border-radius:8px;border:1px solid #ccc}
-</style>
-</head>
-<body>
+<style>*{margin:0;padding:0;box-sizing:border-box;font-family:Arial}body{background:#e3e6e3}.h{background:#009270;color:#fff;padding:14px;display:flex;justify-content:space-between}.tabs{background:#009270;display:flex;gap:18px;padding:0 14px 10px;color:#fff;font-weight:bold;overflow:auto}.tabs span{opacity:.6;border-bottom:3px solid transparent;padding-bottom:6px;cursor:pointer;white-space:nowrap}.tabs span.active{opacity:1;border-color:#fff}.card{background:#fff;margin:8px 0}.shead{background:#cfcfcf;padding:8px 12px;font-size:12px;font-weight:bold}.match{padding:10px 12px;border-bottom:1px solid #eee}.team{display:flex;justify-content:space-between;margin:4px 0}.sc{font-weight:bold}.res{color:#d0021b;font-size:12px;margin-top:4px}.time{font-size:11px;color:#666}.search{width:calc(100% - 20px);margin:10px;padding:12px;border-radius:8px;border:1px solid #ccc}</style>
+</head><body>
 <div class="h"><b>Live Match</b><span style="border:1px solid #fff;padding:4px 10px;border-radius:6px;font-size:12px">LIVE</span></div>
-<div class="tabs">
-<span class="active" data-t="live">Live</span>
-<span data-t="today">Today</span>
-<span data-t="tomorrow">Tomorrow</span>
-<span data-t="recent">Last 2 Days</span>
-</div>
-<input id="q" class="search" placeholder="Search IND PAK AUS ENG...">
-<div id="root"></div>
+<div class="tabs"><span class="active" data-t="live">Live</span><span data-t="today">Today</span><span data-t="tomorrow">Tomorrow</span><span data-t="recent">Last 2 Days</span></div>
+<input id="q" class="search" placeholder="Search IND AUS PAK..."><div id="root">Loading live from Cricbuzz...</div>
 <script>
-const dummy = [
-  {series:"INDIA TOUR OF AUSTRALIA", t1:"IND", t2:"AUS", t1f:"India", t2f:"Australia", s1:"225/4 (20)", s2:"180/8 (20)", status:"India won by 45 runs", time:"Today, 02:30 PM • Melbourne", isToday:true, isLive:true},
-  {series:"PAKISTAN SUPER LEAGUE", t1:"KAR", t2:"LAH", t1f:"Karachi Kings", t2f:"Lahore Qalandars", s1:"165/6", s2:"166/4", status:"Lahore won by 6 wkts", time:"Today, 07:30 PM • Karachi", isToday:true, isLive:false},
-  {series:"BIG BASH LEAGUE", t1:"SYD", t2:"MEL", t1f:"Sydney Sixers", t2f:"Melbourne Stars", s1:"190/5", s2:"", status:"Today, 05:00 PM - Match starts soon", time:"Tomorrow, 05:00 PM", isToday:false, isLive:false},
-  {series:"Recent - IPL 2026", t1:"CSK", t2:"MI", t1f:"Chennai Super Kings", t2f:"Mumbai Indians", s1:"210/4", s2:"208/8", status:"CSK won by 2 runs", time:"Yesterday • Chennai", isToday:false, isLive:false, isRecent:true}
-];
-
-let ALL = {live:[dummy[0]], today:[dummy[0],dummy[1]], tomorrow:[dummy[2]], recent:[dummy[3],dummy[0]]};
-
-function render(type){
-  const q=document.getElementById('q').value.toLowerCase();
-  let list = ALL[type] || [];
-  if(list.length===0) list = dummy;
-
-  let groups={}; list.forEach(m=>{ if(!groups[m.series]) groups[m.series]=[]; groups[m.series].push(m); });
-  let html='';
-  for(let s in groups){
-    html+=`<div class="card"><div class="shead">${s}</div>`;
-    groups[s].forEach(m=>{
-      if(q && !`${m.t1} ${m.t2} ${s}`.toLowerCase().includes(q)) return;
-      html+=`<div class="match">
-        <div class="time">${m.isLive?'🔴 LIVE • ':''}${m.time}</div>
-        <div class="team"><span>${m.t1f} (${m.t1})</span><span class="sc">${m.s1}</span></div>
-        <div class="team"><span>${m.t2f} (${m.t2})</span><span class="sc">${m.s2}</span></div>
-        <div class="res">${m.status}</div>
-      </div>`;
-    });
-    html+=`</div>`;
-  }
-  document.getElementById('root').innerHTML=html;
-}
-
-// Try live fetch in background
-async function tryLive(){
+let ALL={live:[],today:[],tomorrow:[],recent:[]};
+async function load(){
   try{
-    const url='https://site.api.espn.com/apis/site/v2/sports/cricket/16/scoreboard';
-    const r=await fetch(url); const d=await r.json();
-    if(!d.events || d.events.length===0) return;
-    let liveEvents = d.events.map(e=>{
-      const c=e.competitions[0]; const dt=new Date(c.date);
-      return {
-        series:e.season?.name||'International',
-        t1:c.competitors[0].team.abbreviation, t2:c.competitors[1].team.abbreviation,
-        t1f:c.competitors[0].team.displayName, t2f:c.competitors[1].team.displayName,
-        s1:c.competitors[0].score||'', s2:c.competitors[1].score||'',
-        status:c.status.type.detail, time:dt.toLocaleString('en-IN',{timeZone:'Asia/Kolkata', day:'2-digit', month:'short', hour:'2-digit', minute:'2-digit', hour12:true}),
-        isToday:true, isLive:c.status.type.state==='in'
-      };
-    });
-    if(liveEvents.length>0){
-      ALL.live = liveEvents.filter(x=>x.isLive);
-      if(ALL.live.length===0) ALL.live = liveEvents;
-      ALL.today = liveEvents;
-      render(document.querySelector('.tabs span.active').dataset.t);
-    }
-  }catch(e){}
+    const r=await fetch('/api/cricket'); const d=await r.json();
+    ALL.live = d.live||[]; ALL.recent = d.recent||[]; 
+    ALL.today = d.upcoming?.filter(m=> new Date().toDateString() === new Date(m.ts).toDateString()) || d.live || [];
+    ALL.tomorrow = d.upcoming?.filter(m=> new Date().toDateString() !== new Date(m.ts).toDateString()) || [];
+    if(ALL.live.length===0 && ALL.recent.length===0) ALL.recent = d.all||[];
+    render('live');
+  }catch(e){ document.getElementById('root').innerHTML='API fail, retry...'; }
 }
-
-document.querySelectorAll('.tabs span').forEach(el=>{
-  el.onclick=()=>{document.querySelectorAll('.tabs span').forEach(x=>x.classList.remove('active')); el.classList.add('active'); render(el.dataset.t);}
-});
+function render(type){
+  let list = ALL[type]||[]; if(type==='today' && list.length===0) list=ALL.live; if(type==='live' && list.length===0) list=[...ALL.live,...ALL.today].slice(0,10);
+  const q=document.getElementById('q').value.toLowerCase();
+  let groups={}; list.forEach(m=>{ let k=m.series||'Other'; if(!groups[k]) groups[k]=[]; groups[k].push(m); });
+  let html=''; for(let s in groups){ html+=`<div class="card"><div class="shead">${s}</div>`; groups[s].forEach(m=>{ if(q && !`${m.t1} ${m.t2} ${s}`.toLowerCase().includes(q)) return; html+=`<div class="match"><div class="time">${m.state==='In Progress'?'🔴 LIVE • ':''}${m.time}</div><div class="team"><span>${m.t1f||m.t1} (${m.t1})</span><span class="sc">${m.s1}</span></div><div class="team"><span>${m.t2f||m.t2} (${m.t2})</span><span class="sc">${m.s2}</span></div><div class="res">${m.status}</div></div>`; }); html+=`</div>`; }
+  document.getElementById('root').innerHTML = html || '<div style="padding:20px">No matches, checking...</div>';
+}
+document.querySelectorAll('.tabs span').forEach(el=>{ el.onclick=()=>{ document.querySelectorAll('.tabs span').forEach(x=>x.classList.remove('active')); el.classList.add('active'); render(el.dataset.t); }; });
 document.getElementById('q').addEventListener('input',()=>render(document.querySelector('.tabs span.active').dataset.t));
-
-render('live');
-tryLive();
-setInterval(tryLive, 30000);
-</script>
-</body>
-</html>
+load(); setInterval(load,30000);
+</script></body></html>
