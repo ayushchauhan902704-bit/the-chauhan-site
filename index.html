@@ -1,48 +1,90 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
 <meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1">
 <title>TheChauhanSite - Free Online Tools Hub</title>
+<meta name="theme-color" content="#0a2810">
+<link rel="manifest" href="/manifest.json">
 <style>
-*{margin:0;padding:0;box-sizing:border-box;font-family:system-ui}
-body{background:#0f0f0f;color:#fff;padding:16px}
-.header{text-align:center;padding:20px 0}
-.header h1{font-size:28px} .header p{color:#aaa;margin-top:6px}
-.grid{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-top:20px}
-.card{background:#1e1e1e;border-radius:16px;padding:16px;text-decoration:none;color:#fff;border:1px solid #2a2a2a}
-.card h3{font-size:16px;margin-bottom:4px} .card p{font-size:12px;color:#aaa}
-.card.live{border-color:#009270;background:linear-gradient(135deg,#1e1e1e,#0a2e26)}
-.badge{background:#009270;color:#fff;font-size:10px;padding:2px 6px;border-radius:6px;margin-left:6px}
+*{margin:0;padding:0;box-sizing:border-box;font-family:Inter,system-ui, -apple-system}
+body{background:radial-gradient(600px at 0% 0%, #143d1f 0%, #0f0f0f 60%);color:#fff;min-height:100vh;padding:16px}
+.header{text-align:center;padding:32px 12px 10px}
+.logo{width:56px;height:56px;background:linear-gradient(135deg,#00c896,#009270);border-radius:16px;display:inline-flex;align-items:center;justify-content:center;font-weight:900;font-size:22px;box-shadow:0 8px 24px rgba(0,200,150,.3)}
+.header h1{font-size:30px;font-weight:800;margin-top:14px;letter-spacing:-.5px}
+.header h1 span{color:#00c896}
+.header p{color:#8a8a8a;margin-top:8px;font-size:13px;letter-spacing:.3px}
+.search{max-width:520px;margin:22px auto 0;background:#1a1a1a;border:1px solid #2a2a2a;border-radius:30px;display:flex;align-items:center;padding:6px 6px 6px 18px}
+.search input{flex:1;background:transparent;border:none;color:#fff;outline:none;font-size:14px}
+.search button{background:#fff;color:#000;border:none;padding:8px 16px;border-radius:20px;font-weight:700;font-size:13px}
+.grid{display:grid;grid-template-columns:1fr 1fr;gap:14px;margin:26px auto 0;max-width:680px}
+.card{background:rgba(255,255,255,.06);border:1px solid rgba(255,255,255,.10);backdrop-filter:blur(12px);border-radius:20px;padding:18px;text-decoration:none;color:#fff;transition:.25s;position:relative;overflow:hidden}
+.card:hover{transform:translateY(-3px);border-color:rgba(255,255,255,.18);box-shadow:0 12px 30px rgba(0,0,0,.3)}
+.card .icon{width:38px;height:38px;border-radius:12px;display:flex;align-items:center;justify-content:center;font-size:18px;margin-bottom:12px}
+.card h3{font-size:15px;font-weight:700;display:flex;align-items:center;flex-wrap:wrap}
+.card p{font-size:11.5px;color:#9a9a9a;margin-top:6px;line-height:1.4}
+.card.live{border-color:#00c89666;background:linear-gradient(135deg, rgba(30,30,30,.9), rgba(10,46,38,.9));}
+.card.live .icon{background:rgba(0,200,150,.15)}
+.badge{background:#00c896;color:#000;font-size:9px;padding:3px 7px;border-radius:20px;margin-left:6px;font-weight:800;letter-spacing:.5px}
+.card.timer .icon{background:rgba(255,255,255,.12)}
+.card.timer.live{border-color:#ffffff30}
+.new-dot{width:6px;height:6px;background:#00c896;border-radius:50%;display:inline-block;margin-left:6px;box-shadow:0 0 8px #00c896}
+.footer{text-align:center;color:#444;margin:40px 0 20px;font-size:11px}
+@media(min-width:700px){.grid{grid-template-columns:1fr 1fr 1fr}}
 </style>
 </head>
 <body>
 <div class="header">
-<h1>TheChauhanSite</h1>
-<p>Free Online Tools Hub | 100% Free & Fast</p>
+<div class="logo">TC</div>
+<h1>The<span>Chauhan</span>Site</h1>
+<p>Free Online Tools Hub • Fast • Offline • Pro</p>
+<div class="search">
+<input placeholder="Search tools...">
+<button>Search</button>
+</div>
 </div>
 
 <div class="grid">
 <a class="card live" href="/tools/cricket-live/">
-<h3>🏏 Live Match <span class="badge">LIVE</span></h3>
+<div class="icon">🏏</div>
+<h3>Live Match <span class="badge">LIVE</span></h3>
 <p>Cricket Live Score - Today, Tomorrow & Last 2 Days</p>
 </a>
 
+<a class="card live timer" href="/tools/age-timer/">
+<div class="icon">⏳</div>
+<h3>Age Timer <span class="badge">NEW</span><span class="new-dot"></span></h3>
+<p>Total Years • Total Months • 7123 Days • 24H Clock • Offline + Add to Screen</p>
+</a>
+
 <a class="card" href="#">
-<h3>⚽ Football Score</h3>
+<div class="icon" style="background:rgba(96,165,250,.15)">⚽</div>
+<h3>Football Score</h3>
 <p>Coming Soon</p>
 </a>
 
 <a class="card" href="#">
-<h3>📝 Word Counter</h3>
+<div class="icon" style="background:rgba(251,146,60,.15)">📝</div>
+<h3>Word Counter</h3>
 <p>Coming Soon</p>
 </a>
 
 <a class="card" href="#">
-<h3>🎨 Image Tools</h3>
+<div class="icon" style="background:rgba(192,132,252,.15)">🎨</div>
+<h3>Image Tools</h3>
 <p>Coming Soon</p>
+</a>
+
+<a class="card" href="#">
+<div class="icon" style="background:rgba(74,222,128,.15)">🔗</div>
+<h3>More Tools</h3>
+<p>Request a Tool - We Build Fast</p>
 </a>
 </div>
 
-<p style="text-align:center;color:#555;margin-top:30px;font-size:12px">the-chauhan-site.vercel.app • Made by Ayush</p>
+<p class="footer">the-chauhan-site.vercel.app • Made by Ayush • v2 Pro</p>
+
+<script>
+if('serviceWorker' in navigator){navigator.serviceWorker.register('/sw.js')}
+</script>
 </body>
 </html>
