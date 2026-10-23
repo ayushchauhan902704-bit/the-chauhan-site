@@ -1,0 +1,7 @@
+{
+  "cleanUrls": true,
+  "rewrites": [
+    { "source": "/tools/age-timer", "destination": "/tools/age-timer/index.html" },
+    { "source": "/tools/:path*", "destination": "/tools/:path*/index.html" }
+  ]
+}
