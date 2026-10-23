@@ -1,115 +1,61 @@
 <!DOCTYPE html>
-<html>
-<head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1">
+<html><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Age Timer</title>
 <style>
 *{margin:0;padding:0;box-sizing:border-box}
-body{
-  background: #234a2a; background: radial-gradient(circle at top, #2f5d36, #1a321e);
-  min-height:100vh; display:flex; flex-direction:column; align-items:center; 
-  justify-content:center; padding:20px; font-family: -apple-system, sans-serif;
-}
-.size-control{display:flex;gap:10px;margin-bottom:24px}
-.size-control button{
-  padding:8px 20px;border-radius:25px;border:1px solid rgba(255,255,255,0.25);
-  background:rgba(255,255,255,0.12);backdrop-filter:blur(10px);color:white;cursor:pointer
-}
-.main-bubble{
-  background: linear-gradient(180deg, rgba(170,210,170,0.35), rgba(90,140,95,0.35));
-  backdrop-filter: blur(35px); -webkit-backdrop-filter: blur(35px);
-  border-radius: 40px; padding: 32px 28px; width:100%; max-width:520px;
-  border: 1.5px solid rgba(255,255,255,0.25);
-  box-shadow: 0 20px 60px rgba(0,0,0,0.35), inset 0 1px 1px rgba(255,255,255,0.3);
-}
-.header{ text-align:center; color:white; font-weight:800; font-size:20px; letter-spacing:3px; margin-bottom:4px}
-.sub{ text-align:center; color:white; opacity:0.6; font-size:11px; letter-spacing:1.5px; margin-bottom:28px}
-.grid{ display:grid; grid-template-columns: repeat(3,1fr); gap:16px; }
-.card{
-  background: linear-gradient(180deg, rgba(255,255,255,0.18), rgba(255,255,255,0.08));
-  border:1px solid rgba(255,255,255,0.2); border-radius:20px;
-  padding:18px 8px; text-align:center;
-  box-shadow: 0 8px 20px rgba(0,0,0,0.15), inset 0 1px 0 rgba(255,255,255,0.2);
-}
-.card span{ display:block; font-size:11px; color:white; opacity:0.7; font-weight:600; letter-spacing:1px; margin-bottom:10px}
-.card b{ display:block; font-size:22px; color:white; font-weight:800; word-break:break-all; line-height:1.1}
-@media(max-width:400px){ .card b{font-size:16px} }
-.size-small{transform:scale(0.85)} .size-medium{transform:scale(1)} .size-large{transform:scale(1.08)}
-.input-box{margin-top:24px;background:rgba(255,255,255,0.12);padding:10px 16px;border-radius:24px;display:flex;gap:10px;align-items:center;backdrop-filter:blur(10px)}
+body{background:radial-gradient(circle at top,#2f5d36,#152a18);min-height:100vh;display:flex;flex-direction:column;align-items:center;justify-content:center;padding:16px;font-family:-apple-system,BlinkMacSystemFont,sans-serif}
+.size-control{display:flex;gap:10px;margin-bottom:22px}
+.size-control button{padding:7px 18px;border-radius:22px;border:1px solid rgba(255,255,255,0.25);background:rgba(255,255,255,0.12);color:white;backdrop-filter:blur(10px);cursor:pointer}
+.pill{width:100%;max-width:900px;background:linear-gradient(180deg,rgba(195,220,195,0.32),rgba(110,160,115,0.28));backdrop-filter:blur(35px);border-radius:100px;padding:22px 18px 26px;border:1.5px solid rgba(255,255,255,0.28);box-shadow:0 20px 50px rgba(0,0,0,0.35),inset 0 1px 1px rgba(255,255,255,0.4)}
+.head{color:rgba(255,255,255,0.85);text-align:center;font-size:11px;letter-spacing:3px;margin-bottom:18px;font-weight:600}
+.row{display:grid;grid-template-columns:repeat(6,1fr);divide:gap;position:relative}
+.col{text-align:center;position:relative;padding:0 4px;border-right:1px solid rgba(255,255,255,0.12)}
+.col:last-child{border-right:none}
+.col span{display:block;font-size:9.5px;color:rgba(255,255,255,0.7);letter-spacing:1px;font-weight:700;margin-bottom:10px}
+.col b{display:block;color:white;font-weight:800;font-size:clamp(12px,2.2vw,28px);white-space:nowrap;letter-spacing:-0.5px;line-height:1}
+.input-box{margin-top:20px;background:rgba(255,255,255,0.12);backdrop-filter:blur(10px);padding:8px 14px;border-radius:24px;display:flex;gap:10px;align-items:center;border:1px solid rgba(255,255,255,0.15)}
 .input-box input{border:none;background:transparent;color:white;outline:none;color-scheme:dark}
-.input-box button{border:none;padding:8px 18px;border-radius:14px;background:white;color:#1e3d1e;font-weight:800;cursor:pointer}
-</style>
-</head>
-<body>
-
+.input-box button{border:none;padding:8px 16px;border-radius:14px;background:white;color:#1e3d1e;font-weight:800;cursor:pointer}
+.size-small{transform:scale(0.85)} .size-medium{transform:scale(1)} .size-large{transform:scale(1.08)}
+@media(max-width:600px){.pill{border-radius:28px;padding:20px 10px}.col span{font-size:8px}.col b{font-size:11px} .head{margin-bottom:12px}}
+</style></head><body>
 <div class="size-control">
-  <button onclick="setSize('small')">Chota</button>
-  <button onclick="setSize('medium')">Medium</button>
-  <button onclick="setSize('large')">Bada</button>
+<button onclick="setSize('small')">Chota</button>
+<button onclick="setSize('medium')">Medium</button>
+<button onclick="setSize('large')">Bada</button>
 </div>
-
-<div id="timer" class="main-bubble size-medium">
-  <div class="header">AGE TIMER</div>
-  <div class="sub">YOUR LIFE SO FAR • LIVE COUNTER</div>
-  <div class="grid">
-    <div class="card"><span>YEAR</span><b id="y">0</b></div>
-    <div class="card"><span>MONTH</span><b id="mo">0</b></div>
-    <div class="card"><span>DAYS</span><b id="d">0</b></div>
-    <div class="card"><span>HOURS</span><b id="h">0</b></div>
-    <div class="card"><span>MINTS</span><b id="m">0</b></div>
-    <div class="card"><span>SECS</span><b id="s">0</b></div>
-  </div>
+<div id="timer" class="pill size-medium">
+<div class="head">AGE TIMER</div>
+<div class="row">
+<div class="col"><span>YEAR</span><b id="y">19</b></div>
+<div class="col"><span>MONTH</span><b id="mo">228</b></div>
+<div class="col"><span>DAYS</span><b id="d">7012</b></div>
+<div class="col"><span>HOURS</span><b id="h">168288</b></div>
+<div class="col"><span>MINTS</span><b id="m">10097288</b></div>
+<div class="col"><span>SECS</span><b id="s">605837071</b></div>
 </div>
-
-<div class="input-box">
-  <input type="date" id="dob">
-  <button onclick="saveDOB()">Set DOB</button>
 </div>
-
+<div class="input-box"><input type="date" id="dob"><button onclick="saveDOB()">Set DOB</button></div>
 <script>
-let dobEl = document.getElementById('dob');
-let saved = localStorage.getItem('thachauhan_dob');
-if(saved) dobEl.value = saved;
-let sz = localStorage.getItem('thachauhan_size') || 'medium';
-document.getElementById('timer').className = 'main-bubble size-'+sz;
-
-function setSize(s){
-  document.getElementById('timer').className = 'main-bubble size-'+s;
-  localStorage.setItem('thachauhan_size', s);
-}
-function saveDOB(){
-  if(dobEl.value){ localStorage.setItem('thachauhan_dob', dobEl.value); alert('Saved! Offline chalega'); }
-}
-
+let dobEl=document.getElementById('dob');
+let saved=localStorage.getItem('thachauhan_dob');if(saved)dobEl.value=saved;
+let sz=localStorage.getItem('thachauhan_size')||'medium';
+document.getElementById('timer').className='pill size-'+sz;
+function setSize(s){document.getElementById('timer').className='pill size-'+s;localStorage.setItem('thachauhan_size',s)}
+function saveDOB(){if(dobEl.value){localStorage.setItem('thachauhan_dob',dobEl.value);alert('Saved!')}}
 function update(){
-  let dobStr = localStorage.getItem('thachauhan_dob');
-  if(!dobStr) return;
-  let birth = new Date(dobStr);
-  let now = new Date();
-  let diff = now - birth;
-  if(diff<0) return;
-
-  let totalSec = Math.floor(diff/1000);
-  let totalMin = Math.floor(totalSec/60);
-  let totalHours = Math.floor(totalMin/60);
-  let totalDays = Math.floor(totalHours/24);
-
-  let years = now.getFullYear() - birth.getFullYear();
-  let m = now.getMonth() - birth.getMonth();
-  let totalMonths = years*12 + m;
-  if(now.getDate() < birth.getDate()) totalMonths--;
-  if(now < new Date(birth.getFullYear()+years, birth.getMonth(), birth.getDate())) years--;
-  
-  document.getElementById('y').innerText = years;
-  document.getElementById('mo').innerText = totalMonths;
-  document.getElementById('d').innerText = totalDays.toLocaleString('en-IN');
-  document.getElementById('h').innerText = totalHours.toLocaleString('en-IN');
-  document.getElementById('m').innerText = totalMin.toLocaleString('en-IN');
-  document.getElementById('s').innerText = totalSec.toLocaleString('en-IN');
+let ds=localStorage.getItem('thachauhan_dob');if(!ds)return;
+let b=new Date(ds),n=new Date(),d=n-b;if(d<0)return;
+let ts=Math.floor(d/1000),tm=Math.floor(ts/60),th=Math.floor(tm/60),td=Math.floor(th/24);
+let y=n.getFullYear()-b.getFullYear(),mo=y*12+(n.getMonth()-b.getMonth());
+if(n.getDate()<b.getDate())mo--;if(n<new Date(b.getFullYear()+y,b.getMonth(),b.getDate()))y--;
+document.getElementById('y').innerText=y;
+document.getElementById('mo').innerText=mo;
+document.getElementById('d').innerText=td;
+document.getElementById('h').innerText=th;
+document.getElementById('m').innerText=tm;
+document.getElementById('s').innerText=ts;
 }
-setInterval(update, 1000);
-update();
+setInterval(update,1000);update();
 </script>
-</body>
-</html>
+</body></html>
