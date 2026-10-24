@@ -1,0 +1,751 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>ToolzyAI — AI Chat, Image Generator & Editor</title>
+<script src="https://js.puter.com/v2/"></script>
+
+<style>
+*{box-sizing:border-box}
+
+body{
+margin:0;
+font-family:Inter,system-ui,-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;
+background:#07111f;
+color:#f7fbff
+}
+
+#toolzyAI-pro{
+min-height:100vh;
+background:
+radial-gradient(circle at 20% 0%,#12366b 0,#07111f 38%,#050b14 100%)
+}
+
+header{
+height:70px;
+display:flex;
+align-items:center;
+justify-content:space-between;
+padding:0 6%;
+border-bottom:1px solid #ffffff12;
+background:#07111fcc;
+backdrop-filter:blur(16px);
+position:sticky;
+top:0;
+z-index:5
+}
+
+.logo{
+font-size:22px;
+font-weight:800;
+letter-spacing:-.5px
+}
+
+.logo span{color:#67a9ff}
+
+nav{
+display:flex;
+gap:24px;
+color:#a9bdd6;
+font-size:14px
+}
+
+.hero{
+text-align:center;
+padding:70px 20px 38px
+}
+
+.hero h1{
+font-size:clamp(38px,7vw,68px);
+margin:0 0 15px;
+letter-spacing:-2.5px
+}
+
+.hero p{
+color:#9bb0c8;
+font-size:17px;
+max-width:650px;
+margin:auto
+}
+
+.cards{
+max-width:1100px;
+margin:25px auto 45px;
+padding:0 18px;
+display:grid;
+grid-template-columns:repeat(3,1fr);
+gap:18px
+}
+
+.card{
+padding:24px;
+border:1px solid #ffffff14;
+border-radius:22px;
+background:#ffffff08;
+box-shadow:0 18px 50px #0005
+}
+
+.card b{
+display:block;
+font-size:18px;
+margin:10px 0
+}
+
+.card p{
+color:#94a9c2;
+font-size:14px;
+line-height:1.5
+}
+
+.app{
+max-width:1000px;
+margin:0 auto 70px;
+padding:0 18px
+}
+
+.tabs{
+display:flex;
+gap:8px;
+background:#ffffff08;
+border:1px solid #ffffff12;
+padding:7px;
+border-radius:16px
+}
+
+.tab{
+flex:1;
+padding:13px;
+border:0;
+border-radius:11px;
+background:transparent;
+color:#a9bdd6;
+font-weight:700;
+cursor:pointer
+}
+
+.tab.active{
+background:#2477ff;
+color:white
+}
+
+.panel{
+margin-top:15px;
+background:#071321cc;
+border:1px solid #ffffff14;
+border-radius:24px;
+padding:20px;
+min-height:420px
+}
+
+.section{display:none}
+.section.active{display:block}
+
+.messages{
+height:300px;
+overflow:auto;
+padding:8px
+}
+
+.msg{
+max-width:82%;
+padding:12px 15px;
+border-radius:16px;
+margin:9px 0;
+line-height:1.45;
+white-space:pre-wrap
+}
+
+.user{
+background:#1769e8;
+margin-left:auto
+}
+
+.ai{
+background:#ffffff0d;
+border:1px solid #ffffff10
+}
+
+.row{
+display:flex;
+gap:9px;
+margin-top:12px
+}
+
+.input,.textarea{
+width:100%;
+background:#030913;
+border:1px solid #ffffff18;
+color:white;
+border-radius:14px;
+padding:14px;
+outline:none
+}
+
+.textarea{
+min-height:100px;
+resize:vertical
+}
+
+button.primary{
+background:#2477ff;
+color:white;
+border:0;
+border-radius:13px;
+padding:13px 18px;
+font-weight:800;
+cursor:pointer;
+white-space:nowrap
+}
+
+.status{
+color:#8ea5bf;
+font-size:13px;
+margin-top:10px
+}
+
+.result{
+margin-top:18px;
+text-align:center
+}
+
+.result img{
+max-width:100%;
+max-height:520px;
+border-radius:18px;
+border:1px solid #ffffff15
+}
+
+.download{
+display:inline-block;
+margin-top:12px;
+color:white;
+text-decoration:none;
+background:#ffffff12;
+padding:10px 14px;
+border-radius:10px
+}
+
+.upload{
+border:1px dashed #ffffff30;
+border-radius:18px;
+padding:25px;
+text-align:center;
+color:#9db1c9;
+cursor:pointer
+}
+
+.upload input{display:none}
+
+.preview{
+max-width:100%;
+max-height:300px;
+border-radius:16px;
+margin-top:15px
+}
+
+@media(max-width:700px){
+
+nav{display:none}
+
+.cards{
+grid-template-columns:1fr
+}
+
+.hero{
+padding-top:45px
+}
+
+.panel{
+padding:14px
+}
+
+.tabs{
+flex-direction:column
+}
+
+.row{
+flex-direction:column
+}
+
+}
+</style>
+</head>
+
+<body>
+
+<div id="toolzyAI-pro">
+
+<header>
+
+<div class="logo">
+Toolzy<span>AI</span>
+</div>
+
+<nav>
+<span>Product</span>
+<span>Features</span>
+<span>Pricing</span>
+<span>Get Started</span>
+</nav>
+
+</header>
+
+
+<section class="hero">
+
+<h1>
+Build with AI, Create Everything
+</h1>
+
+<p>
+Chat with AI, generate beautiful images and edit your photos —
+directly from your browser.
+</p>
+
+</section>
+
+
+<section class="cards">
+
+<div class="card">
+💬
+<b>AI Chat</b>
+<p>
+Ask questions and get intelligent answers in seconds.
+</p>
+</div>
+
+<div class="card">
+🎨
+<b>Photo Generator</b>
+<p>
+Create real AI images from English, Hindi or Hinglish prompts.
+</p>
+</div>
+
+<div class="card">
+✏️
+<b>Photo Editor</b>
+<p>
+Upload a photo and describe the changes you want.
+</p>
+</div>
+
+</section>
+
+
+<section class="app">
+
+<div class="tabs">
+
+<button class="tab active" data-tab="chat">
+💬 AI Chat
+</button>
+
+<button class="tab" data-tab="gen">
+🎨 Photo Generator
+</button>
+
+<button class="tab" data-tab="edit">
+✏️ Photo Editor
+</button>
+
+</div>
+
+
+<div class="panel">
+
+
+<div id="chat" class="section active">
+
+<div id="messages" class="messages">
+
+<div class="msg ai">
+Hi! I'm ToolzyAI 👋
+<br>
+Ask me anything.
+</div>
+
+</div>
+
+<div class="row">
+
+<input
+id="chatInput"
+class="input"
+placeholder="Ask anything…"
+>
+
+<button id="send" class="primary">
+Send
+</button>
+
+</div>
+
+<div id="chatStatus" class="status"></div>
+
+</div>
+
+
+
+<div id="gen" class="section">
+
+<h2>
+Generate a Photo
+</h2>
+
+<textarea
+id="prompt"
+class="textarea"
+placeholder="Example: आयुष नाम का बहुत सुंदर birthday poster बनाओ"
+></textarea>
+
+<div class="row">
+
+<button id="generate" class="primary">
+Generate Photo
+</button>
+
+</div>
+
+<div id="genStatus" class="status"></div>
+
+<div id="genResult" class="result"></div>
+
+</div>
+
+
+
+<div id="edit" class="section">
+
+<h2>
+Edit a Photo
+</h2>
+
+<label class="upload">
+
+📷 Tap to choose a photo
+
+<input
+id="file"
+type="file"
+accept="image/*"
+>
+
+</label>
+
+<div id="previewBox"></div>
+
+<textarea
+id="editPrompt"
+class="textarea"
+placeholder="Example: background ko beach bana do, face same rakho"
+></textarea>
+
+<div class="row">
+
+<button id="editBtn" class="primary">
+Edit Photo
+</button>
+
+</div>
+
+<div id="editStatus" class="status"></div>
+
+<div id="editResult" class="result"></div>
+
+</div>
+
+</div>
+
+</section>
+
+</div>
+
+
+<script>
+
+const $=id=>document.getElementById(id);
+
+
+/* TABS */
+
+document.querySelectorAll(".tab").forEach(b=>{
+
+b.onclick=()=>{
+
+document
+.querySelectorAll(".tab")
+.forEach(x=>x.classList.remove("active"));
+
+document
+.querySelectorAll(".section")
+.forEach(x=>x.classList.remove("active"));
+
+b.classList.add("active");
+
+$(b.dataset.tab).classList.add("active");
+
+};
+
+});
+
+
+/* AI CHAT */
+
+async function chat(){
+
+const input=$("chatInput");
+
+const text=input.value.trim();
+
+if(!text)return;
+
+$("messages").insertAdjacentHTML(
+"beforeend",
+`<div class="msg user">${escapeHtml(text)}</div>`
+);
+
+input.value="";
+
+$("chatStatus").textContent="Thinking…";
+
+try{
+
+const r=await puter.ai.chat(
+text,
+{
+model:"gpt-5.6-luna"
+}
+);
+
+const answer=
+typeof r==="string"
+?r
+:(r?.message?.content||r?.message?.text||"");
+
+$("messages").insertAdjacentHTML(
+"beforeend",
+`<div class="msg ai">${escapeHtml(answer)}</div>`
+);
+
+$("messages").scrollTop=
+$("messages").scrollHeight;
+
+$("chatStatus").textContent="";
+
+}
+
+catch(e){
+
+$("chatStatus").textContent=
+"Please sign in to Puter if prompted, then try again.";
+
+}
+
+}
+
+$("send").onclick=chat;
+
+$("chatInput").addEventListener(
+"keydown",
+e=>{
+if(e.key==="Enter")chat();
+}
+);
+
+
+/* IMAGE GENERATOR */
+
+async function generate(){
+
+const p=$("prompt").value.trim();
+
+if(!p)return;
+
+$("genStatus").textContent=
+"Generating…";
+
+$("genResult").innerHTML="";
+
+try{
+
+const img=
+await puter.ai.txt2img(
+p,
+{
+model:"gpt-image-2",
+quality:"low"
+}
+);
+
+img.style.maxWidth="100%";
+img.style.maxHeight="520px";
+img.style.borderRadius="18px";
+
+$("genResult").appendChild(img);
+
+
+const a=document.createElement("a");
+
+a.className="download";
+
+a.textContent="Download Image";
+
+a.href=img.src;
+
+a.download="toolzyai-image.png";
+
+a.target="_blank";
+
+$("genResult").appendChild(a);
+
+$("genStatus").textContent="";
+
+}
+
+catch(e){
+
+$("genStatus").textContent=
+"Generation failed. Please sign in to Puter and try again.";
+
+}
+
+}
+
+$("generate").onclick=generate;
+
+
+/* PHOTO EDITOR */
+
+let imageData=null;
+
+
+$("file").onchange=async e=>{
+
+const f=e.target.files[0];
+
+if(!f)return;
+
+imageData=
+await fileToDataURL(f);
+
+$("previewBox").innerHTML=
+`<img class="preview" src="${imageData}">`;
+
+};
+
+
+async function edit(){
+
+if(!imageData){
+
+$("editStatus").textContent=
+"Choose a photo first.";
+
+return;
+
+}
+
+const p=
+$("editPrompt").value.trim();
+
+if(!p)return;
+
+$("editStatus").textContent=
+"Editing…";
+
+$("editResult").innerHTML="";
+
+try{
+
+const img=
+await puter.ai.txt2img(
+p,
+{
+model:"gpt-image-2",
+quality:"low",
+input_image:imageData
+}
+);
+
+img.style.maxWidth="100%";
+img.style.maxHeight="520px";
+img.style.borderRadius="18px";
+
+$("editResult").appendChild(img);
+
+
+const a=document.createElement("a");
+
+a.className="download";
+
+a.textContent=
+"Download Edited Photo";
+
+a.href=img.src;
+
+a.download=
+"toolzyai-edited.png";
+
+a.target="_blank";
+
+$("editResult").appendChild(a);
+
+$("editStatus").textContent="";
+
+}
+
+catch(e){
+
+$("editStatus").textContent=
+"Editing failed. Try a smaller image or sign in to Puter.";
+
+}
+
+}
+
+$("editBtn").onclick=edit;
+
+
+/* FILE READER */
+
+function fileToDataURL(f){
+
+return new Promise((res,rej)=>{
+
+const r=new FileReader();
+
+r.onload=()=>res(r.result);
+
+r.onerror=rej;
+
+r.readAsDataURL(f);
+
+});
+
+}
+
+
+/* HTML SAFETY */
+
+function escapeHtml(s){
+
+return s.replace(
+/[&<>"']/g,
+m=>({
+"&":"&amp;",
+"<":"&lt;",
+">":"&gt;",
+'"':"&quot;",
+"'":"&#039;"
+}[m])
+);
+
+}
+
+</script>
+
+</body>
+</html>
