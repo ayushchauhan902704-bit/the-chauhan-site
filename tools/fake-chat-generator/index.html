@@ -5,67 +5,93 @@
 <title>Fake Chat Generator - WhatsApp & Instagram - TheChauhanSite</title>
 <script src="/js/world-lang.js"></script>
 <script src="https://cdn.tailwindcss.com"></script>
+<script src="https://cdn.jsdelivr.net/npm/html2canvas@1.4.1/dist/html2canvas.min.js"></script>
 <style>body{background:#0a1210;color:#fff}</style>
 </head>
 <body class="min-h-screen">
 <header class="flex justify-between items-center px-4 py-3 bg-[#0f1715] border-b border-[#1a2a27]">
 <a href="/" class="font-black">THE<span class="text-[#25D366]">CHAUHAN</span>SITE</a>
 <select id="langSelect" onchange="setWorldLang(this.value)" class="bg-[#1e2f2b] border border-[#2a4a44] text-white text-[11px] font-bold px-3 py-1.5 rounded-full">
-<option value="auto">🌍 AUTO</option><option value="hi">🇮🇳 हिन्दी</option><option value="hinglish">Hinglish</option><option value="en">🇺🇸 English</option><option value="es">🇪🇸 Español</option><option value="pt">🇧🇷 Português</option><option value="fr">🇫🇷 Français</option><option value="ar">🇸🇦 العربية</option><option value="id">🇮🇩 Indonesia</option>
+<option value="auto">🌍 AUTO</option><option value="hi">🇮🇳 हिन्दी</option><option value="hinglish">Hinglish</option><option value="en">🇺🇸 English</option>
 </select>
 </header>
 
 <div class="max-w-[1100px] mx-auto p-4 grid md:grid-cols-2 gap-6">
-<!-- CONTROLS -->
 <div class="bg-[#131d1b] rounded-[20px] border border-[#1f332e] p-5">
-<h1 id="t_title" class="font-black text-[20px]">💬 Fake Chat Generator Pro</h1>
-<p id="t_sub" class="text-[12px] text-[#8aa8a0] mt-1">WhatsApp / Instagram fake chat banao</p>
+<h1 class="font-black text-[20px]">💬 Fake Chat Generator Pro</h1>
+<p class="text-[12px] text-[#8aa8a0] mt-1">WhatsApp / Instagram fake chat banao - HD Download</p>
 
 <div class="flex gap-2 mt-4">
 <button onclick="setApp('wa')" id="bWa" class="flex-1 bg-[#25D366] text-black font-black py-2.5 rounded-xl text-[12px]">WHATSAPP</button>
 <button onclick="setApp('insta')" id="bInsta" class="flex-1 bg-[#ffffff14] border border-[#ffffff22] font-black py-2.5 rounded-xl text-[12px]">INSTAGRAM</button>
 </div>
 
-<input id="nameInput" placeholder="Name - e.g. Ayush Chauhan" class="w-full mt-4 bg-[#0b1210] border border-[#23433d] px-4 py-3 rounded-xl font-bold outline-none text-[13px]">
-<input id="dpInput" placeholder="DP Image URL (optional)" class="w-full mt-2 bg-[#0b1210] border border-[#23433d] px-4 py-3 rounded-xl font-bold outline-none text-[12px] text-[#8aa8a0]">
+<input id="nameInput" placeholder="Name - Khushii" class="w-full mt-4 bg-[#0b1210] border border-[#23433d] px-4 py-3 rounded-xl font-bold outline-none text-[13px]">
+<input id="dpInput" placeholder="DP Image URL paste karo" class="w-full mt-2 bg-[#0b1210] border border-[#23433d] px-4 py-3 rounded-xl outline-none text-[12px]">
 
-<div class="mt-4 space-y-2" id="chatInputs">
-<div class="flex gap-2"><select class="bg-[#0b1210] border border-[#23433d] rounded-lg px-2 text-[11px]"><option>Me</option><option>Other</option></select><input placeholder="Message likho..." class="flex-1 bg-[#0b1210] border border-[#23433d] px-3 py-2 rounded-lg text-[13px] outline-none"><button class="bg-[#ff3b7f] px-3 rounded-lg text-[11px] font-black">ADD</button></div>
+<div class="mt-4 p-3 bg-[#0b1210] rounded-xl border border-[#1f332e]">
+<div class="flex gap-2">
+<select id="sideSel" class="bg-[#131d1b] border border-[#23433d] rounded-lg px-2 text-[11px] font-bold"><option value="other">Other</option><option value="me">Me</option></select>
+<input id="msgInput" placeholder="I love you..." class="flex-1 bg-[#131d1b] border border-[#23433d] px-3 py-2.5 rounded-lg text-[13px] outline-none">
+<button onclick="addMessage()" class="bg-[#ff3b7f] px-5 rounded-lg text-[11px] font-black">ADD</button>
+</div>
 </div>
 
-<button onclick="addMsgRow()" class="w-full mt-4 bg-[#ffffff10] border border-[#ffffff20] py-3 rounded-xl font-black text-[12px]">+ ADD MESSAGE</button>
-<button onclick="downloadChat()" class="w-full mt-3 bg-[#25D366] text-black py-3 rounded-xl font-black text-[13px]">📸 DOWNLOAD AS IMAGE</button>
+<button onclick="downloadChat()" id="dlBtn" class="w-full mt-4 bg-[#25D366] text-black py-3.5 rounded-xl font-black text-[13px]">📸 HD IMAGE DOWNLOAD</button>
+<p class="text-[10px] text-center text-[#5a7a72] mt-2">1 click me gallery me save hoga</p>
 </div>
 
 <!-- PREVIEW -->
 <div class="bg-[#e5ddd5] rounded-[30px] p-2 max-w-[360px] mx-auto w-full">
 <div id="previewBox" class="bg-[#ece5dd] rounded-[26px] overflow-hidden border-[6px] border-black min-h-[600px] flex flex-col">
 <div id="previewHeader" class="bg-[#075e54] text-white flex items-center gap-3 px-4 py-3">
-<img id="pDp" src="https://i.pravatar.cc/100" class="w-8 h-8 rounded-full"><div><div id="pName" class="font-bold text-[13px]">Ayush Chauhan</div><div class="text-[10px] opacity-80">online</div></div>
+<img id="pDp" src="https://i.pravatar.cc/100?img=32" class="w-8 h-8 rounded-full object-cover">
+<div><div id="pName" class="font-bold text-[13px]">Khushii</div><div class="text-[10px] opacity-80">online</div></div>
 </div>
-<div id="pChats" class="flex-1 p-3 space-y-2 bg-[url('https://user-images.githubusercontent.com/15075759/28719144-86dc0f70-73b1-11e7-911d-60d70fcded21.png')] bg-repeat">
-<div class="bg-white text-black text-[12px] px-3 py-2 rounded-r-[12px] rounded-bl-[12px] max-w-[70%] shadow">Hey bro, kya haal hai? 😎</div>
-<div class="bg-[#dcf8c6] text-black text-[12px] px-3 py-2 rounded-l-[12px] rounded-br-[12px] max-w-[70%] ml-auto shadow">Mast bhai, tera tool viral ho raha hai! 🔥</div>
+<div id="pChats" class="flex-1 p-3 space-y-2 bg-[#e5ddd5]">
 </div>
+<div class="bg-[#f0f0f0] p-2 text-[10px] text-[#999] text-center">TheChauhanSite.com</div>
 </div>
 </div>
 </div>
 
 <script>
-let app='wa';
+let chats=[];
 function setApp(a){
- app=a;
  document.getElementById('bWa').className = a=='wa' ? 'flex-1 bg-[#25D366] text-black font-black py-2.5 rounded-xl text-[12px]' : 'flex-1 bg-[#ffffff14] border border-[#ffffff22] font-black py-2.5 rounded-xl text-[12px]';
  document.getElementById('bInsta').className = a=='insta' ? 'flex-1 bg-gradient-to-r from-[#feda75] via-[#ff3b7f] to-[#a855f7] text-white font-black py-2.5 rounded-xl text-[12px]' : 'flex-1 bg-[#ffffff14] border border-[#ffffff22] font-black py-2.5 rounded-xl text-[12px]';
  document.getElementById('previewHeader').className = a=='wa' ? 'bg-[#075e54] text-white flex items-center gap-3 px-4 py-3' : 'bg-white text-black flex items-center gap-3 px-4 py-3 border-b';
 }
-document.getElementById('nameInput').addEventListener('input', e=> document.getElementById('pName').textContent = e.target.value || 'Ayush Chauhan');
-function addMsgRow(){
- let div=document.createElement('div'); div.className='flex gap-2';
- div.innerHTML=`<select class="bg-[#0b1210] border border-[#23433d] rounded-lg px-2 text-[11px]"><option>Me</option><option>Other</option></select><input placeholder="Message likho..." class="flex-1 bg-[#0b1210] border border-[#23433d] px-3 py-2 rounded-lg text-[13px] outline-none"><button onclick="this.parentElement.remove()" class="bg-[#ffffff14] px-3 rounded-lg text-[11px]">X</button>`;
- document.getElementById('chatInputs').appendChild(div);
+document.getElementById('nameInput').addEventListener('input', e=> document.getElementById('pName').textContent = e.target.value || 'Khushii');
+document.getElementById('dpInput').addEventListener('input', e=> { if(e.target.value) document.getElementById('pDp').src = e.target.value });
+function render(){
+ let box=document.getElementById('pChats'); box.innerHTML='';
+ chats.forEach(c=>{
+  let d=document.createElement('div'); d.className = c.side=='me' ? 'bg-[#dcf8c6] text-black text-[12px] px-3 py-2 rounded-l-[14px] rounded-br-[14px] max-w-[75%] ml-auto shadow' : 'bg-white text-black text-[12px] px-3 py-2 rounded-r-[14px] rounded-bl-[14px] max-w-[75%] shadow';
+  d.textContent=c.text; box.appendChild(d);
+ });
+ if(chats.length==0){
+  box.innerHTML=`<div class="bg-white text-black text-[12px] px-3 py-2 rounded-r-[12px] rounded-bl-[12px] max-w-[70%] shadow">Hey bro, kya haal hai? 😎</div><div class="bg-[#dcf8c6] text-black text-[12px] px-3 py-2 rounded-l-[12px] rounded-br-[12px] max-w-[70%] ml-auto shadow">Mast bhai!</div>`;
+ }
 }
-function downloadChat(){ alert('Screenshot le lo bhai — Download feature ab add kar dunga html2canvas se, bolna to full code de du'); }
+function addMessage(){
+ let txt=document.getElementById('msgInput').value.trim();
+ let side=document.getElementById('sideSel').value;
+ if(!txt) return;
+ chats.push({text:txt, side:side});
+ document.getElementById('msgInput').value='';
+ render();
+}
+document.getElementById('msgInput').addEventListener('keypress', e=> { if(e.key==='Enter') addMessage() });
+function downloadChat(){
+ let btn=document.getElementById('dlBtn'); btn.textContent='⏳ Generating HD...';
+ html2canvas(document.getElementById('previewBox'), {scale:3, useCORS:true}).then(canvas=>{
+  let link=document.createElement('a'); link.download='fake-chat-TheChauhanSite-'+Date.now()+'.png';
+  link.href=canvas.toDataURL('image/png'); link.click();
+  btn.textContent='📸 HD IMAGE DOWNLOAD';
+ });
+}
+render();
 </script>
 </body>
 </html>
