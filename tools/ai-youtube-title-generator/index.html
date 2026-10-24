@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>AI YouTube Title + Description Generator - Viral - TheChauhanSite</title>
+<script src="/js/world-lang.js"></script>
+<script src="https://cdn.tailwindcss.com"></script>
+<style>body{background:#0a0a0a;color:#fff;font-family:Inter}</style>
+</head>
+<body>
+<header class="flex justify-between items-center px-4 py-3 bg-[#111] border-b border-[#222] sticky top-0 z-10">
+<a href="/" class="font-black text-[14px]">THE<span class="text-[#ff0000]">CHAUHAN</span>SITE</a>
+<select id="langSelect" onchange="setWorldLang(this.value)" class="bg-[#1f1f1f] border border-[#333] text-white text-[11px] font-bold px-3 py-1.5 rounded-full">
+<option value="auto">🌍 AUTO</option><option value="hi">🇮🇳 हिन्दी</option><option value="hinglish">Hinglish</option><option value="en">🇺🇸 English</option><option value="es">🇪🇸 Español</option><option value="pt">🇧🇷 Português</option>
+</select>
+</header>
+
+<div class="max-w-[900px] mx-auto p-4">
+<div class="text-center py-6">
+<h1 class="font-black text-[28px] leading-[32px]">🔥 AI YouTube Title + <br><span class="text-[#ff0000]">Description Generator</span></h1>
+<p class="text-[12px] text-[#999] mt-2 font-semibold">Viral • SEO • AI Powered • Free</p>
+</div>
+
+<div class="bg-[#151515] border border-[#2a2a2a] rounded-[22px] p-5">
+<input id="topic" placeholder="Video topic likho... e.g. BGMI Tips, iPhone 16, Khushii ke sath prank" class="w-full bg-[#0e0e0e] border border-[#2a2a2a] rounded-xl px-4 py-4 text-[14px] font-bold outline-none focus:border-[#ff0000]">
+
+<div class="flex gap-2 mt-3 overflow-x-auto">
+<button onclick="setStyle('viral')" id="sViral" class="bg-white text-black px-4 py-2 rounded-full text-[11px] font-black whitespace-nowrap">🔥 VIRAL</button>
+<button onclick="setStyle('seo')" id="sSeo" class="bg-[#222] border border-[#333] px-4 py-2 rounded-full text-[11px] font-black whitespace-nowrap">🚀 SEO</button>
+<button onclick="setStyle('emotional')" id="sEmo" class="bg-[#222] border border-[#333] px-4 py-2 rounded-full text-[11px] font-black whitespace-nowrap">😭 EMOTIONAL</button>
+<button onclick="setStyle('funny')" id="sFunny" class="bg-[#222] border border-[#333] px-4 py-2 rounded-full text-[11px] font-black whitespace-nowrap">😂 FUNNY</button>
+</div>
+
+<button onclick="generate()" class="w-full mt-4 bg-[#ff0000] py-4 rounded-xl font-black text-[14px]">✨ GENERATE VIRAL TITLES + DESCRIPTION</button>
+</div>
+
+<!-- RESULTS -->
+<div id="result" class="hidden mt-6 space-y-4">
+<div class="bg-[#151515] border border-[#2a2a2a] rounded-[20px] p-5">
+<h2 class="font-black text-[13px] tracking-[2px] text-[#888]">VIRAL TITLES (10x)</h2>
+<div id="titles" class="mt-3 space-y-2"></div>
+</div>
+
+<div class="bg-[#151515] border border-[#2a2a2a] rounded-[20px] p-5">
+<div class="flex justify-between"><h2 class="font-black text-[13px] tracking-[2px] text-[#888]">DESCRIPTION</h2><button onclick="copyText('desc')" class="text-[11px] bg-white text-black px-3 py-1 rounded-full font-black">COPY</button></div>
+<p id="desc" class="mt-3 text-[13px] leading-[20px] text-[#ccc] whitespace-pre-line"></p>
+</div>
+
+<div class="bg-[#151515] border border-[#2a2a2a] rounded-[20px] p-5">
+<div class="flex justify-between"><h2 class="font-black text-[13px] tracking-[2px] text-[#888]">TAGS + HASHTAGS</h2><button onclick="copyText('tags')" class="text-[11px] bg-white text-black px-3 py-1 rounded-full font-black">COPY</button></div>
+<p id="tags" class="mt-3 text-[12px] text-[#00c896] font-bold"></p>
+</div>
+</div>
+</div>
+
+<script>
+let cur='viral';
+function setStyle(s){
+ cur=s;
+ ['sViral','sSeo','sEmo','sFunny'].forEach(id=>{ document.getElementById(id).className='bg-[#222] border border-[#333] px-4 py-2 rounded-full text-[11px] font-black whitespace-nowrap' });
+ document.getElementById(s=='viral'?'sViral':s=='seo'?'sSeo':s=='emotional'?'sEmo':'sFunny').className='bg-white text-black px-4 py-2 rounded-full text-[11px] font-black whitespace-nowrap';
+}
+function generate(){
+ let topic=document.getElementById('topic').value.trim();
+ if(!topic){ alert('Pehle topic likh bhai!'); return }
+ let titles=[];
+ if(cur=='viral'){
+  titles=[`I Tried ${topic} For 24 Hours - You Won't Believe What Happened! 🔥`,`${topic} - The Truth No One Tells You!`,`OMG! ${topic} - This Changed My Life!`,`We Did ${topic} - Gone Wrong (Not Clickbait)`,`${topic} Challenge - Extreme Level!`,`I Spent ₹0 on ${topic} and Got This?!`,`${topic} - 1% People Know This Secret`,`This ${topic} Video Got Me 1M Views in 24 Hours!`,`Exposing ${topic} - Real Story!`,`${topic} - Don't Watch This Alone 😱`];
+ } else if(cur=='seo'){
+  titles=[`${topic} - Complete Guide 2026 | Tips & Tricks`,`How To ${topic} - Step By Step Tutorial`,`${topic} Explained in 5 Minutes - Easy Method`,`Best ${topic} Tips 2026 - Pro Guide`,`${topic} | Full Tutorial For Beginners` ,`${topic} - Everything You Need To Know`,`Top 10 ${topic} Tricks You Should Know`,`${topic} 2026 - Latest Update`,`Learn ${topic} Fast - Ultimate Guide`,`${topic} For Beginners - Full Course`];
+ } else if(cur=='emotional'){
+  titles=[`My Emotional Story About ${topic} - Please Watch Till End`,`${topic} Made Me Cry...`,`I Lost Everything Because of ${topic} - My Story`,`This ${topic} Changed My Family...`,`Nobody Believed Me About ${topic} - Until This Happened`];
+ } else {
+  titles=[`${topic} Gone Funny - Try Not To Laugh!`,`When You Try ${topic} For First Time 😂`,`${topic} - Expectation vs Reality`,`My Friends Reaction To ${topic} - Hilarious`,`${topic} - Funniest Moments Compilation`];
+ }
+ // add more to make 10
+ while(titles.length<10) titles.push(`🔥 ${topic} - Viral Video #${titles.length+1}`);
+
+ let desc=`🔥 ${topic} - In this video I will show you everything about ${topic}!
+
+📌 What you will learn:
+✅ Full details about ${topic}
+✅ Secret tips that no one tells
+✅ My personal experience
+
+👉 Don't forget to LIKE, COMMENT & SUBSCRIBE!
+
+#${topic.replace(/\s+/g,'')} #viral #trending
+
+Disclaimer: This video is for education purpose only.
+
+© TheChauhanSite.com`;
+
+ let tagList=`${topic}, ${topic} 2026, ${topic} viral, ${topic} tips, how to ${topic}, ${topic} tutorial, best ${topic}, ${topic} trending, ${topic} guide, ${topic} challenge, #${topic.replace(/\s+/g,'')} #viral #youtube #trending2026 #TheChauhanSite`;
+
+ document.getElementById('result').classList.remove('hidden');
+ let tBox=document.getElementById('titles'); tBox.innerHTML='';
+ titles.forEach((tt,i)=>{
+  let d=document.createElement('div');
+  d.className='flex justify-between items-center bg-[#0e0e0e] border border-[#222] px-4 py-3 rounded-xl';
+  d.innerHTML=`<span class="text-[13px] font-semibold">${i+1}. ${tt}</span><button onclick="navigator.clipboard.writeText('${tt.replace(/'/g,"\\'")}')" class="ml-2 text-[10px] bg-[#222] border border-[#333] px-3 py-1 rounded-full font-bold">COPY</button>`;
+  tBox.appendChild(d);
+ });
+ document.getElementById('desc').innerText=desc;
+ document.getElementById('tags').innerText=tagList;
+}
+function copyText(id){ navigator.clipboard.writeText(document.getElementById(id).innerText); alert('Copied!'); }
+</script>
+</body>
+</html>
