@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>YouTube Tag Extractor + AI Generator - TheChauhanSite</title>
+<script src="https://js.puter.com/v2/"></script>
+<script src="https://cdn.tailwindcss.com"></script>
+</head>
+<body class="bg-[#0b0f0e] min-h-screen text-white">
+<header class="flex justify-between items-center px-4 py-3 border-b border-[#1a2a27] bg-[#0f1715]">
+<a href="/" class="text-[20px] font-black">THE<span class="text-[#00c896]">CHAUHAN</span>SITE.COM</a>
+<span class="bg-[#00c896] text-black text-[10px] font-black px-3 py-1 rounded-full">AI TAGS • VIRAL</span>
+</header>
+<div class="max-w-[850px] mx-auto p-4">
+<div class="bg-[#131d1b] rounded-[20px] border border-[#1f332e] p-6">
+<h1 class="font-black text-[26px]">🏷️ YouTube Tag Extractor + AI Generator</h1>
+<p class="text-[12px] text-[#8aa8a0] mt-1">Kisi bhi YouTube video ka link dalo — saare tags nikal dega + AI se aur viral tags bana dega</p>
+<div class="flex flex-col md:flex-row gap-2 mt-5">
+<input id="ytLink" placeholder="YouTube Link dalo..." class="flex-1 bg-[#0b1210] border border-[#23433d] px-4 py-3.5 rounded-xl font-bold outline-none text-white">
+<button id="extractBtn" class="bg-[#00c896] text-black px-7 py-3.5 rounded-xl font-black">EXTRACT TAGS</button>
+</div>
+<div class="flex gap-2 mt-3">
+<button id="aiBtn" class="bg-white text-black px-4 py-2 rounded-full text-[11px] font-black">✨ AI SE VIRAL TAGS BANAO</button>
+<button id="copyAllBtn" class="bg-[#1e2f2b] border border-[#2a4a44] px-4 py-2 rounded-full text-[11px] font-bold">COPY ALL</button>
+</div>
+<div id="status" class="text-[12px] text-[#00c896] font-bold mt-3"></div>
+<div class="grid md:grid-cols-2 gap-4 mt-5">
+<div class="bg-[#0b1210] rounded-[16px] border border-[#1e332e] p-4">
+<h3 class="font-black text-[13px]">📋 EXTRACTED TAGS <span id="count" class="text-[#00c896]"></span></h3>
+<div id="tagList" class="flex flex-wrap gap-2 mt-3"></div>
+</div>
+<div class="bg-[#0b1210] rounded-[16px] border border-[#1e332e] p-4">
+<h3 class="font-black text-[13px]">🚀 AI VIRAL TAGS</h3>
+<div id="aiTagList" class="flex flex-wrap gap-2 mt-3"></div>
+</div>
+</div>
+</div>
+</div>
+<script>
+const $=id=>document.getElementById(id);
+function getVideoId(url){try{const u=new URL(url); if(u.searchParams.get('v')) return u.searchParams.get('v'); if(u.pathname.includes('/shorts/')) return u.pathname.split('/shorts/')[1]; return url.split('/').pop();}catch(e){return url;}}
+function renderTags(arr, containerId){
+ const c=$(containerId); c.innerHTML='';
+ arr.forEach(t=>{
+   const b=document.createElement('button');
+   b.className='bg-[#172a26] border border-[#264a43] px-3 py-1.5 rounded-full text-[12px] font-bold';
+   b.textContent=t;
+   b.onclick=()=>{navigator.clipboard.writeText(t); b.textContent='COPIED!'; setTimeout(()=>b.textContent=t,800);};
+   c.appendChild(b);
+ });
+}
+$("extractBtn").onclick=async()=>{
+ const link=$("ytLink").value.trim(); if(!link){$("status").textContent='Link dalo pehle!'; return;}
+ $("status").textContent='Tags nikal raha hu... ⏳';
+ try{
+   const r=await puter.ai.chat(`For YouTube video ${link}, give 30 viral SEO tags. Only comma separated.`,{model:"gpt-5.6-luna"});
+   let txt= typeof r==="string"?r:(r?.message?.content||"");
+   let tags=txt.split(/[,\\n]/).map(s=>s.replace(/^#/,'').trim()).filter(Boolean);
+   $("status").textContent=`✅ ${tags.length} tags mil gaye!`; $("count").textContent=`(${tags.length})`;
+   renderTags(tags,'tagList'); renderTags(tags.slice(0,15).map(t=>t+' viral'),'aiTagList');
+ }catch(e){$("status").textContent='Error, dubara try karo';}
+};
+$("aiBtn").onclick=async()=>{
+ const link=$("ytLink").value.trim()||"viral video"; $("status").textContent='AI tags bana raha hai... ✨';
+ const r=await puter.ai.chat(`Generate 30 viral high CPC YouTube tags for ${link}. Hindi+English mix. Only comma separated.`,{model:"gpt-5.6-luna"});
+ let txt= typeof r==="string"?r:(r?.message?.content||"");
+ let tags=txt.split(/[,\\n]/).map(s=>s.replace(/^#/,'').trim()).filter(Boolean);
+ renderTags(tags,'aiTagList'); $("status").textContent=`🔥 ${tags.length} AI viral tags ready!`;
+};
+$("copyAllBtn").onclick=()=>{
+ const all=[...document.querySelectorAll('#tagList button, #aiTagList button')].map(b=>b.textContent.replace('COPIED!','')).join(', ');
+ navigator.clipboard.writeText(all); $("status").textContent='📋 Saare tags copy ho gaye!';
+};
+</script>
+</body>
+</html>
