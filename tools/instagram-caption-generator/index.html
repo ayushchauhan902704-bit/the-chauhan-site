@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1">
+<title>AI Instagram Caption Generator - Free & Viral | TheChauhanSite</title>
+<meta name="description" content="Generate viral Instagram captions with AI. 100+ moods, Hindi + English, Hashtags & Emojis. Free, No login.">
+<style>
+*{margin:0;padding:0;box-sizing:border-box;font-family:Inter,system-ui}
+body{background:#0f0f0f;color:#fff;min-height:100vh;padding:14px}
+.box{max-width:620px;margin:0 auto}
+.head{text-align:center;padding:18px 0}
+.head h1{font-size:26px;font-weight:900} .head h1 span{color:#ff3b7f}
+.head p{color:#888;font-size:13px;margin-top:6px}
+.card{background:rgba(255,255,255,.07);border:1px solid rgba(255,255,255,.12);border-radius:22px;padding:18px;margin-top:16px}
+input,select{width:100%;background:#1a1a1a;border:1px solid #2a2a2a;border-radius:14px;padding:13px 14px;color:#fff;outline:none;margin-top:10px;font-size:14px}
+input:focus,select:focus{border-color:#ff3b7f}
+label{font-size:12px;color:#aaa;font-weight:600;letter-spacing:.5px;margin-top:14px;display:block}
+.moods{display:flex;flex-wrap:wrap;gap:8px;margin-top:10px}
+.moods button{background:#1e1e1e;border:1px solid #2a2a2a;color:#ccc;padding:8px 14px;border-radius:20px;font-size:12px;cursor:pointer}
+.moods button.active{background:#ff3b7f;color:#fff;border-color:#ff3b7f}
+.gen{width:100%;background:linear-gradient(135deg,#ff3b7f,#ff006a);border:none;color:#fff;padding:14px;border-radius:16px;font-weight:800;font-size:15px;margin-top:18px;cursor:pointer}
+.result{margin-top:18px;display:grid;gap:12px}
+.cap{background:#151515;border:1px solid #222;border-radius:16px;padding:14px;position:relative}
+.cap p{font-size:14px;line-height:1.5;color:#eee}
+.cap .copy{position:absolute;top:10px;right:10px;background:#ffffff14;border:1px solid #ffffff22;color:#fff;padding:5px 10px;border-radius:20px;font-size:11px;cursor:pointer}
+.footer{text-align:center;margin:24px 0;color:#444;font-size:11px}
+a.back{color:#999;text-decoration:none;font-size:13px}
+</style>
+</head>
+<body>
+<div class="box">
+<a href="/" class="back">← Back to Home</a>
+<div class="head"><h1>📸 AI <span>Caption</span> Generator</h1><p>Type topic → Get 5 Viral Captions + Hashtags</p></div>
+
+<div class="card">
+<label>WHAT IS YOUR POST ABOUT?</label>
+<input id="topic" placeholder="Ex: Goa trip, Gym, Birthday, Chai...">
+<label>SELECT MOOD / VIBE</label>
+<div class="moods" id="moods">
+<button class="active" data-m="cool">😎 Cool</button><button data-m="love">❤️ Love</button><button data-m="savage">🔥 Savage</button><button data-m="funny">😂 Funny</button><button data-m="attitude">😈 Attitude</button><button data-m="sad">😔 Sad</button><button data-m="hindi">🇮🇳 Hindi</button><button data-m="aesthetic">✨ Aesthetic</button>
+</div>
+<label>LANGUAGE</label>
+<select id="lang"><option value="hinglish">Hinglish (Hindi + English)</option><option value="english">English</option><option value="hindi">Pure Hindi</option></select>
+<button class="gen" onclick="generate()">✨ Generate Viral Captions</button>
+</div>
+
+<div class="result" id="result"></div>
+<p class="footer">© TheChauhanSite • Free • No Login • Offline Ready</p>
+</div>
+
+<script>
+let mood='cool';
+document.querySelectorAll('.moods button').forEach(b=>b.onclick=()=>{
+  document.querySelectorAll('.moods button').forEach(x=>x.classList.remove('active'));
+  b.classList.add('active');mood=b.dataset.m;
+});
+
+const T={
+cool:["Living my best life with {t} 💯","{t} vibes only, no drama ✨","Keep it real, {t} speaks louder 😎"],
+love:["You + Me + {t} = Perfect story ❤️","My heart beats for {t} 💖","Lost in {t}, found in you 🥰"],
+savage:["{t} made me savage, sorry not sorry 🔥","Don't chase, attract {t} 💅","My {t}, my rules 😏"],
+funny:["{t} ke bina life boring hai 😂","Pet bhar ke {t}, tension khatam 🤣","{t} is my cardio lol 😆"],
+attitude:["{t} is my attitude, not your business 😈","I don't need {t}, {t} needs me 👑","Born to express {t}, not impress 👊"],
+sad:["{t} bhi chhod gaya yaar 💔","Alone with my {t} and thoughts 😔","{t} tha, ab bas yaadein hain 🥀"],
+hindi:["{t} ke bina sab suna lage 🇮🇳","Dil se {t}, dimaag se bhi {t} ❤️","Apna {t} to sabse alag hai 🔥"],
+aesthetic:["soft {t} & slow mornings ☁️","{t} in pastel dreams ✨","a little {t}, a lot of peace 🌙"]
+};
+
+function generate(){
+  let topic=document.getElementById('topic').value.trim()||"Life";
+  let lang=document.getElementById('lang').value;
+  let base=T[mood]||T.cool;
+  let out='';
+  for(let i=0;i<5;i++){
+    let txt=base[i%base.length].replaceAll('{t}',topic);
+    if(lang==='hindi') txt=txt.replace('vibes','एहसास').replace('life','जिंदगी');
+    let hashtags=`#${topic.replace(/\s/g,'')} #${mood}vibes #instagram #viral #instagood #${topic.replace(/\s/g,'')}lover #reels #trending`;
+    out+=`<div class="cap"><button class="copy" onclick="copyText(this)">Copy</button><p>${txt}<br><br><span style="color:#ff3b7f;font-size:12px">${hashtags}</span></p></div>`;
+  }
+  document.getElementById('result').innerHTML=out;
+}
+function copyText(btn){
+  let txt=btn.nextElementSibling.innerText;
+  navigator.clipboard.writeText(txt);btn.innerText='Copied!';setTimeout(()=>btn.innerText='Copy',1200);
+}
+generate();
+</script>
+</body>
+</html>
