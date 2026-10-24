@@ -4,10 +4,12 @@
 <meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1">
 <title>TheChauhanSite - World's #1 Free Online Tools Hub</title>
 <meta name="theme-color" content="#0a2810">
+<script src="/js/world-lang.js"></script>
 <style>
 *{margin:0;padding:0;box-sizing:border-box;font-family:Inter,system-ui}
 body{background:radial-gradient(700px at 0% 0%, #143d1f 0%, #0a0a0a 60%);color:#fff;min-height:100vh}
 .header{text-align:center;padding:36px 16px 16px}
+.header-top{display:flex;justify-content:space-between;align-items:center;max-width:760px;margin:0 auto 14px;padding:0 6px}
 .logo{width:58px;height:58px;background:linear-gradient(135deg,#00c896,#009270);border-radius:18px;display:inline-flex;align-items:center;justify-content:center;font-weight:900;font-size:22px}
 .header h1{font-size:34px;font-weight:900;margin-top:14px} .header h1 span{color:#00c896}
 .header p{color:#9a9a9a;margin-top:8px;font-size:13px;font-weight:600}
@@ -37,9 +39,26 @@ body{background:radial-gradient(700px at 0% 0%, #143d1f 0%, #0a0a0a 60%);color:#
 <body>
 <div id="homeView">
 <div class="header">
+<div class="header-top">
 <div class="logo">TC</div>
-<h1>The<span>Chauhan</span>Site</h1>
-<p>Free Online Tools Hub • Pro • Offline</p>
+<select id="langSelect" onchange="setWorldLang(this.value)" style="background:rgba(255,255,255,.1);color:#fff;padding:7px 12px;border-radius:20px;font-size:11px;font-weight:800;border:1px solid rgba(255,255,255,.2)">
+<option value="auto">🌍 AUTO</option>
+<option value="hi">🇮🇳 हिन्दी</option>
+<option value="hinglish">Hinglish</option>
+<option value="en">🇺🇸 English</option>
+<option value="es">🇪🇸 Español</option>
+<option value="pt">🇧🇷 Português</option>
+<option value="fr">🇫🇷 Français</option>
+<option value="de">🇩🇪 Deutsch</option>
+<option value="ar">🇸🇦 العربية</option>
+<option value="ru">🇷🇺 Русский</option>
+<option value="id">🇮🇩 Indonesia</option>
+<option value="tr">🇹🇷 Türkçe</option>
+<option value="bn">🇧🇩 বাংলা</option>
+</select>
+</div>
+<h1 id="t_title">The<span>Chauhan</span>Site</h1>
+<p id="t_sub">Free Online Tools Hub • Pro • Offline</p>
 <div class="world-badge">🌍 WORLD'S NO.1 TOOLS HUB • TRUSTED BY 1M+ USERS</div>
 </div>
 <div class="grid">
@@ -66,48 +85,4 @@ body{background:radial-gradient(700px at 0% 0%, #143d1f 0%, #0a0a0a 60%);color:#
   <h3>✨ AI Captions <span class="badge" style="background:#ff3b7f;color:#fff;">AI</span></h3>
   <p>Instagram Viral Captions + Hashtags</p>
 </a>
-<a href="/tools/tiktok-hashtag-generator/" class="tool" style="border-color:#00e5ff66;background:linear-gradient(135deg,rgba(30,30,30,.9),rgba(10,40,50,.9))">
-  <h3>🔥 TikTok Hashtags <span class="badge" style="background:#00e5ff;color:#000;">NEW</span></h3>
-  <p>Viral Hashtags for Reels & TikTok</p>
-</a>
-<a href="/tools/caption-bio/" class="tool" style="border-color:#a855f766;background:linear-gradient(135deg,rgba(30,15,40,.9),rgba(40,10,60,.9))">
-  <h3>📸 Caption 3in1 <span class="badge" style="background:#a855f7;color:#fff;">3in1</span></h3>
-  <p>Caption + Hashtag + Bio Generator</p>
-</a>
-<div class="tool" style="border-color:#00c89655;background:rgba(255,255,255,.05);cursor:pointer" onclick="openTool('timer')">
-  <h3>⏳ Age Timer <span class="badge" style="background:#fff;color:#000;">LIVE</span></h3>
-  <p>Total Years • Months • Days • Offline</p>
-</div>
-<div class="tool" style="border-color:#22c55e55;background:linear-gradient(135deg,rgba(10,30,15,.9),rgba(10,50,20,.8));cursor:pointer" onclick="openTool('cricket')">
-  <h3>🏏 Live Cricket Score <span class="badge" style="background:#22c55e;color:#000;">LIVE</span></h3>
-  <p>Real-time Match Updates</p>
-</div>
-</div>
-</div>
-<div id="timerView" class="timer-wrap">
-<div class="top"><button id="bS" onclick="setSize('small')">Chota</button><button id="bM" class="active" onclick="setSize('medium')">Medium</button><button id="bL" onclick="setSize('bada')">Bada</button></div>
-<div class="card"><div class="title">AGE TIMER</div><div class="row">
-<div class="col"><i>YEAR</i><b id="y">00</b></div><div class="col"><i>MONTH</i><b id="mo">00</b></div><div class="col"><i>DAYS</i><b id="d">00</b></div><div class="col"><i>HOURS</i><b id="h">00</b></div><div class="col"><i>MINTS</i><b id="mi">00</b></div><div class="col"><i>SECS</i><b id="s">00</b></div>
-</div></div>
-<div class="dob-pill"><span id="dobText">00-00-0000</span><button id="setDobBtn">Set DOB</button></div>
-<button class="back" onclick="closeTool()">← Back to Home</button>
-</div>
-<input type="date" id="dobInput">
-<footer class="footer-links">
-<a href="/about/">About</a><a href="/contact/">Contact</a><a href="/privacy/">Privacy</a><a href="/terms/">Terms</a><a href="/disclaimer/">Disclaimer</a>
-<p>© 2026 TheChauhanSite • Ayush Chauhan • Dehradun</p>
-</footer>
-<script>
-let t; const dobInput=document.getElementById('dobInput'), dobText=document.getElementById('dobText');
-function fmt(d){return new Date(d).toLocaleDateString('en-GB',{day:'2-digit',month:'short',year:'numeric'})}
-function showZero(){['y','mo','d','h','mi','s'].forEach(i=>document.getElementById(i).innerText='00');dobText.innerText='00-00-0000'}
-function start(dob){clearInterval(t);localStorage.setItem('dob_pro',dob);dobText.innerText=fmt(dob);t=setInterval(()=>{let b=new Date(dob),n=new Date(),diff=n-b;document.getElementById('y').innerText=Math.floor(diff/31557600000);document.getElementById('mo').innerText=Math.floor(diff/2629800000);document.getElementById('d').innerText=Math.floor(diff/86400000);document.getElementById('h').innerText=Math.floor((diff%86400000)/3600000);document.getElementById('mi').innerText=Math.floor((diff%3600000)/60000);document.getElementById('s').innerText=Math.floor((diff%60000)/1000)},1000)}
-function setSize(s){document.body.className='size-'+s;document.querySelectorAll('.top button').forEach(b=>b.classList.remove('active'));document.getElementById(s==='small'?'bS':s==='medium'?'bM':'bL').classList.add('active');localStorage.setItem('timer_size',s)}
-function openTool(v){if(v==='timer'){document.getElementById('homeView').style.display='none';document.getElementById('timerView').classList.add('active');history.pushState({},'','/tools/age-timer/')}else{location.href='/tools/cricket-live/'}}
-function closeTool(){document.getElementById('homeView').style.display='block';document.getElementById('timerView').classList.remove('active');history.pushState({},'','/')}
-document.getElementById('setDobBtn').onclick=()=>dobInput.showPicker?dobInput.showPicker():dobInput.click();
-dobInput.onchange=e=>{if(e.target.value)start(e.target.value)}
-let saved=localStorage.getItem('dob_pro'),sz=localStorage.getItem('timer_size')||'medium';if(saved){dobInput.value=saved;start(saved)}else showZero();setSize(sz);
-</script>
-</body>
-</html>
+<a href="/tools/tiktok-hashtag-generator/" class="tool" style="border-color:#00e5ff66;background:linear-gradient(135deg,rgba(30,
