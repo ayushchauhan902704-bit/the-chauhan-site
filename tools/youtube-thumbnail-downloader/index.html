@@ -1,71 +1,101 @@
 <!DOCTYPE html>
-<html lang="en">
+<html>
 <head>
 <meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1">
-<title>YouTube Thumbnail Downloader - HD, 4K Free | TheChauhanSite</title>
-<meta name="description" content="Download YouTube thumbnails in HD, 4K, MaxRes. Paste link and download any quality free. No watermark.">
+<title>AI Thumbnail Maker - Photo + Idea = Thumbnail</title>
 <style>
-*{margin:0;padding:0;box-sizing:border-box;font-family:Inter,system-ui}
-body{background:#0f0f0f;color:#fff;min-height:100vh;padding:14px}
-.box{max-width:680px;margin:0 auto}
-.head{text-align:center;padding:18px 0}
-.head h1{font-size:26px;font-weight:900} .head h1 span{color:#ff0000}
-.head p{color:#888;font-size:13px;margin-top:6px}
-.card{background:rgba(255,255,255,.07);border:1px solid rgba(255,255,255,.12);border-radius:22px;padding:18px;margin-top:16px}
-input{width:100%;background:#1a1a1a;border:1px solid #2a2a2a;border-radius:14px;padding:14px;color:#fff;outline:none;font-size:14px}
-input:focus{border-color:#ff0000}
-.gen{width:100%;background:linear-gradient(135deg,#ff0000,#cc0000);border:none;color:#fff;padding:14px;border-radius:16px;font-weight:800;font-size:15px;margin-top:14px;cursor:pointer}
-.grid{margin-top:20px;display:grid;grid-template-columns:1fr 1fr;gap:12px}
-.thumb{background:#151515;border:1px solid #222;border-radius:16px;overflow:hidden}
-.thumb img{width:100%;display:block}
-.thumb .info{padding:10px}
-.thumb .info b{font-size:12px;display:block}
-.thumb .info span{font-size:11px;color:#888}
-.thumb a{display:block;margin-top:8px;background:#ffffff12;border:1px solid #ffffff22;color:#fff;text-align:center;padding:8px;border-radius:10px;text-decoration:none;font-size:12px;font-weight:600}
-.thumb a:hover{background:#ff0000}
-.back{color:#999;text-decoration:none;font-size:13px}
-.footer{text-align:center;margin:24px 0;color:#444;font-size:11px}
-@media(max-width:600px){.grid{grid-template-columns:1fr}}
+*{box-sizing:border-box;font-family:Inter,system-ui;margin:0;padding:0}
+body{background:#0c0c0c;color:#fff;padding:14px}
+.box{max-width:720px;margin:0 auto}
+.card{background:#161616;border:1px solid #232323;border-radius:20px;padding:16px;margin-top:12px}
+h1{font-size:22px;text-align:center;font-weight:900} h1 span{color:#ff0000}
+label{color:#aaa;font-size:12px;margin-top:12px;display:block;font-weight:600}
+input,textarea,select{width:100%;background:#1e1e1e;border:1px solid #2e2e2e;border-radius:14px;padding:12px;color:#fff;margin-top:6px;outline:none}
+textarea{height:70px}
+button.gen{width:100%;background:linear-gradient(90deg,#ff0000,#ff3c00);border:none;color:#fff;padding:14px;border-radius:14px;font-weight:900;margin-top:14px;cursor:pointer}
+#preview{margin-top:14px;background:#000;border-radius:16px;aspect-ratio:16/9;overflow:hidden;position:relative;border:1px solid #222}
+#preview canvas{width:100%;height:100%}
+.chips{display:flex;gap:6px;flex-wrap:wrap;margin-top:8px}
+.chips span{background:#232323;border:1px solid #333;padding:6px 10px;border-radius:20px;font-size:11px;cursor:pointer}
+.back{color:#888;text-decoration:none;font-size:13px}
 </style>
 </head>
 <body>
 <div class="box">
 <a href="/" class="back">← Back to Home</a>
-<div class="head"><h1>▶️ YouTube <span>Thumbnail</span> Downloader</h1><p>Paste YouTube link → Download HD / 4K Thumbnail</p></div>
+<h1>🎨 AI <span>Thumbnail Maker</span></h1>
+<p style="text-align:center;color:#666;font-size:12px;margin-top:4px">Photo + Idea likho = Auto Thumbnail</p>
 
 <div class="card">
-<input id="ytLink" placeholder="Paste YouTube link here... Ex: https://youtu.be/dQw4w9WgXcQ">
-<button class="gen" onclick="getThumb()">🔥 Get Thumbnails</button>
+<label>STEP 1: Apni Photo Daalo</label>
+<input type="file" id="photo" accept="image/*">
+
+<label>STEP 2: Kaisa Thumbnail Chahiye? Likho</label>
+<textarea id="idea" placeholder="Ex: funny chahiye, aankhe badi karo, peeche aag laga do, MrBeast style text..."></textarea>
+<div class="chips">
+<span onclick="setIdea('funny chahiye, cartoon style, badi aankhe, colorful')">😂 Funny</span>
+<span onclick="setIdea('shocking reaction, muh khula, background me blast')">😱 Shocking</span>
+<span onclick="setIdea('MrBeast style, yellow box, bada text, shocked face')">💰 MrBeast Style</span>
+<span onclick="setIdea('scary horror, red eyes, dark background')">👻 Scary</span>
+<span onclick="setIdea('gaming thumbnail, neon lights, fire effect')">🎮 Gaming</span>
 </div>
 
-<div class="grid" id="result"></div>
-<p class="footer">© TheChauhanSite • Free • No Watermark • 4K Support</p>
+<label>Extra Text (optional)</label>
+<input id="ttext" placeholder="Ex: OMG! 1M Ho Gaya 🔥">
+
+<button class="gen" onclick="make()">✨ AI Thumbnail Banao</button>
+
+<div id="preview"><canvas id="c" width="1280" height="720"></canvas></div>
+<button class="gen" style="background:#fff;color:#000" onclick="download()">⬇️ Download 1280x720</button>
+</div>
 </div>
 
 <script>
-function getID(url){
-  let reg = /(?:youtube\.com\/(?:watch\?v=|embed\/|shorts\/)|youtu\.be\/)([a-zA-Z0-9_-]{11})/;
-  let m = url.match(reg);
-  return m ? m[1] : null;
+let img=new Image(), loaded=false;
+document.getElementById('photo').onchange=e=>{
+ let f=e.target.files[0];let r=new FileReader();
+ r.onload=()=>{img.onload=()=>{loaded=true;make()};img.src=r.result};r.readAsDataURL(f);
 }
-function getThumb(){
-  let link = document.getElementById('ytLink').value.trim();
-  let id = getID(link);
-  if(!id){alert('Sahi YouTube link daal bhai!');return;}
-  let qualities = [
-    {name:'MaxRes - 1280x720 (4K)',file:'maxresdefault.jpg',q:'HD'},
-    {name:'SD - 640x480',file:'sddefault.jpg',q:'SD'},
-    {name:'High Quality',file:'hqdefault.jpg',q:'HQ'},
-    {name:'Medium Quality',file:'mqdefault.jpg',q:'MQ'},
-    {name:'Default',file:'default.jpg',q:'Default'}
-  ];
-  let html='';
-  qualities.forEach(q=>{
-    let url=`https://img.youtube.com/vi/${id}/${q.file}`;
-    html+=`<div class="thumb"><img src="${url}" onerror="this.style.display='none'"><div class="info"><b>${q.name}</b><span>${q.file}</span><a href="${url}" download target="_blank">⬇️ Download ${q.q}</a></div></div>`;
-  });
-  document.getElementById('result').innerHTML=html;
+function setIdea(t){document.getElementById('idea').value=t;make();}
+
+const c=document.getElementById('c'), ctx=c.getContext('2d');
+function make(){
+ if(!loaded){ctx.fillStyle='#111';ctx.fillRect(0,0,1280,720);ctx.fillStyle='#555';ctx.font='30px sans-serif';ctx.fillText('Pehle photo upload karo...',420,360);return;}
+ let idea=(document.getElementById('idea').value||'').toLowerCase();
+ let txt=document.getElementById('ttext').value||'';
+
+ ctx.clearRect(0,0,1280,720);
+ // Base photo
+ ctx.drawImage(img,0,0,1280,720);
+
+ // AI Logic by keyword
+ if(idea.includes('funny')){
+   ctx.fillStyle='rgba(255,235,0,0.15)';ctx.fillRect(0,0,1280,720);
+   ctx.font='900 120px sans-serif';ctx.fillText('😂',1050,200);
+   ctx.font='900 80px Inter';ctx.lineWidth=10;ctx.strokeStyle='#000';ctx.strokeText(txt||'FUNNY!',40,600);ctx.fillStyle='#ffeb00';ctx.fillText(txt||'FUNNY!',40,600);
+ } else if(idea.includes('scary')||idea.includes('horror')){
+   ctx.fillStyle='rgba(255,0,0,0.25)';ctx.fillRect(0,0,1280,720);
+   ctx.filter='contrast(1.5) brightness(0.7)';ctx.drawImage(img,0,0,1280,720);ctx.filter='none';
+   ctx.font='900 80px Inter';ctx.fillStyle='#ff0000';ctx.strokeStyle='#000';ctx.lineWidth=10;ctx.strokeText(txt||'SCARY!',40,600);ctx.fillText(txt||'SCARY!',40,600);
+ } else if(idea.includes('mrbeast')||idea.includes('beast')){
+   ctx.fillStyle='#ffeb00';ctx.fillRect(30,450,780,110);
+   ctx.fillStyle='#000';ctx.font='900 70px Inter';ctx.fillText((txt||'OMG! 1 MILLION').toUpperCase(),50,530);
+ } else if(idea.includes('shock')){
+   ctx.fillStyle='rgba(255,255,255,0.1)';ctx.fillRect(0,0,1280,720);
+   ctx.font='900 90px Inter';ctx.lineWidth=12;ctx.strokeStyle='#000';ctx.strokeText(txt||'OMG! 😱',40,600);ctx.fillStyle='#fff';ctx.fillText(txt||'OMG! 😱',40,600);
+ } else if(idea.includes('gaming')||idea.includes('fire')||idea.includes('neon')){
+   let grad=ctx.createLinearGradient(0,0,0,720);grad.addColorStop(0,'rgba(0,255,255,0.3)');grad.addColorStop(1,'rgba(255,0,255,0.3)');ctx.fillStyle=grad;ctx.fillRect(0,0,1280,720);
+   ctx.font='900 80px Inter';ctx.strokeStyle='#000';ctx.lineWidth=10;ctx.strokeText(txt||'GAMING!',40,600);ctx.fillStyle='#00ffcc';ctx.fillText(txt||'GAMING!',40,600);
+ } else {
+   // default clean pro thumbnail
+   ctx.fillStyle='rgba(0,0,0,0.3)';ctx.fillRect(0,0,1280,720);
+   if(txt){ctx.font='900 85px Inter';ctx.lineWidth=12;ctx.strokeStyle='#000';ctx.strokeText(txt,40,600);ctx.fillStyle='#fff';ctx.fillText(txt,40,600);}
+ }
+
+ // Vignette
+ let g=ctx.createRadialGradient(640,360,200,640,360,800);g.addColorStop(0,'rgba(0,0,0,0)');g.addColorStop(1,'rgba(0,0,0,0.6)');ctx.fillStyle=g;ctx.fillRect(0,0,1280,720);
 }
+function download(){let a=document.createElement('a');a.download='ai-thumbnail.jpg';a.href=c.toDataURL('image/jpeg',0.92);a.click();}
 </script>
 </body>
 </html>
