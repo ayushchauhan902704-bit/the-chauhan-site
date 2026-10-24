@@ -3,84 +3,92 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1">
-<title>YouTube Thumbnail PRO</title>
+<title>YouTube Thumbnail Generator PRO — ToolzyAI</title>
 <script src="https://js.puter.com/v2/"></script>
 <style>
 *{box-sizing:border-box}
-body{margin:0;font-family:Inter,system-ui;background:#060E1E;color:#fff}
-.wrap{max-width:620px;margin:0 auto;min-height:100vh;padding:0 16px 40px;background:radial-gradient(circle at 50% 0%,#12366b 0,#060E1E 50%)}
-header{height:60px;display:flex;align-items:center;font-weight:800;font-size:20px}
-header span{color:#67a9ff}
-.sub{text-align:center;color:#8aa0b9;font-size:14.5px;margin:10px 0 18px;line-height:1.4}
-.card{background:#0C1A33;border:1px solid #ffffff14;border-radius:22px;padding:18px}
-.h2{font-size:22px;font-weight:800;margin:0 0 14px}
-.upload{border:1.8px dashed #ffffff28;border-radius:16px;padding:16px;text-align:center;color:#9db1c9;cursor:pointer;background:#ffffff06;display:block;font-size:14px}
+body{margin:0;font-family:Inter,system-ui;background:#07111f;color:#f7fbff}
+#toolzyAI-pro{min-height:100vh;background:radial-gradient(circle at 20% 0%,#12366b 0,#07111f 38%,#050b14 100%)}
+header{height:70px;display:flex;align-items:center;justify-content:space-between;padding:0 6%;border-bottom:1px solid #ffffff12;background:#07111fcc;backdrop-filter:blur(16px);position:sticky;top:0;z-index:5}
+.logo{font-size:22px;font-weight:800}.logo span{color:#67a9ff}
+.hero{text-align:center;padding:55px 20px 25px}
+.hero h1{font-size:clamp(32px,6vw,56px);margin:0 0 10px;letter-spacing:-2px}.hero h1 span{color:#FF0000}
+.hero p{color:#9bb0c8;font-size:16px;max-width:600px;margin:auto;line-height:1.5}
+.app{max-width:700px;margin:0 auto 60px;padding:0 18px}
+.panel{background:#071321cc;border:1px solid #ffffff14;border-radius:24px;padding:22px}
+.upload{border:2px dashed #ffffff25;border-radius:18px;padding:22px;text-align:center;color:#9db1c9;cursor:pointer;background:#ffffff05;display:block;font-size:14px}
 .upload input{display:none}
-.preview{width:100%;border-radius:12px;margin-top:12px;max-height:380px;object-fit:cover}
-.chips{display:flex;gap:8px;flex-wrap:wrap;margin:14px 0}
-.chip{padding:7px 12px;background:#ffffff0e;border:1px solid #ffffff18;border-radius:20px;font-size:13px;cursor:pointer}
-.chip:active{background:#FF000033}
-.textarea{width:100%;min-height:100px;background:#030C1E;border:1px solid #ffffff18;color:#fff;border-radius:14px;padding:12px;outline:none;font-size:14px}
-.btn{width:100%;background:#FF0F0F;color:#fff;border:0;border-radius:14px;padding:14px;font-weight:800;font-size:16px;margin-top:14px;cursor:pointer}
-.status{font-size:13px;color:#8ea5bf;text-align:center;margin-top:10px;min-height:16px}
-.result{margin-top:16px}
-.result img{width:100%;border-radius:12px;aspect-ratio:16/9;object-fit:cover;border:1px solid #ffffff15}
-.download{display:block;margin-top:10px;background:#1E90FF;color:#fff;text-align:center;padding:12px;border-radius:10px;text-decoration:none;font-weight:700}
+.preview{width:100%;max-height:360px;border-radius:16px;margin-top:14px;object-fit:cover}
+.presets{display:flex;gap:8px;flex-wrap:wrap;margin:16px 0}
+.preset{padding:8px 13px;background:#ffffff0e;border:1px solid #ffffff18;border-radius:20px;font-size:12.5px;cursor:pointer;color:#a9bdd6}
+.preset:hover{background:#FF000022;border-color:#FF0000;color:#fff}
+.textarea{width:100%;min-height:110px;background:#030913;border:1px solid #ffffff18;color:white;border-radius:14px;padding:14px;outline:none;resize:vertical}
+.btn{width:100%;background:#FF0000;color:white;border:0;border-radius:13px;padding:15px 20px;font-weight:800;cursor:pointer;font-size:16px;margin-top:14px}
+.status{color:#8ea5bf;font-size:13px;margin-top:10px;text-align:center;min-height:18px}
+.result{margin-top:18px;text-align:center}
+.result img{width:100%;border-radius:18px;border:1px solid #ffffff15;aspect-ratio:16/9;object-fit:cover}
+.download{display:inline-block;margin-top:12px;color:white;text-decoration:none;background:#2477ff;padding:12px 18px;border-radius:10px;font-weight:700}
 </style>
 </head>
 <body>
-<div class="wrap">
-<header>Toolzy<span>AI</span> 🔴</header>
-<p class="sub">Photo upload karo + Prompt likho = ChatGPT jaisa viral thumbnail 1 click me</p>
+<div id="toolzyAI-pro">
+<header><div class="logo">Toolzy<span>AI</span> 🔴</div></header>
 
-<div class="card">
-<div class="h2">Upload Photo + Write Prompt</div>
+<section class="hero">
+<h1>YouTube Thumbnail <span>PRO</span></h1>
+<p>Photo upload karo + Prompt likho = Viral thumbnail 1 click me. Face same rahega, background MrBeast jaisa.</p>
+</section>
 
-<label class="upload">
+<section class="app">
+<div class="panel">
+<h2 style="margin:0 0 14px">Upload Photo + Write Prompt</h2>
+
+<label class="upload" id="drop">
 📷 Apni Photo yaha dalo (Face ke liye best hai)
 <input id="file" type="file" accept="image/*">
 </label>
 <div id="prev"></div>
 
-<div class="chips">
-<span class="chip" onclick="setP('MrBeast style, shocked face, big eyes')">🔥 MrBeast</span>
-<span class="chip" onclick="setP('funny, cartoon style, exaggerated expression')">😂 Funny</span>
-<span class="chip" onclick="setP('scary, dark background, horror vibes')">😱 Scary</span>
-<span class="chip" onclick="setP('money, cash background, Lamborghini')">💰 Money</span>
-<span class="chip" onclick="setP('news style, breaking news background')">📰 News</span>
+<div class="presets">
+<span class="preset" onclick="setP('MrBeast style, shocked face, big eyes, yellow border, red arrow, money background')">🔥 MrBeast</span>
+<span class="preset" onclick="setP('funny cartoon style, exaggerated shocked expression, bright colors')">😂 Funny</span>
+<span class="preset" onclick="setP('scary dark background, horror vibes, glowing eyes')">😱 Scary</span>
+<span class="preset" onclick="setP('rich lifestyle, cash, Lamborghini, gold background')">💰 Money</span>
+<span class="preset" onclick="setP('breaking news style, red background, bold look')">📰 News</span>
 </div>
 
-<textarea id="prompt" class="textarea" placeholder="Ex: Is photo ko MrBeast style funny banao, peeche paisa dikhao, face same rakho"></textarea>
+<textarea id="prompt" class="textarea" placeholder="Ex: Is photo ko MrBeast style banao, peeche paisa dikhao, face same rakho, 1280x720 YouTube thumbnail"></textarea>
 
 <button id="gen" class="btn">Generate Viral Thumbnail 🚀</button>
 <div id="status" class="status"></div>
 <div id="result" class="result"></div>
 </div>
+</section>
 </div>
 
 <script>
 const $=id=>document.getElementById(id);
-function setP(t){$("prompt").value=t}
+function setP(t){$("prompt").value=t;}
 let imgData=null;
 $("file").onchange=e=>{
-const f=e.target.files[0];if(!f)return;
-const r=new FileReader();
-r.onload=()=>{imgData=r.result;$("prev").innerHTML=`<img class="preview" src="${imgData}">`;}
-r.readAsDataURL(f);
+ const f=e.target.files[0];if(!f)return;
+ const r=new FileReader();
+ r.onload=()=>{imgData=r.result;$("prev").innerHTML=`<img class="preview" src="${imgData}">`;}
+ r.readAsDataURL(f);
 };
 $("gen").onclick=async()=>{
-let p=$("prompt").value.trim();
-if(!p){$("status").textContent="Prompt likho!";return}
-let finalPrompt=`YouTube thumbnail 1280x720 16:9 ultra viral ${p} keep face same if photo provided bright colors MrBeast style no watermark professional`;
-$("status").textContent="🔥 AI Thumbnail bana raha hai... 10 sec";
-$("result").innerHTML="";
-try{
-const img=await puter.ai.txt2img(finalPrompt,{model:"gpt-image-2",quality:"low",...(imgData?{input_image:imgData}:{})});
-$("result").appendChild(img);
-const a=document.createElement("a");a.className="download";a.textContent="⬇️ Download 1280x720 HD";a.href=img.src;a.download="yt-thumbnail.png";a.target="_blank";
-$("result").appendChild(a);
-$("status").textContent="✅ Ready! Ab YouTube pe daal do";
-}catch(e){$("status").textContent="Puter me ek baar Sign in karna padega";}
+ let p=$("prompt").value.trim();
+ if(!p){$("status").textContent="Prompt likho! Ex: MrBeast style banao";return;}
+ let final=`YouTube thumbnail, 1280x720, 16:9, ultra viral, ${p}, keep face identity same as input photo if provided, highly detailed, 8k, bright colors, MrBeast style thumbnail, professional YouTube design, no watermark, no text`;
+ $("status").textContent="🔥 AI Thumbnail bana raha hai... 10 sec";
+ $("result").innerHTML="";
+ try{
+  const img=await puter.ai.txt2img(final,{model:"gpt-image-2",quality:"low",...(imgData?{input_image:imgData}:{})});
+  $("result").appendChild(img);
+  const a=document.createElement("a");a.className="download";a.textContent="⬇️ Download 1280x720 HD";a.href=img.src;a.download="youtube-thumbnail-pro.png";a.target="_blank";
+  $("result").appendChild(a);
+  $("status").textContent="✅ Ready! Ab YouTube pe daal do";
+ }catch(e){$("status").textContent="Failed - Ek baar Puter.com pe Sign in karke try karo, fir chal jayega";}
 };
 </script>
 </body>
