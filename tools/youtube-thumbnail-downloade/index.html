@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1">
+<title>YouTube Thumbnail Downloader - HD, 4K Free | TheChauhanSite</title>
+<meta name="description" content="Download YouTube thumbnails in HD, 4K, MaxRes. Paste link and download any quality free. No watermark.">
+<style>
+*{margin:0;padding:0;box-sizing:border-box;font-family:Inter,system-ui}
+body{background:#0f0f0f;color:#fff;min-height:100vh;padding:14px}
+.box{max-width:680px;margin:0 auto}
+.head{text-align:center;padding:18px 0}
+.head h1{font-size:26px;font-weight:900} .head h1 span{color:#ff0000}
+.head p{color:#888;font-size:13px;margin-top:6px}
+.card{background:rgba(255,255,255,.07);border:1px solid rgba(255,255,255,.12);border-radius:22px;padding:18px;margin-top:16px}
+input{width:100%;background:#1a1a1a;border:1px solid #2a2a2a;border-radius:14px;padding:14px;color:#fff;outline:none;font-size:14px}
+input:focus{border-color:#ff0000}
+.gen{width:100%;background:linear-gradient(135deg,#ff0000,#cc0000);border:none;color:#fff;padding:14px;border-radius:16px;font-weight:800;font-size:15px;margin-top:14px;cursor:pointer}
+.grid{margin-top:20px;display:grid;grid-template-columns:1fr 1fr;gap:12px}
+.thumb{background:#151515;border:1px solid #222;border-radius:16px;overflow:hidden}
+.thumb img{width:100%;display:block}
+.thumb .info{padding:10px}
+.thumb .info b{font-size:12px;display:block}
+.thumb .info span{font-size:11px;color:#888}
+.thumb a{display:block;margin-top:8px;background:#ffffff12;border:1px solid #ffffff22;color:#fff;text-align:center;padding:8px;border-radius:10px;text-decoration:none;font-size:12px;font-weight:600}
+.thumb a:hover{background:#ff0000}
+.back{color:#999;text-decoration:none;font-size:13px}
+.footer{text-align:center;margin:24px 0;color:#444;font-size:11px}
+@media(max-width:600px){.grid{grid-template-columns:1fr}}
+</style>
+</head>
+<body>
+<div class="box">
+<a href="/" class="back">← Back to Home</a>
+<div class="head"><h1>▶️ YouTube <span>Thumbnail</span> Downloader</h1><p>Paste YouTube link → Download HD / 4K Thumbnail</p></div>
+
+<div class="card">
+<input id="ytLink" placeholder="Paste YouTube link here... Ex: https://youtu.be/dQw4w9WgXcQ">
+<button class="gen" onclick="getThumb()">🔥 Get Thumbnails</button>
+</div>
+
+<div class="grid" id="result"></div>
+<p class="footer">© TheChauhanSite • Free • No Watermark • 4K Support</p>
+</div>
+
+<script>
+function getID(url){
+  let reg = /(?:youtube\.com\/(?:watch\?v=|embed\/|shorts\/)|youtu\.be\/)([a-zA-Z0-9_-]{11})/;
+  let m = url.match(reg);
+  return m ? m[1] : null;
+}
+function getThumb(){
+  let link = document.getElementById('ytLink').value.trim();
+  let id = getID(link);
+  if(!id){alert('Sahi YouTube link daal bhai!');return;}
+  let qualities = [
+    {name:'MaxRes - 1280x720 (4K)',file:'maxresdefault.jpg',q:'HD'},
+    {name:'SD - 640x480',file:'sddefault.jpg',q:'SD'},
+    {name:'High Quality',file:'hqdefault.jpg',q:'HQ'},
+    {name:'Medium Quality',file:'mqdefault.jpg',q:'MQ'},
+    {name:'Default',file:'default.jpg',q:'Default'}
+  ];
+  let html='';
+  qualities.forEach(q=>{
+    let url=`https://img.youtube.com/vi/${id}/${q.file}`;
+    html+=`<div class="thumb"><img src="${url}" onerror="this.style.display='none'"><div class="info"><b>${q.name}</b><span>${q.file}</span><a href="${url}" download target="_blank">⬇️ Download ${q.q}</a></div></div>`;
+  });
+  document.getElementById('result').innerHTML=html;
+}
+</script>
+</body>
+</html>
