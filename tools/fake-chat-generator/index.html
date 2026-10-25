@@ -2,81 +2,54 @@
 <html lang="en">
 <head>
 <meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1">
-<title>Fake Chat Generator Pro - WhatsApp & Instagram HD Chat | TheChauhanSite</title>
-<meta name="description" content="Fake Chat Generator Pro - Create WhatsApp & Instagram fake chats in HD. Worldwide language support. Auto detects phone language. Free, no watermark, HD download.">
+<title>Fake Chat Generator Pro - WhatsApp & Instagram HD</title>
+<meta name="description" content="Fake Chat Generator Pro - WhatsApp & Instagram HD Fake Chat with auto language detect">
 <link rel="canonical" href="https://the-chauhan-site.com/tools/fake-chat-generator/">
-<meta name="robots" content="index, follow">
 <script src="https://cdn.tailwindcss.com"></script>
 <script src="https://cdn.jsdelivr.net/npm/html2canvas@1.4.1/dist/html2canvas.min.js"></script>
-<style>body{background:#0a1210;color:#fff;font-family:Inter,sans-serif}</style>
-<script type="application/ld+json">
-{"@context":"https://schema.org","@type":"SoftwareApplication","name":"Fake Chat Generator Pro","applicationCategory":"UtilitiesApplication","operatingSystem":"All","offers":{"@type":"Offer","price":"0","priceCurrency":"USD"}}
-</script>
-<script type="application/ld+json">
-{"@context":"https://schema.org","@type":"FAQPage","mainEntity":[{"@type":"Question","name":"Is This Fake Chat Generator Free","acceptedAnswer":{"@type":"Answer","text":"Yes, 100% free. No watermark, unlimited HD downloads."}},{"@type":"Question","name":"Is my data safe ?","acceptedAnswer":{"@type":"Answer","text":"Yes, all chats are created in your browser. We don't save your chats."}},{"@type":"Question","name":"How accurate is This Tool","acceptedAnswer":{"@type":"Answer","text":"100% realistic with 3x HD export."}}]}
-</script>
-<script type="application/ld+json">
-{"@context":"https://schema.org","@type":"HowTo","name":"How to use Fake Chat Generator Pro","step":[{"@type":"HowToStep","text":"Choose WhatsApp or Instagram mode"},{"@type":"HowToStep","text":"Enter name, DP and add messages"},{"@type":"HowToStep","text":"Preview live chat on right side"},{"@type":"HowToStep","text":"Click HD Image Download"}]}
-</script>
+<style>body{background:#0a1210;color:#fff}</style>
 </head>
 <body class="min-h-screen">
 <header class="flex justify-between items-center px-4 py-3 bg-[#0f1715] border-b border-[#1a2a27] sticky top-0 z-50">
-<a href="/" class="font-black text-[16px]">THE<span class="text-[#25D366]">CHAUHAN</span>SITE</a>
-<div class="flex items-center gap-2"><span class="text-[10px] bg-[#ff3b7f] px-2 py-1 rounded-full font-black">PRO</span>
-<select id="langSelect" class="bg-[#1e2f2b] border border-[#2a4a44] text-white text-[11px] font-bold px-3 py-1.5 rounded-full outline-none">
-<option value="auto">🌍 AUTO</option><option value="en">🇺🇸 English</option><option value="hi">🇮🇳 Hindi</option><option value="hinglish">Hinglish</option><option value="es">🇪🇸 Español</option><option value="fr">🇫🇷 Français</option><option value="pt">🇧🇷 Português</option><option value="de">🇩🇪 Deutsch</option><option value="ar">🇸🇦 العربية</option>
-</select></div></header>
+<a href="/" class="font-black">THE<span class="text-[#25D366]">CHAUHAN</span>SITE</a>
+<select id="langSelect" class="bg-[#1e2f2b] border border-[#2a4a44] text-white text-[11px] font-bold px-3 py-1.5 rounded-full"><option value="auto">🌍 AUTO</option><option value="en">EN</option><option value="hi">HI</option><option value="es">ES</option></select>
+</header>
 
-<div class="max-w-[1100px] mx-auto p-4">
-<nav class="text-[12px] text-[#6a8a84] mb-3"><a href="/">Home</a> > <a href="/tools/">Tool</a> > <span class="text-white">Fake Chat Generator Pro</span></nav>
-<h1 data-t="h1" class="font-black text-[24px] md:text-[32px]">Fake Chat Generator Pro - WhatsApp & Instagram</h1>
-<p data-t="subtitle" class="text-[13px] text-[#8aa8a0] mt-1">WhatsApp / Instagram fake chat banao - HD Download - Worldwide language auto-detect</p>
-
-<div class="grid md:grid-cols-2 gap-6 mt-5">
-<div class="bg-[#131d1b] rounded-[20px] border border-[#1f332e] p-5 h-fit">
-<div class="flex gap-2"><button onclick="setApp('wa')" id="bWa" class="flex-1 bg-[#25D366] text-black font-black py-2.5 rounded-xl text-[12px]">WHATSAPP</button><button onclick="setApp('insta')" id="bInsta" class="flex-1 bg-[#ffffff14] border border-[#ffffff22] font-black py-2.5 rounded-xl text-[12px]">INSTAGRAM</button></div>
+<div class="max-w-[1100px] mx-auto p-4 grid md:grid-cols-2 gap-6">
+<div class="bg-[#131d1b] rounded-[20px] border border-[#1f332e] p-5">
+<h1 class="font-black text-[20px]">💬 Fake Chat Generator Pro</h1>
+<div class="flex gap-2 mt-4"><button onclick="setApp('wa')" id="bWa" class="flex-1 bg-[#25D366] text-black font-black py-2.5 rounded-xl text-[12px]">WHATSAPP</button><button onclick="setApp('insta')" id="bInsta" class="flex-1 bg-[#ffffff14] border border-[#ffffff22] font-black py-2.5 rounded-xl text-[12px]">INSTAGRAM</button></div>
 <input id="nameInput" placeholder="Name - Khushii" class="w-full mt-4 bg-[#0b1210] border border-[#23433d] px-4 py-3 rounded-xl font-bold outline-none text-[13px]">
 <input id="dpInput" placeholder="DP Image URL paste karo" class="w-full mt-2 bg-[#0b1210] border border-[#23433d] px-4 py-3 rounded-xl outline-none text-[12px]">
-<div class="mt-4 p-3 bg-[#0b1210] rounded-xl border border-[#1f332e]"><div class="flex gap-2"><select id="sideSel" class="bg-[#131d1b] border border-[#23433d] rounded-lg px-2 text-[11px] font-bold"><option value="other">Other</option><option value="me">Me</option></select><input id="msgInput" placeholder="I love you..." class="flex-1 bg-[#131d1b] border border-[#23433d] px-3 py-2.5 rounded-lg text-[13px] outline-none"><button onclick="addMessage()" class="bg-[#ff3b7f] px-5 rounded-lg text-[11px] font-black">ADD</button></div></div>
+<div class="mt-4 p-3 bg-[#0b1210] rounded-xl border border-[#1f332e]"><div class="flex gap-2"><select id="sideSel" class="bg-[#131d1b] border border-[#23433d] rounded-lg px-2 text-[11px] font-bold"><option value="other">Other</option><option value="me">Me</option></select><input id="msgInput" placeholder="Heyyy..." class="flex-1 bg-[#131d1b] border border-[#23433d] px-3 py-2.5 rounded-lg text-[13px] outline-none"><button onclick="addMessage()" class="bg-[#ff3b7f] px-5 rounded-lg text-[11px] font-black">ADD</button></div></div>
 <button onclick="downloadChat()" id="dlBtn" class="w-full mt-4 bg-[#25D366] text-black py-3.5 rounded-xl font-black text-[13px]">📸 HD IMAGE DOWNLOAD</button>
-<p class="text-[10px] text-center text-[#5a7a72] mt-2">1 click me gallery me save hoga</p></div>
+</div>
 
 <div class="bg-[#e5ddd5] rounded-[30px] p-2 max-w-[360px] mx-auto w-full">
 <div id="previewBox" class="bg-[#ece5dd] rounded-[26px] overflow-hidden border-[6px] border-black min-h-[600px] flex flex-col">
-<div id="previewHeader" class="bg-[#075e54] text-white flex items-center gap-3 px-4 py-3"><img id="pDp" src="https://i.pravatar.cc/100?img=32" class="w-8 h-8 rounded-full object-cover"><div><div id="pName" class="font-bold text-[13px]">Khushii</div><div class="text-[10px] opacity-80">online</div></div></div>
-<div id="pChats" class="flex-1 p-3 space-y-2 bg-[#e5ddd5]"></div><div class="bg-[#f0f0f0] p-2 text-[10px] text-[#999] text-center">TheChauhanSite.com</div></div></div></div>
+<div id="previewHeader" class="bg-[#075e54] text-white flex items-center gap-3 px-4 py-3"><img id="pDp" src="https://i.pravatar.cc/100?img=32" crossorigin="anonymous" class="w-8 h-8 rounded-full"><div><div id="pName" class="font-bold text-[13px]">Khushii</div><div class="text-[10px] opacity-80">online</div></div></div>
+<div id="pChats" class="flex-1 p-3 space-y-2 bg-[#e5ddd5]"></div>
+<div class="bg-[#f0f0f0] p-2 text-[10px] text-[#999] text-center">TheChauhanSite.com</div>
+</div>
+</div>
+</div>
 
-<div class="mt-12 max-w-[800px] space-y-6 text-[#c8ddd8]">
-<h2 data-t="what_title" class="text-[22px] font-bold text-white">What is Fake Chat Generator Pro?</h2>
-<p data-t="what_p" class="text-[14px] leading-[26px]">Fake Chat Generator Pro is a free worldwide tool to create realistic WhatsApp and Instagram fake chats in HD. Unlike other tools, our Pro version auto-detects your phone language. If a user from Spain opens it, the interface shows in Spanish (Español). If India opens, it shows Hindi / Hinglish / English. This helps in Google worldwide SEO. All generation happens in your browser, so your data is 100% safe and private. You can create funny chats, love chats, prank chats for YouTube, Instagram reels and memes without any watermark.</p>
-<h2 data-t="how_title" class="text-[22px] font-bold text-white">How to use Fake Chat Generator Pro? (3-4 Step)</h2>
-<ol class="list-decimal pl-5 space-y-2 text-[14px] leading-[26px]"><li data-t="step1"><b>Step 1:</b> Select WhatsApp or Instagram mode from top.</li><li data-t="step2"><b>Step 2:</b> Enter name, DP URL and choose side - Me or Other. Type your message and click ADD.</li><li data-t="step3"><b>Step 3:</b> Live preview will show on mobile screen on right side. Add as many messages as you want.</li><li data-t="step4"><b>Step 4:</b> Click HD IMAGE DOWNLOAD button. Your HD chat image (3x quality) will be saved to gallery in 1 click.</li></ol>
-<h2 data-t="feat_title" class="text-[22px] font-bold text-white">Features / Benefits</h2>
-<ul class="list-disc pl-5 space-y-2 text-[14px] leading-[26px]"><li data-t="f1">Worldwide Language Auto-Detect - Spain=Spanish, India=Hindi/English, France=French</li><li data-t="f2">WhatsApp + Instagram both modes with original colors and fonts</li><li data-t="f3">HD Download with html2canvas 3x scale - No blur for YouTube thumbnail</li><li data-t="f4">100% Safe & Private - No data saved on server</li><li data-t="f5">Mobile Friendly & Fast - Works on Android, iPhone, PC</li></ul>
-<h2 class="text-[20px] font-bold text-white mt-8">FAQ</h2>
-<div class="space-y-3"><details class="bg-[#131d1b] p-4 rounded-xl border border-[#1f332e]"><summary class="font-bold text-[13px] cursor-pointer" data-t="q1">Q1. is This Fake Chat Generator Free</summary><p class="text-[13px] mt-2 text-[#8aa8a0]" data-t="a1">Yes, Pro version is 100% free forever. No login, no limit, no watermark.</p></details><details class="bg-[#131d1b] p-4 rounded-xl border border-[#1f332e]"><summary class="font-bold text-[13px] cursor-pointer" data-t="q2">Q2. is my data safe ?</summary><p class="text-[13px] mt-2 text-[#8aa8a0]" data-t="a2">Yes, your chat, name, DP is never uploaded. Everything runs locally in your browser.</p></details><details class="bg-[#131d1b] p-4 rounded-xl border border-[#1f332e]"><summary class="font-bold text-[13px] cursor-pointer" data-t="q3">Q3. How accurate is This Tool</summary><p class="text-[13px] mt-2 text-[#8aa8a0]" data-t="a3">99.9% accurate with real WhatsApp green header and Instagram gradient. HD export perfect for YouTube and Reels.</p></details></div>
-<p class="text-[11px] text-[#5a7a72] mt-6">Last update date: <span id="lastDate"></span> | Worldwide SEO Optimized</p>
-<div class="mt-8 border-t border-[#1a2a27] pt-5"><p class="text-[13px] font-bold">Niche other Tool Ke Name:</p><div class="flex flex-wrap gap-2 mt-3"><a href="/tools/youtube-thumbnail-downloader/" class="bg-[#1f332e] px-3 py-2 rounded-lg text-[12px]">YouTube Thumbnail Downloader</a><a href="/tools/instagram-font-generator/" class="bg-[#1f332e] px-3 py-2 rounded-lg text-[12px]">Instagram Font Generator Pro</a><a href="/tools/ai-youtube-title-generator/" class="bg-[#1f332e] px-3 py-2 rounded-lg text-[12px]">AI Title Generator</a></div></div>
-<div class="mt-10 flex flex-wrap justify-center gap-4 text-[11px] text-[#6a8a84] border-t border-[#1a2a27] pt-6"><a href="/about/">About</a><a href="/contact/">Contact</a><a href="/privacy-policy/">Privacy Policy</a><a href="/terms/">Terms</a><a href="/disclaimer/">Disclaimer</a></div></div></div>
+<!-- SEO CONTENT - NE NICHE -->
+<div class="max-w-[800px] mx-auto p-4 text-[#c8ddd8] space-y-4 mt-8">
+<h2 class="text-white font-bold text-[20px]">What is Fake Chat Generator Pro?</h2>
+<p class="text-[14px] leading-6">Free worldwide tool to create WhatsApp & Instagram fake chats in HD. Auto detects phone language - Spain=Spanish, India=Hindi. 100% safe, browser based.</p>
+<h2 class="text-white font-bold text-[20px]">How to use? 4 Steps</h2>
+<ol class="list-decimal pl-5 text-[14px]"><li>Select WhatsApp/Instagram</li><li>Enter Name & DP</li><li>Type Message and click ADD</li><li>Click HD Download</li></ol>
+<p class="text-[11px] text-[#5a7a72]">Last update: <span id="lastDate"></span></p>
+</div>
 
 <script>
-const T = {
- en: {h1:"Fake Chat Generator Pro - WhatsApp & Instagram",subtitle:"WhatsApp / Instagram fake chat banao - HD Download - Auto language by phone",what_title:"What is Fake Chat Generator Pro?",what_p:"Fake Chat Generator Pro is a free worldwide tool to create realistic WhatsApp and Instagram fake chats in HD. Unlike other tools, our Pro version auto-detects your phone language. If a user from Spain opens it, the interface shows in Spanish. If India opens, it shows Hindi / Hinglish / English.",how_title:"How to use Fake Chat Generator Pro? (3-4 Step)",step1:"Step 1: Select WhatsApp or Instagram mode from top.",step2:"Step 2: Enter name, DP URL and choose side - Me or Other. Type your message and click ADD.",step3:"Step 3: Live preview will show on mobile screen on right side. Add as many messages as you want.",step4:"Step 4: Click HD IMAGE DOWNLOAD button. Your HD chat image will be saved to gallery in 1 click.",feat_title:"Features / Benefits",f1:"Worldwide Language Auto-Detect",f2:"WhatsApp + Instagram both modes",f3:"HD Download with 3x scale",f4:"100% Safe & Private",f5:"Mobile Friendly & Fast",q1:"Q1. is This Fake Chat Generator Free",a1:"Yes, Pro version is 100% free forever.",q2:"Q2. is my data safe ?",a2:"Yes, your chat, name, DP is never uploaded.",q3:"Q3. How accurate is This Tool",a3:"99.9% accurate with real header."},
- hi: {h1:"फेक चैट जनरेटर प्रो - WhatsApp & Instagram",subtitle:"WhatsApp / Instagram फेक चैट बनाओ - HD डाउनलोड - फोन की भाषा ऑटो",what_title:"फेक चैट जनरेटर प्रो क्या है?",what_p:"यह दुनिया भर के लिए फ्री टूल है जिससे आप HD में असली जैसे WhatsApp और Instagram चैट बना सकते हो। स्पेन वाला खोले तो स्पेनिश, इंडिया वाला खोले तो हिंदी में दिखेगा।",how_title:"कैसे इस्तेमाल करें?",step1:"स्टेप 1: ऊपर से WhatsApp या Instagram मोड चुनें।",step2:"स्टेप 2: नाम, DP डालें और मैसेज लिखकर ADD दबाएं।",step3:"स्टेप 3: दायीं तरफ मोबाइल में लाइव चैट दिखेगा।",step4:"स्टेप 4: HD IMAGE DOWNLOAD दबाएं, फोटो गैलरी में सेव हो जाएगा।",feat_title:"फीचर्स / फायदे",f1:"दुनिया भर की भाषा ऑटो - स्पेन=स्पेनिश, इंडिया=हिंदी",f2:"WhatsApp + Instagram दोनों मोड",f3:"HD डाउनलोड - बिना धुंधला हुए",f4:"100% सेफ - कोई डेटा सेव नहीं",f5:"मोबाइल फ्रेंडली और तेज",q1:"Q1. क्या यह फ्री है",a1:"हाँ, 100% फ्री है, कोई वॉटरमार्क नहीं।",q2:"Q2. क्या मेरा डेटा सेफ है ?",a2:"हाँ, सब कुछ आपके फोन में ही होता है।",q3:"Q3. कितना सही है यह टूल",a3:"99.9% असली जैसा दिखता है।"}},
- es: {h1:"Generador de Chat Falso Pro - WhatsApp & Instagram",subtitle:"Crea chats falsos de WhatsApp / Instagram - Descarga HD - Idioma automático",what_title:"¿Qué es Generador de Chat Falso Pro?",what_p:"Es una herramienta gratuita mundial para crear chats falsos realistas de WhatsApp e Instagram en HD. Si alguien de España lo abre, se muestra en español.",how_title:"¿Cómo usar? (3-4 Pasos)",step1:"Paso 1: Selecciona modo WhatsApp o Instagram.",step2:"Paso 2: Ingresa nombre, foto y agrega mensajes.",step3:"Paso 3: Vista previa en vivo en pantalla móvil.",step4:"Paso 4: Haz clic en Descarga HD y se guardará.",feat_title:"Características / Beneficios",f1:"Detección automática de idioma mundial",f2:"Modos WhatsApp + Instagram",f3:"Descarga HD 3x sin desenfoque",f4:"100% Seguro y Privado",f5:"Compatible con móvil",q1:"Q1. ¿Es gratis?",a1:"Sí, 100% gratis para siempre.",q2:"Q2. ¿Mis datos están seguros?",a2:"Sí, todo funciona en tu navegador.",q3:"Q3. ¿Qué tan preciso es?",a3:"99.9% realista con colores oficiales."}
-};
-T.hinglish=T.hi; T.fr=T.en; T.pt=T.en; T.de=T.en; T.ar=T.en;
-function applyLang(l){if(l==='auto'){let nav=navigator.language.slice(0,2); if(nav==='es') l='es'; else if(nav==='hi') l='hi'; else l='en';} if(!T[l]) l='en'; document.getElementById('langSelect').value=l; document.querySelectorAll('[data-t]').forEach(el=>{let key=el.getAttribute('data-t'); if(T[l][key]) el.textContent=T[l][key];}); document.documentElement.lang=l; localStorage.setItem('worldLang', l);}
-(function(){let saved=localStorage.getItem('worldLang')||'auto'; if(saved==='auto'){let nav=navigator.language.slice(0,2); if(['es','hi'].includes(nav)) saved=nav; else saved='en'; document.getElementById('langSelect').value='auto'; applyLang(saved);} else applyLang(saved);})();
-document.getElementById('langSelect').addEventListener('change', e=>{let v=e.target.value; if(v==='auto') localStorage.removeItem('worldLang'); applyLang(v);});
-let chats=[];function setApp(a){document.getElementById('bWa').className=a=='wa'?'flex-1 bg-[#25D366] text-black font-black py-2.5 rounded-xl text-[12px]':'flex-1 bg-[#ffffff14] border border-[#ffffff22] font-black py-2.5 rounded-xl text-[12px]';document.getElementById('bInsta').className=a=='insta'?'flex-1 bg-gradient-to-r from-[#feda75] via-[#ff3b7f] to-[#a855f7] text-white font-black py-2.5 rounded-xl text-[12px]':'flex-1 bg-[#ffffff14] border border-[#ffffff22] font-black py-2.5 rounded-xl text-[12px]';document.getElementById('previewHeader').className=a=='wa'?'bg-[#075e54] text-white flex items-center gap-3 px-4 py-3':'bg-white text-black flex items-center gap-3 px-4 py-3 border-b';}
-document.getElementById('nameInput').addEventListener('input', e=>document.getElementById('pName').textContent=e.target.value||'Khushii');
-document.getElementById('dpInput').addEventListener('input', e=>{if(e.target.value) document.getElementById('pDp').src=e.target.value});
-function render(){let box=document.getElementById('pChats'); box.innerHTML=''; chats.forEach(c=>{let d=document.createElement('div'); d.className=c.side=='me'?'bg-[#dcf8c6] text-black text-[12px] px-3 py-2 rounded-l-[14px] rounded-br-[14px] max-w-[75%] ml-auto shadow':'bg-white text-black text-[12px] px-3 py-2 rounded-r-[14px] rounded-bl-[14px] max-w-[75%] shadow'; d.textContent=c.text; box.appendChild(d);}); if(chats.length==0){box.innerHTML=`<div class="bg-white text-black text-[12px] px-3 py-2 rounded-r-[12px] rounded-bl-[12px] max-w-[70%] shadow">Hey bro, kya haal hai? 😎</div><div class="bg-[#dcf8c6] text-black text-[12px] px-3 py-2 rounded-l-[12px] rounded-br-[12px] max-w-[70%] ml-auto shadow">Mast bhai!</div>`;}}
-function addMessage(){let txt=document.getElementById('msgInput').value.trim(); let side=document.getElementById('sideSel').value; if(!txt) return; chats.push({text:txt, side:side}); document.getElementById('msgInput').value=''; render();}
-document.getElementById('msgInput').addEventListener('keypress', e=>{if(e.key==='Enter') addMessage()});
-function downloadChat(){let btn=document.getElementById('dlBtn'); btn.textContent='⏳ Generating HD...'; html2canvas(document.getElementById('previewBox'), {scale:3, useCORS:true}).then(canvas=>{let link=document.createElement('a'); link.download='fake-chat-TheChauhanSite-'+Date.now()+'.png'; link.href=canvas.toDataURL('image/png'); link.click(); btn.textContent='📸 HD IMAGE DOWNLOAD';});}
-render(); document.getElementById('lastDate').textContent=new Date().toLocaleDateString('en-GB',{day:'2-digit',month:'short',year:'numeric'});
+let chats=[];
+function setApp(a){document.getElementById('bWa').className=a=='wa'?'flex-1 bg-[#25D366] text-black font-black py-2.5 rounded-xl text-[12px]':'flex-1 bg-[#ffffff14] border border-[#ffffff22] font-black py-2.5 rounded-xl text-[12px]';document.getElementById('bInsta').className=a=='insta'?'flex-1 bg-gradient-to-r from-[#feda75] via-[#ff3b7f] to-[#a855f7] text-white font-black py-2.5 rounded-xl text-[12px]':'flex-1 bg-[#ffffff14] border border-[#ffffff22] font-black py-2.5 rounded-xl text-[12px]';document.getElementById('previewHeader').className=a=='wa'?'bg-[#075e54] text-white flex items-center gap-3 px-4 py-3':'bg-white text-black flex items-center gap-3 px-4 py-3 border-b';}
+function render(){let box=document.getElementById('pChats');box.innerHTML='';if(chats.length===0){box.innerHTML='<div class="bg-white text-black text-[12px] px-3 py-2 rounded-r-[12px] max-w-[70%] shadow">Hey bro, kya haal hai? 😎</div>';return;}chats.forEach(c=>{let d=document.createElement('div');d.className=c.side=='me'?'bg-[#dcf8c6] text-black text-[12px] px-3 py-2 rounded-l-[14px] rounded-br-[14px] max-w-[75%] ml-auto shadow':'bg-white text-black text-[12px] px-3 py-2 rounded-r-[14px] rounded-bl-[14px] max-w-[75%] shadow';d.textContent=c.text;box.appendChild(d);});}
+function addMessage(){let inp=document.getElementById('msgInput');let txt=inp.value.trim();let side=document.getElementById('sideSel').value;if(!txt)return;chats.push({text:txt,side:side});inp.value='';render();}
+function downloadChat(){let btn=document.getElementById('dlBtn');btn.textContent='⏳ Generating...';html2canvas(document.getElementById('previewBox'),{scale:2,useCORS:true,allowTaint:true,backgroundColor:null}).then(canvas=>{let link=document.createElement('a');link.download='fake-chat-'+Date.now()+'.png';link.href=canvas.toDataURL('image/png');link.click();btn.textContent='📸 HD IMAGE DOWNLOAD';}).catch(e=>{alert('Download error: DP URL me CORS hai, DP khali chhod ke try karo');btn.textContent='📸 HD IMAGE DOWNLOAD';});}
+document.addEventListener('DOMContentLoaded',()=>{document.getElementById('nameInput').addEventListener('input',e=>{document.getElementById('pName').textContent=e.target.value||'Khushii';});document.getElementById('dpInput').addEventListener('input',e=>{if(e.target.value)document.getElementById('pDp').src=e.target.value;});document.getElementById('msgInput').addEventListener('keypress',e=>{if(e.key==='Enter')addMessage();});render();document.getElementById('lastDate').textContent=new Date().toLocaleDateString();});
 </script>
 </body>
 </html>
