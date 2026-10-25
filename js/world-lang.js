@@ -1,3 +1,11 @@
+// Auto Favicon for all pages - TheChauhanSite
+(function(){
+  if(!document.querySelector("link[rel='icon']")){
+    var f1=document.createElement('link'); f1.rel='icon'; f1.type='image/png'; f1.href='/favicon.png'; document.head.appendChild(f1);
+    var f2=document.createElement('link'); f2.rel='apple-touch-icon'; f2.href='/favicon.png'; document.head.appendChild(f2);
+  }
+})();
+// --- original code starts below ---
 // TheChauhanSite - World Language System - 12 Countries
 const LANG_DATA = {
   hi: {title:"इंस्टाग्राम फॉन्ट प्रो", sub:"अपना नाम लिखो - 100+ फॉन्ट", ph:"अपना नाम लिखो...", btn:"बनाओ", empty:"👆 ऊपर नाम लिखो"},
