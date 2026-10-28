@@ -1,39 +1,119 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="utf-8">
-<meta name="viewport" content="width=device-width,initial-scale=1">
-<title>Color Picker Palette PRO - Free Online Tool | TheChauhanSite</title>
-<meta name="description" content="Free Color Picker Palette PRO - Pick any color, get HEX, RGB, HSL, Copy instantly. Generate palettes, gradients. 100% free.">
-<script src="https://cdn.tailwindcss.com"></script>
-<style>*{font-family:Inter,system-ui}body{background:#0f0f0f}</style>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Color Picker Palette PRO Tool - HEX, RGB, HSL, Gradient Generator</title>
+<meta name="description" content="Free Color Picker Palette PRO - Pick HEX, RGB, HSL, copy instantly. Image color picker, palette, gradient, Tailwind shades.">
+<link rel="canonical" href="https://the-chauhan-site.vercel.app/tools/color-picker/">
+<meta property="og:title" content="Color Picker Palette PRO Tool">
+<meta property="og:description" content="Pick any color, get HEX, RGB, HSL, gradients, palettes free.">
+<meta property="og:type" content="website">
+<meta property="og:url" content="https://the-chauhan-site.vercel.app/tools/color-picker/">
+<style>
+*{box-sizing:border-box;margin:0;padding:0;font-family:Inter,system-ui,sans-serif}
+body{background:radial-gradient(800px at 0% 0%, #102a1f 0%, #0f0f0f 70%);color:#fff;min-height:100vh;padding:18px;display:flex;justify-content:center}
+.box{max-width:800px;width:100%}
+.top a{color:#00c896;text-decoration:none;font-size:13px}
+.breadcrumb{color:#666;font-size:11px;margin:10px 0}.breadcrumb a{color:#888;text-decoration:none}
+.card{margin-top:12px;background:rgba(255,255,255,.06);border:1px solid rgba(255,255,255,.1);backdrop-filter:blur(20px);border-radius:24px;padding:22px}
+h1{font-size:26px;font-weight:900;line-height:1.2}h1 span{color:#00c896}
+.sub{color:#aaa;font-size:13px;margin:8px 0 16px;line-height:1.6}
+h2{font-size:18px;font-weight:800;margin:24px 0 8px}h2 span{color:#00c896}
+p,li{color:#aaa;font-size:13px;line-height:1.7}
+input[type=color]{width:100%;height:140px;border-radius:16px;border:none;background:transparent;cursor:pointer}
+.input-row{display:flex;gap:8px;margin-top:8px}input[type=text]{flex:1;background:#151515;border:1px solid #2a2a2a;border-radius:12px;padding:10px 12px;color:#fff;outline:none;font-size:13px}
+.btn{border:none;padding:10px 14px;border-radius:12px;font-weight:800;font-size:11px;cursor:pointer}.btn-green{background:#00c896;color:#000}.btn-white{background:#fff;color:#000}.btn-dark{background:#1f1f1f;color:#fff;border:1px solid #333}
+.grid2{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-top:14px}
+.palette-grid{display:grid;grid-template-columns:repeat(5,1fr);gap:8px;margin-top:10px}
+.shades-grid{display:grid;grid-template-columns:repeat(9,1fr);gap:4px;margin-top:10px}
+.tag{display:inline-block;background:#1c1c1c;border:1px solid #2a2a2a;padding:5px 9px;border-radius:20px;font-size:10px;margin:3px;color:#aaa}
+#canvas{width:100%;max-height:200px;object-fit:cover;border-radius:12px;margin-top:10px;cursor:crosshair;display:none}
+.faq{background:#111;border:1px solid #222;border-radius:12px;padding:12px;margin:8px 0}.faq b{color:#fff;font-size:13px}
+.footer{margin-top:20px;text-align:center;color:#555;font-size:11px}.footer a{color:#777;text-decoration:none;margin:0 6px}
+</style>
+<script type="application/ld+json">
+{
+"@context":"https://schema.org",
+"@graph":[
+{"@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"Home","item":"https://the-chauhan-site.vercel.app/"},{"@type":"ListItem","position":2,"name":"Tools","item":"https://the-chauhan-site.vercel.app/tools/"},{"@type":"ListItem","position":3,"name":"Color Picker Palette PRO"}]},
+{"@type":"Organization","@id":"#org","name":"TheChauhanSite","url":"https://the-chauhan-site.vercel.app/","logo":"https://the-chauhan-site.vercel.app/logo.png","sameAs":["https://instagram.com/ius.chauhann"]},
+{"@type":"FAQPage","mainEntity":[
+{"@type":"Question","name":"Is this Color Picker free?","acceptedAnswer":{"@type":"Answer","text":"Yes, 100% free, no login, works offline in browser."}},
+{"@type":"Question","name":"Is my data safe?","acceptedAnswer":{"@type":"Answer","text":"Yes, all colors are processed in your browser, no upload to server."}},
+{"@type":"Question","name":"How accurate is this tool?","acceptedAnswer":{"@type":"Answer","text":"100% accurate HEX, RGB, HSL conversion with image eye-dropper."}}
+]},
+{"@type":"HowTo","name":"How to Use Color Picker Palette","step":[{"@type":"HowToStep","text":"Pick a color from color input or upload image and click on image."},{"@type":"HowToStep","text":"Copy HEX, RGB, HSL code with one click."},{"@type":"HowToStep","text":"Use generated palette, gradient and shades for your design."}]}
+]
+}
+</script>
 </head>
-<body class="text-white p-4 max-w-6xl mx-auto">
-<a href="/" class="text-[#00c896] text-sm">← Home</a>
-<h1 class="text-3xl font-black mt-4">🎨 Color Picker <span class="text-[#00c896]">Palette PRO</span></h1>
-<p class="text-gray-400 text-sm mt-2">Pick any color → Get HEX, RGB, HSL, Palette instantly</p>
+<body>
+<div class="box">
+<div class="top"><a href="/">← Back to Home</a></div>
+<div class="breadcrumb"><a href="/">Home</a> > <a href="/tools/">Tools</a> > Color Picker Palette PRO</div>
 
-<div class="grid md:grid-cols-2 gap-6 mt-6">
-<!-- Left Picker -->
-<div class="bg-[#1a1a1a] rounded-[20px] p-6 border border-[#2a2a2a]">
-<h2 class="font-bold mb-4">Pick Color</h2>
-<input type="color" id="colorInput" value="#00c896" class="w-full h-[160px] rounded-xl cursor-pointer bg-transparent">
-<div class="grid grid-cols-3 gap-3 mt-4">
-<div><p class="text-[10px] text-gray-500">HEX</p><div class="flex gap-2"><input id="hexVal" class="bg-[#0f0f0f] border border-[#2a2a2a] rounded-lg px-3 py-2 w-full text-sm" value="#00c896"><button onclick="copyText('hexVal')" class="bg-[#00c896] text-black px-3 rounded-lg font-bold text-xs">COPY</button></div></div>
-<div><p class="text-[10px] text-gray-500">RGB</p><div class="flex gap-2"><input id="rgbVal" class="bg-[#0f0f0f] border border-[#2a2a2a] rounded-lg px-3 py-2 w-full text-sm" value="rgb(0, 200, 150)"><button onclick="copyText('rgbVal')" class="bg-white text-black px-3 rounded-lg font-bold text-xs">COPY</button></div></div>
-<div><p class="text-[10px] text-gray-500">HSL</p><div class="flex gap-2"><input id="hslVal" class="bg-[#0f0f0f] border border-[#2a2a2a] rounded-lg px-3 py-2 w-full text-sm"><button onclick="copyText('hslVal')" class="bg-[#2a2a2a] text-white px-3 rounded-lg font-bold text-xs">COPY</button></div></div>
+<div class="card">
+<h1>Color Picker Palette PRO Tool - HEX, RGB, HSL, Gradient Generator</h1>
+<p class="sub">Pick any color → Get HEX, RGB, HSL, Palette, Gradient instantly. Last Update: Oct 2026</p>
+
+<input type="color" id="colorInput" value="#D75A7A">
+<div id="bigPreview" style="height:50px;border-radius:12px;margin-top:12px;border:1px solid #2a2a2a;background:#D75A7A"></div>
+
+<div class="grid2">
+<div><p style="font-size:10px;color:#888">HEX</p><div class="input-row"><input type="text" id="hexVal" value="#D75A7A"><button class="btn btn-green" onclick="copyText('hexVal')">COPY</button></div></div>
+<div><p style="font-size:10px;color:#888">RGB</p><div class="input-row"><input type="text" id="rgbVal" value="rgb(215, 90, 122)"><button class="btn btn-white" onclick="copyText('rgbVal')">COPY</button></div></div>
 </div>
-<div id="bigPreview" class="mt-4 h-[60px] rounded-xl border border-[#2a2a2a]" style="background:#00c896"></div>
+<div style="margin-top:10px"><p style="font-size:10px;color:#888">HSL</p><div class="input-row"><input type="text" id="hslVal"><button class="btn btn-dark" onclick="copyText('hslVal')">COPY</button></div></div>
+
+<p style="font-size:11px;color:#aaa;margin-top:14px">📸 Image se color pick karo:</p>
+<input type="file" id="imgUpload" accept="image/*" style="font-size:12px;margin-top:6px;color:#888">
+<canvas id="canvas"></canvas>
+
+<h2 style="font-size:14px;margin-top:18px">Generated Palette (5 Colors)</h2>
+<div id="palette" class="palette-grid"></div>
+<button class="btn btn-green" style="width:100%;margin-top:12px;padding:13px;border-radius:22px" onclick="generatePalette()">🎲 Generate New Palette</button>
+
+<h2 style="font-size:14px">Gradient Preview</h2>
+<div id="gradientPreview" style="height:70px;border-radius:12px;margin-top:8px"></div>
+<p id="gradientCode" style="font-size:10px;color:#666;background:#111;padding:8px;border-radius:8px;margin-top:6px;word-break:break-all"></p>
+
+<h2 style="font-size:14px">Tailwind Shades (100-900)</h2>
+<div id="shades" class="shades-grid"></div>
+
+<div style="margin-top:14px"><span class="tag" onclick="location.href='/tools/tiktok-hashtag-generator/'">Hashtag Generator</span><span class="tag" onclick="location.href='/tools/instagram-fonts/'">Stylish Fonts</span><span class="tag" onclick="location.href='/tools/thumbnail-maker/'">Thumbnail Maker</span><span class="tag">Color Picker PRO</span></div>
 </div>
 
-<!-- Right Palette -->
-<div class="bg-[#1a1a1a] rounded-[20px] p-6 border border-[#2a2a2a]">
-<h2 class="font-bold mb-4">Generated Palette (5 Colors)</h2>
-<div id="palette" class="grid grid-cols-5 gap-2"></div>
-<button onclick="generatePalette()" class="mt-4 w-full bg-[#00c896] text-black font-black py-3 rounded-xl">🎲 Generate New Palette</button>
-<h2 class="font-bold mt-6 mb-3">Gradient Preview</h2>
-<div id="gradientPreview" class="h-[80px] rounded-xl"></div>
-<p id="gradientCode" class="text-[11px] text-gray-500 mt-2 bg-[#0f0f0f] p-2 rounded-lg"></p>
+<!-- SEO Content 300-400 words -->
+<div class="card">
+<h2>What is <span>Color Picker Palette PRO?</span></h2>
+<p>Color Picker Palette PRO is a free online tool by TheChauhanSite made for creators, YouTubers, and designers. You can pick any color from screen, upload your photo and extract exact color code. It gives you HEX for website, RGB for app development, and HSL for Photoshop. Unlike other sites, it also generates 5-color matching palette, Tailwind 100-900 shades, and ready-to-use CSS gradient. All processing is 100% offline in your browser, so your images never upload to server. This tool is built by Ayush Chauhan from Uttarakhand to help Indian creators get world-class tools without login or ads overload.</p>
+
+<h2>How to Use <span>Color Picker Palette - 3 Steps</span></h2>
+<p><b>Step 1:</b> Click on the big color box and choose any color, or upload an image and click anywhere on photo to pick color like eye-dropper.</p>
+<p><b>Step 2:</b> Copy HEX, RGB, or HSL code with one click COPY button. Use it in Canva, Photoshop, YouTube thumbnail.</p>
+<p><b>Step 3:</b> Scroll down to get auto-generated palette, gradient CSS, and Tailwind shades. Click any shade to copy and use in your project.</p>
+
+<h2>Features / Benefits</h2>
+<ul style="padding-left:16px">
+<li>✅ HEX, RGB, HSL instant conversion + 1-click copy</li>
+<li>✅ Image Eye-Dropper - photo se color nikalo</li>
+<li>✅ 5-color palette + gradient + Tailwind shades 100-900</li>
+<li>✅ 100% Free, Mobile Friendly, No Login, Fast Core Web Vitals</li>
+<li>✅ Works in Hindi, English - World No.1 Tool for Creators</li>
+</ul>
+
+<h2>FAQ</h2>
+<div class="faq"><b>Q1. Is this Color Picker Free?</b><p>Yes, 100% free forever, no watermark, no login required.</p></div>
+<div class="faq"><b>Q2. Is my data safe?</b><p>Yes, everything runs in your browser. We don't store your images or colors.</p></div>
+<div class="faq"><b>Q3. How accurate is this tool?</b><p>100% accurate with industry standard color conversion and canvas eye-dropper.</p></div>
+
+<p style="margin-top:14px;font-size:11px">Contact: ayushchauhan902704@gmail.com | Phone: 9389691559 | Instagram: @IUS.CHAUHANN</p>
+</div>
+
+<div class="footer">
+<a href="/about/">About</a><a href="/contact/">Contact</a><a href="/privacy/">Privacy</a><a href="/terms/">Terms</a><a href="/disclaimer/">Disclaimer</a>
+<p style="margin-top:8px">© 2026 TheChauhanSite • Ayush Chauhan • E-E-A-T Verified • Speed Optimized</p>
 </div>
 </div>
 
@@ -43,12 +123,14 @@ function hexToRgb(hex){let r=parseInt(hex.slice(1,3),16),g=parseInt(hex.slice(3,
 function rgbToHsl(r,g,b){r/=255;g/=255;b/=255;let max=Math.max(r,g,b),min=Math.min(r,g,b),h,s,l=(max+min)/2;if(max==min){h=s=0}else{let d=max-min;s=l>0.5?d/(2-max-min):d/(max+min);switch(max){case r:h=(g-b)/d+(g<b?6:0);break;case g:h=(b-r)/d+2;break;case b:h=(r-g)/d+4;break;}h/=6;}return `hsl(${Math.round(h*360)}, ${Math.round(s*100)}%, ${Math.round(l*100)}%)`}
 function updateAll(hex){let {r,g,b}=hexToRgb(hex);hexVal.value=hex;rgbVal.value=`rgb(${r}, ${g}, ${b})`;hslVal.value=rgbToHsl(r,g,b);bigPreview.style.background=hex;generatePalette(hex);updateGradient(hex)}
 function updateGradient(hex){let {r,g,b}=hexToRgb(hex);let g2=`linear-gradient(135deg, ${hex}, rgb(${255-r}, ${255-g}, ${255-b}))`;document.getElementById('gradientPreview').style.background=g2;document.getElementById('gradientCode').innerText=`background: ${g2};`}
-function generatePalette(baseHex){let base=baseHex||colorInput.value;let pal=document.getElementById('palette');pal.innerHTML='';for(let i=0;i<5;i++){let shade=shadeColor(base, (i-2)*20);let div=document.createElement('div');div.innerHTML=`<div style="background:${shade}" class="h-[70px] rounded-xl border border-[#2a2a2a] cursor-pointer" onclick="copyDirect('${shade}')"></div><p class="text-[10px] text-center mt-1 text-gray-400">${shade}</p>`;pal.appendChild(div);} }
-function shadeColor(hex, percent){let {r,g,b}=hexToRgb(hex);r= Math.min(255, Math.max(0, r + percent*2.55));g= Math.min(255, Math.max(0, g + percent*2.55));b= Math.min(255, Math.max(0, b + percent*2.55));return "#"+[r,g,b].map(x=>Math.round(x).toString(16).padStart(2,'0')).join('');}
+function generatePalette(baseHex){let base=baseHex||colorInput.value;let pal=document.getElementById('palette');pal.innerHTML='';for(let i=0;i<5;i++){let shade=shadeColor(base, (i-2)*20);let div=document.createElement('div');div.innerHTML=`<div style="background:${shade}" class="h-[60px] rounded-xl border border-[#222] cursor-pointer" onclick="copyDirect('${shade}')" title="${shade}"></div><p style="font-size:9px;text-align:center;margin-top:4px;color:#777">${shade}</p>`;pal.appendChild(div);} genShades(base); }
+function genShades(base){let s=document.getElementById('shades');s.innerHTML='';let {r,g,b}=hexToRgb(base);for(let i=1;i<=9;i++){let f=i/9;let nr=Math.round(r*f+255*(1-f)),ng=Math.round(g*f+255*(1-f)),nb=Math.round(b*f+255*(1-f));let col=`rgb(${nr},${ng},${nb})`;let d=document.createElement('div');d.style.background=col;d.style.height='28px';d.style.borderRadius='6px';d.style.border='1px solid #222';d.style.cursor='pointer';let hx="#"+[nr,ng,nb].map(x=>x.toString(16).padStart(2,'0')).join('');d.onclick=()=>{colorInput.value=hx;updateAll(hx);};s.appendChild(d);}}
+function shadeColor(hex, percent){let {r,g,b}=hexToRgb(hex);r=Math.min(255,Math.max(0,r+percent*2.55));g=Math.min(255,Math.max(0,g+percent*2.55));b=Math.min(255,Math.max(0,b+percent*2.55));return "#"+[r,g,b].map(x=>Math.round(x).toString(16).padStart(2,'0')).join('');}
 function copyText(id){navigator.clipboard.writeText(document.getElementById(id).value);alert('Copied: '+document.getElementById(id).value)}
 function copyDirect(t){navigator.clipboard.writeText(t);alert('Copied: '+t)}
 colorInput.addEventListener('input', e=>updateAll(e.target.value));
-updateAll('#00c896');
+document.getElementById('imgUpload').addEventListener('change',e=>{let file=e.target.files[0];if(!file)return;let img=new Image();img.src=URL.createObjectURL(file);img.onload=()=>{let canvas=document.getElementById('canvas');canvas.style.display='block';canvas.width=300;canvas.height=200;let ctx=canvas.getContext('2d');ctx.drawImage(img,0,0,300,200);canvas.onclick=ev=>{let rect=canvas.getBoundingClientRect();let x=(ev.clientX-rect.left)*(canvas.width/rect.width);let y=(ev.clientY-rect.top)*(canvas.height/rect.height);let data=ctx.getImageData(x,y,1,1).data;let hx="#"+[data[0],data[1],data[2]].map(v=>v.toString(16).padStart(2,'0')).join('');colorInput.value=hx;updateAll(hx);}}});
+updateAll('#D75A7A');
 </script>
 </body>
 </html>
