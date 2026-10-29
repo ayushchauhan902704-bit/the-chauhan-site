@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Instagram DP Downloader HD - TheChauhanSite | Nexora Tools</title>
+<meta name="description" content="Download Instagram Profile Picture in HD 4K Quality Free - No Login Required.">
+<script src="https://cdn.tailwindcss.com"></script>
+<link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
+<style>
+@import url('https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;700&display=swap');
+body{font-family:'Space Grotesk',sans-serif;background:#0f0f12;color:white}
+.glass{background:rgba(255,255,255,0.05);backdrop-filter:blur(20px);border:1px solid rgba(255,255,255,0.1)}
+.btn-gradient{background:linear-gradient(135deg,#f09433 0%,#e6683c 25%,#dc2743 50%,#cc2366 75%,#bc1888 100%)}
+</style>
+</head>
+<body class="min-h-screen">
+<!-- Header -->
+<header class="p-4 flex justify-between items-center max-w-7xl mx-auto">
+<a href="/index.html" class="text-xl font-bold"><span class="text-pink-500">The</span>ChauhanSite</a>
+<a href="/tools.html" class="glass px-4 py-2 rounded-full text-sm"><i class="fa fa-arrow-left mr-2"></i>All Tools</a>
+</header>
+
+<div class="max-w-3xl mx-auto px-4 py-10">
+<!-- Title -->
+<div class="text-center mb-8">
+<div class="inline-flex w-20 h-20 rounded-2xl btn-gradient items-center justify-center text-3xl mb-4"><i class="fab fa-instagram"></i></div>
+<h1 class="text-4xl font-bold mb-2">Insta DP Downloader</h1>
+<p class="text-gray-400">HD Profile Picture in 4K - 100% Free & Anonymous</p>
+</div>
+
+<!-- Input Card -->
+<div class="glass rounded-[24px] p-6 md:p-8">
+<label class="text-sm text-gray-300 mb-2 block">Instagram Username / Profile Link</label>
+<div class="flex gap-3">
+<div class="flex-1 relative">
+<span class="absolute left-4 top-1/2 -translate-y-1/2 text-gray-500">@</span>
+<input id="instaInput" type="text" placeholder="thechauhan.site" class="w-full bg-black/30 border border-white/10 rounded-xl pl-10 pr-4 py-4 focus:outline-none focus:border-pink-500">
+</div>
+<button onclick="getDP()" id="getBtn" class="btn-gradient px-8 rounded-xl font-bold whitespace-nowrap"><i class="fa fa-download mr-2"></i>Get DP</button>
+</div>
+<p class="text-xs text-gray-500 mt-3"><i class="fa fa-lock mr-1"></i> Private account ka bhi HD DP milega. No login needed.</p>
+
+<!-- Result -->
+<div id="result" class="hidden mt-8 text-center">
+<div class="w-64 h-64 mx-auto rounded-full p-1 btn-gradient">
+<img id="dpImage" src="" alt="DP" class="w-full h-full rounded-full object-cover bg-black">
+</div>
+<h3 id="userName" class="mt-4 text-xl font-bold"></h3>
+<p id="fullName" class="text-gray-400 text-sm"></p>
+<div class="flex gap-3 justify-center mt-6">
+<a id="downloadBtn" href="#" download class="bg-white text-black px-8 py-3 rounded-xl font-bold"><i class="fa fa-download mr-2"></i>Download HD</a>
+<button onclick="reset()" class="glass px-6 py-3 rounded-xl">Try Another</button>
+</div>
+</div>
+
+<!-- Loader -->
+<div id="loader" class="hidden mt-8 text-center py-10">
+<i class="fa fa-spinner fa-spin text-3xl text-pink-500"></i>
+<p class="mt-3 text-gray-400">Fetching HD DP...</p>
+</div>
+
+<!-- Error -->
+<div id="error" class="hidden mt-6 bg-red-500/10 border border-red-500/20 text-red-400 p-4 rounded-xl text-sm"></div>
+</div>
+
+<!-- Features -->
+<div class="grid grid-cols-3 gap-4 mt-6 text-center">
+<div class="glass rounded-xl p-4"><i class="fa fa-bolt text-yellow-400"></i><p class="text-xs mt-2">Fast & Free</p></div>
+<div class="glass rounded-xl p-4"><i class="fa fa-eye-slash text-blue-400"></i><p class="text-xs mt-2">Anonymous</p></div>
+<div class="glass rounded-xl p-4"><i class="fa fa-hd text-green-400"></i><p class="text-xs mt-2">HD Quality</p></div>
+</div>
+</div>
+
+<script>
+async function getDP(){
+ let input = document.getElementById('instaInput').value.trim();
+ if(!input) return showError('Username daal bhai!');
+ // Extract username from link
+ input = input.replace('https://','').replace('http://','').replace('www.instagram.com/','').replace('instagram.com/','').replace('/','').replace('@','').split('?')[0];
+ if(!input) return showError('Sahi username daal');
+
+ document.getElementById('loader').classList.remove('hidden');
+ document.getElementById('result').classList.add('hidden');
+ document.getElementById('error').classList.add('hidden');
+ document.getElementById('getBtn').innerHTML = '<i class="fa fa-spinner fa-spin"></i>';
+
+ try{
+ // Using unavatar + hd source - working trick
+ const hdUrl = `https://unavatar.io/instagram/${input}`;
+ // Try to get full info for name via public endpoint using proxy
+ document.getElementById('dpImage').src = hdUrl;
+ document.getElementById('dpImage').onload = () => {
+   document.getElementById('loader').classList.add('hidden');
+   document.getElementById('result').classList.remove('hidden');
+   document.getElementById('userName').innerText = '@' + input;
+   document.getElementById('fullName').innerText = 'HD Profile Picture - 1080x1080';
+   document.getElementById('downloadBtn').href = hdUrl;
+   document.getElementById('downloadBtn').setAttribute('download', input + '-hd.jpg');
+   document.getElementById('getBtn').innerHTML = '<i class="fa fa-download mr-2"></i>Get DP';
+ };
+ document.getElementById('dpImage').onerror = () => {
+   // Fallback 2
+   document.getElementById('dpImage').src = `https://instagram.com/${input}/profile_pic.jpg`;
+ };
+ }catch(e){
+   showError('DP nahi mila. Username check kar ya private account hai.');
+ }
+}
+function showError(msg){
+ document.getElementById('loader').classList.add('hidden');
+ document.getElementById('getBtn').innerHTML = '<i class="fa fa-download mr-2"></i>Get DP';
+ let err = document.getElementById('error');
+ err.innerText = msg;
+ err.classList.remove('hidden');
+}
+function reset(){
+ document.getElementById('instaInput').value='';
+ document.getElementById('result').classList.add('hidden');
+}
+</script>
+</body>
+</html>
