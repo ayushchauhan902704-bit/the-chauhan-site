@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Temp Mail - Fake Email Generator | TheChauhanSite</title>
+<script src="https://cdn.tailwindcss.com"></script>
+<link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
+<style>body{background:#0f0f12;color:#fff;font-family:system-ui}.glass{background:rgba(255,255,255,0.06);backdrop-filter:blur(20px);border:1px solid rgba(255,255,255,0.1)}</style>
+</head>
+<body>
+<div class="max-w-3xl mx-auto p-4">
+<header class="flex justify-between py-4"><a href="/" class="font-bold text-xl"><span class="text-pink-500">The</span>ChauhanSite</a><a href="/tools/" class="glass px-4 py-2 rounded-full text-sm">All Tools</a></header>
+
+<div class="text-center py-6">
+<div class="w-20 h-20 mx-auto rounded-2xl bg-gradient-to-br from-blue-500 to-cyan-400 flex items-center justify-center text-3xl"><i class="fa fa-envelope"></i></div>
+<h1 class="text-4xl font-bold mt-4">Temp Mail</h1>
+<p class="text-gray-400 mt-2">Fake Email Generator - Free & Disposable</p>
+</div>
+
+<div class="glass rounded-[24px] p-6">
+<div class="flex justify-between items-center mb-4">
+<p class="text-sm text-gray-300">Your Temporary Email</p>
+<span class="text-xs bg-green-500/20 text-green-400 px-3 py-1 rounded-full"><i class="fa fa-circle text-[8px]"></i> Active</span>
+</div>
+
+<div class="bg-black/50 border border-white/10 rounded-xl p-4 flex items-center gap-3">
+<i class="fa fa-envelope text-gray-500"></i>
+<input id="emailBox" readonly class="flex-1 bg-transparent outline-none font-mono text-sm">
+<button onclick="copyEmail()" class="bg-white text-black px-4 py-2 rounded-lg text-sm font-bold"><i class="fa fa-copy"></i> Copy</button>
+</div>
+
+<div class="grid grid-cols-3 gap-3 mt-4">
+<button onclick="generateEmail()" class="bg-blue-600 py-3 rounded-xl text-sm font-bold"><i class="fa fa-refresh mr-1"></i> New Email</button>
+<button onclick="checkInbox()" class="glass py-3 rounded-xl text-sm"><i class="fa fa-inbox mr-1"></i> Refresh Inbox</button>
+<button onclick="deleteEmail()" class="glass py-3 rounded-xl text-sm"><i class="fa fa-trash mr-1"></i> Delete</button>
+</div>
+
+<div id="inbox" class="mt-8">
+<h3 class="font-bold mb-3">Inbox <span id="count" class="text-xs bg-white/10 px-2 py-1 rounded ml-2">0 Mails</span></h3>
+<div id="mailList" class="space-y-2">
+<div class="text-center py-10 text-gray-500 text-sm">
+<i class="fa fa-inbox text-3xl mb-2 block"></i>
+Waiting for emails...<br>Is email pe OTP / Verification bhej ke check kar
+</div>
+</div>
+</div>
+</div>
+</div>
+
+<script>
+let currentEmail = '';
+let login = '';
+let domain = '';
+const domains = ["1secmail.com","1secmail.net","1secmail.org"];
+
+function randomString(len=8){
+  return Math.random().toString(36).substring(2, len+2);
+}
+
+function generateEmail(){
+ login = randomString(10);
+ domain = domains[Math.floor(Math.random()*domains.length)];
+ currentEmail = `${login}@${domain}`;
+ document.getElementById('emailBox').value = currentEmail;
+ document.getElementById('mailList').innerHTML = `<div class="text-center py-10 text-gray-500 text-sm"><i class="fa fa-inbox text-3xl mb-2 block"></i>Waiting for emails...</div>`;
+ document.getElementById('count').innerText = '0 Mails';
+}
+
+function copyEmail(){
+ navigator.clipboard.writeText(currentEmail);
+ alert('Copied: ' + currentEmail);
+}
+
+async function checkInbox(){
+ if(!currentEmail) return;
+ document.getElementById('mailList').innerHTML = '<div class="text-center py-6"><i class="fa fa-spinner fa-spin"></i> Checking...</div>';
+ try{
+   const res = await fetch(`https://www.1secmail.com/api/v1/?action=getMessages&login=${login}&domain=${domain}`);
+   const mails = await res.json();
+   document.getElementById('count').innerText = mails.length + ' Mails';
+   if(mails.length==0){
+     document.getElementById('mailList').innerHTML = `<div class="text-center py-10 text-gray-500 text-sm">No mails yet. 5 sec me fir se Refresh dabana.</div>`;
+     return;
+   }
+   let html='';
+   mails.forEach(mail=>{
+     html+=`<div onclick="openMail(${mail.id})" class="bg-white/5 border border-white/10 p-4 rounded-xl cursor-pointer hover:bg-white/10">
+       <div class="flex justify-between"><p class="font-bold text-sm">${mail.from}</p><p class="text-xs text-gray-400">${mail.date}</p></div>
+       <p class="text-sm mt-1">${mail.subject}</p></div>`;
+   });
+   document.getElementById('mailList').innerHTML = html;
+ }catch(e){
+   document.getElementById('mailList').innerHTML = `<p class="text-red-400 text-sm text-center">Failed to fetch inbox. Try again.</p>`;
+ }
+}
+
+async function openMail(id){
+ const res = await fetch(`https://www.1secmail.com/api/v1/?action=readMessage&login=${login}&domain=${domain}&id=${id}`);
+ const mail = await res.json();
+ document.getElementById('mailList').innerHTML = `
+   <div class="bg-black/50 p-4 rounded-xl border border-white/10">
+   <button onclick="checkInbox()" class="text-sm text-blue-400 mb-3"><i class="fa fa-arrow-left"></i> Back to Inbox</button>
+   <p class="text-xs text-gray-400">From: ${mail.from}</p>
+   <h2 class="font-bold text-lg mt-2">${mail.subject}</h2>
+   <div class="h-[1px] bg-white/10 my-3"></div>
+   <div class="text-sm leading-relaxed">${mail.htmlBody || mail.body}</div>
+   </div>`;
+}
+
+function deleteEmail(){ generateEmail(); }
+
+// Auto generate on load
+generateEmail();
+// Auto check every 10 sec
+setInterval(checkInbox, 10000);
+</script>
+</body>
+</html>
