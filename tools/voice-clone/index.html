@@ -1,20 +1,21 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-<meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>AI Voice Changer - 50+ Real Effects | TheChauhanSite</title>
-<script src="https://cdn.tailwindcss.com"></script>
+<head><meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>AI Voice Changer - 50+ Real Effects</title><script src="https://cdn.tailwindcss.com"></script>
 </head>
 <body class="bg-[#0a0a0a] text-white min-h-screen p-3">
-<div class="max-w-5xl mx-auto">
-<div class="bg-[#161616] rounded-[28px] p-5 md:p-7 mt-3 border border-zinc-800">
+<div class="max-w-5xl mx-auto"><div class="bg-[#161616] rounded-[28px] p-5 mt-3 border border-zinc-800">
+<h1 class="text-[28px] font-black text-center">🎙️ VOICE CHANGER 50+</h1>
 
-<h1 class="text-[28px] font-black text-center leading-none">🎙️ AI VOICE CHANGER</h1>
-<p class="text-center text-zinc-400 text-[13px] mt-2">50+ Real Effects - No API Needed</p>
+<!-- TEXT OPTION ADDED -->
+<textarea id="textInput" class="w-full mt-5 p-4 bg-black border border-zinc-800 rounded-2xl text-sm outline-none focus:border-white" rows="3" placeholder="Yaha text likho... jaise: Hello dosto kaise ho">Hello dosto, swagat hai TheChauhanSite pe!</textarea>
+<button onclick="speakText()" class="w-full mt-2 bg-yellow-400 text-black py-3 rounded-xl font-bold text-sm">🔊 Text ko Voice me Suno + Effect Lagao</button>
 
-<div class="bg-black rounded-2xl p-5 mt-6 text-center border border-zinc-800">
-<button id="recBtn" class="bg-white text-black px-8 py-4 rounded-full font-black text-[16px]">🎤 RECORD KARO (3 sec)</button>
-<p id="status" class="text-[12px] mt-3 text-zinc-500">Record karo fir neeche koi bhi effect dabao</p>
+<div class="flex items-center gap-3 my-5"><div class="h-[1px] bg-zinc-800 flex-1"></div><span class="text-[11px] text-zinc-500">OR</span><div class="h-[1px] bg-zinc-800 flex-1"></div></div>
+
+<div class="bg-black rounded-2xl p-5 text-center border border-zinc-800">
+<button id="recBtn" class="bg-white text-black px-8 py-4 rounded-full font-black text-[15px]">🎤 RECORD - DABAO TO START</button>
+<p id="status" class="text-[11px] mt-3 text-zinc-500">Jitna marzi bolo, limit nahi hai. Dubara dabao to stop.</p>
 <audio id="audio" controls class="w-full mt-4 hidden"></audio>
 </div>
 
@@ -23,141 +24,50 @@
 <button onclick="filterCat('funny')" class="cat bg-zinc-800 px-4 py-2 rounded-full text-xs">Funny</button>
 <button onclick="filterCat('scary')" class="cat bg-zinc-800 px-4 py-2 rounded-full text-xs">Scary</button>
 <button onclick="filterCat('robot')" class="cat bg-zinc-800 px-4 py-2 rounded-full text-xs">Robot</button>
-<button onclick="filterCat('meme')" class="cat bg-zinc-800 px-4 py-2 rounded-full text-xs">Meme</button>
 <button onclick="filterCat('animal')" class="cat bg-zinc-800 px-4 py-2 rounded-full text-xs">Animal</button>
 </div>
-
-<div id="grid" class="grid grid-cols-2 md:grid-cols-4 gap-2.5 mt-4"></div>
-
-<div class="mt-6 bg-zinc-900 p-4 rounded-2xl text-[11px] text-zinc-400 leading-relaxed">
-<b class="text-white">Kaise use kare:</b> 1. Record button dabao aur bolo "Hello dosto" 2. Koi bhi effect dabao - Real me awaz change hogi 3. Download kar sakte ho. Ye 100% real hai kyuki teri awaz pe effect lag raha hai.
-</div>
-
+<div id="grid" class="grid grid-cols-2 md:grid-cols-4 gap-2 mt-4"></div>
 </div></div>
 
 <script>
-let audioCtx, recordedBuffer, mediaRecorder, chunks=[];
-const audioEl = document.getElementById("audio");
-const EFFECTS = [
-{id:"chipmunk", n:"Chipmunk", c:"funny", e:"🐿️", r:1.9, d:0, echo:0},
-{id:"baby", n:"Baby Voice", c:"funny", e:"👶", r:1.7, d:0, echo:0},
-{id:"helium", n:"Helium", c:"funny", e:"🎈", r:2.0, d:0, echo:0},
-{id:"giant", n:"Giant", c:"funny", e:"🧌", r:0.55, d:0, echo:0.2},
-{id:"deep", n:"Deep Voice", c:"funny", e:"🗣️", r:0.6, d:0, echo:0},
-{id:"slow", n:"Slow Motion", c:"funny", e:"🐢", r:0.5, d:0, echo:0},
-{id:"fast", n:"Fast Chipmunk", c:"funny", e:"⚡", r:2.2, d:0, echo:0},
-{id:"drunk", n:"Drunk Voice", c:"funny", e:"🍺", r:0.8, d:0.3, echo:0.4},
-{id:"squirrel", n:"Squirrel", c:"funny animal", e:"🐿️", r:1.8, d:0, echo:0},
-{id:"minion", n:"Minion", c:"funny", e:"💛", r:1.85, d:0.2, echo:0},
-
-{id:"ghost", n:"Ghost", c:"scary", e:"👻", r:0.8, d:0, echo:0.8},
-{id:"demon", n:"Demon", c:"scary", e:"😈", r:0.5, d:0.8, echo:0.6},
-{id:"devil", n:"Devil Deep", c:"scary", e:"👹", r:0.45, d:0.9, echo:0.5},
-{id:"cave", n:"Cave Echo", c:"scary", e:"⛰️", r:1.0, d:0, echo:0.9},
-{id:"scarygirl", n:"Scary Girl", c:"scary", e:"💀", r:1.3, d:0.5, echo:0.7},
-{id:"zombie", n:"Zombie", c:"scary", e:"🧟", r:0.6, d:0.6, echo:0.5},
-{id:"horror", n:"Horror Movie", c:"scary", e:"🎬", r:0.7, d:0.4, echo:0.8},
-{id:"underwater", n:"Underwater", c:"scary", e:"🌊", r:0.7, d:0, echo:0.6},
-{id:"hell", n:"Hell Voice", c:"scary", e:"🔥", r:0.5, d:1.0, echo:0.7},
-{id:"witch", n:"Witch", c:"scary", e:"🧙‍♀️", r:1.2, d:0.7, echo:0.6},
-
-{id:"robot", n:"Robot", c:"robot", e:"🤖", r:1.0, d:1.0, echo:0},
-{id:"darth", n:"Darth Vader", c:"robot", e:"🌑", r:0.6, d:0.8, echo:0.3},
-{id:"ai", n:"AI Robot", c:"robot", e:"💻", r:1.0, d:0.9, echo:0.2},
-{id:"cyborg", n:"Cyborg", c:"robot", e:"🦾", r:0.9, d:1.0, echo:0.1},
-{id:"transformer", n:"Transformer", c:"robot", e:"🚛", r:0.7, d:1.0, echo:0.3},
-{id:"ironman", n:"Iron Man Suit", c:"robot", e:"🦸", r:1.0, d:0.8, echo:0.4},
-{id:"alien", n:"Alien", c:"robot", e:"👽", r:1.4, d:0.8, echo:0.5},
-{id:"dalek", n:"Dalek", c:"robot", e:"📡", r:0.8, d:1.0, echo:0},
-{id:"walle", n:"Wall-E", c:"robot", e:"🤖", r:1.5, d:0.5, echo:0},
-{id:"terminator", n:"Terminator", c:"robot", e:"🔴", r:0.65, d:0.9, echo:0.2},
-
-{id:"earrape", n:"Earrape Bass", c:"meme", e:"🔊", r:1.0, d:1.0, echo:0},
-{id:"8d", n:"8D Audio", c:"meme", e:"🎧", r:1.0, d:0, echo:0.9},
-{id:"vibrato", n:"Vibrato", c:"meme", e:"〰️", r:1.0, d:0.6, echo:0.3},
-{id:"reverse", n:"Reverse", c:"meme", e:"⏪", r:-1.0, d:0, echo:0},
-{id:"radio", n:"Old Radio", c:"meme", e:"📻", r:1.0, d:0.7, echo:0.2},
-{id:"phone", n:"Phone Call", c:"meme", e:"📞", r:1.1, d:0.6, echo:0.1},
-{id:"announce", n:"Stadium", c:"meme", e:"📢", r:0.9, d:0, echo:0.9},
-{id:"whisper", n:"Whisper", c:"meme", e:"🤫", r:1.2, d:0, echo:0.5},
-{id:"chorus", n:"Choir", c:"meme", e:"🎤", r:1.0, d:0, echo:0.8},
-{id:"megaphone", n:"Megaphone", c:"meme", e:"📣", r:1.0, d:0.8, echo:0.6},
-
-{id:"dog", n:"Dog Bark", c:"animal", e:"🐶", r:0.7, d:0.8, echo:0.2},
-{id:"cat", n:"Cat Meow", c:"animal", e:"🐱", r:1.6, d:0.3, echo:0.2},
-{id:"lion", n:"Lion Roar", c:"animal", e:"🦁", r:0.4, d:0.9, echo:0.6},
-{id:"monster", n:"Monster", c:"animal scary", e:"👹", r:0.45, d:1.0, echo:0.7},
-{id:"dinosaur", n:"Dinosaur", c:"animal", e:"🦖", r:0.3, d:0.9, echo:0.8},
-{id:"mouse", n:"Mouse", c:"animal funny", e:"🐭", r:2.1, d:0, echo:0},
-{id:"cow", n:"Cow Deep", c:"animal", e:"🐄", r:0.5, d:0.2, echo:0.3},
-{id:"bird", n:"Bird Chirp", c:"animal", e:"🐦", r:1.9, d:0, echo:0.2},
-{id:"bee", n:"Bee Buzz", c:"animal", e:"🐝", r:1.7, d:0.8, echo:0},
-{id:"wolf", n:"Wolf Howl", c:"animal scary", e:"🐺", r:0.6, d:0.5, echo:0.9},
-];
-
-let activeCat="all";
+let audioCtx, recordedBuffer, mediaRecorder, chunks=[], isRecording=false;
+const audioEl=document.getElementById("audio");
+const EFFECTS=[{id:"chipmunk",n:"Chipmunk",c:"funny",e:"🐿️",r:1.9,d:0,echo:0},{id:"baby",n:"Baby",c:"funny",e:"👶",r:1.7,d:0,echo:0},{id:"helium",n:"Helium",c:"funny",e:"🎈",r:2.0,d:0,echo:0},{id:"giant",n:"Giant",c:"funny",e:"🧌",r:0.55,d:0,echo:0.2},{id:"deep",n:"Deep Voice",c:"funny",e:"🗣️",r:0.6,d:0,echo:0},{id:"slow",n:"Slow",c:"funny",e:"🐢",r:0.5,d:0,echo:0},{id:"fast",n:"Fast",c:"funny",e:"⚡",r:2.2,d:0,echo:0},{id:"drunk",n:"Drunk",c:"funny",e:"🍺",r:0.8,d:0.3,echo:0.4},{id:"minion",n:"Minion",c:"funny",e:"💛",r:1.85,d:0.2,echo:0},{id:"ghost",n:"Ghost",c:"scary",e:"👻",r:0.8,d:0,echo:0.8},{id:"demon",n:"Demon",c:"scary",e:"😈",r:0.5,d:0.8,echo:0.6},{id:"devil",n:"Devil",c:"scary",e:"👹",r:0.45,d:0.9,echo:0.5},{id:"cave",n:"Cave Echo",c:"scary",e:"⛰️",r:1.0,d:0,echo:0.9},{id:"zombie",n:"Zombie",c:"scary",e:"🧟",r:0.6,d:0.6,echo:0.5},{id:"horror",n:"Horror",c:"scary",e:"🎬",r:0.7,d:0.4,echo:0.8},{id:"hell",n:"Hell Voice",c:"scary",e:"🔥",r:0.5,d:1.0,echo:0.7},{id:"witch",n:"Witch",c:"scary",e:"🧙‍♀️",r:1.2,d:0.7,echo:0.6},{id:"robot",n:"Robot",c:"robot",e:"🤖",r:1.0,d:1.0,echo:0},{id:"darth",n:"Darth Vader",c:"robot",e:"🌑",r:0.6,d:0.8,echo:0.3},{id:"ai",n:"AI Robot",c:"robot",e:"💻",r:1.0,d:0.9,echo:0.2},{id:"cyborg",n:"Cyborg",c:"robot",e:"🦾",r:0.9,d:1.0,echo:0.1},{id:"transformer",n:"Transformer",c:"robot",e:"🚛",r:0.7,d:1.0,echo:0.3},{id:"alien",n:"Alien",c:"robot",e:"👽",r:1.4,d:0.8,echo:0.5},{id:"earrape",n:"Earrape",c:"robot",e:"🔊",r:1.0,d:1.0,echo:0},{id:"8d",n:"8D Audio",c:"robot",e:"🎧",r:1.0,d:0,echo:0.9},{id:"radio",n:"Old Radio",c:"robot",e:"📻",r:1.0,d:0.7,echo:0.2},{id:"phone",n:"Phone Call",c:"robot",e:"📞",r:1.1,d:0.6,echo:0.1},{id:"announce",n:"Stadium",c:"robot",e:"📢",r:0.9,d:0,echo:0.9},{id:"dog",n:"Dog Bark",c:"animal",e:"🐶",r:0.7,d:0.8,echo:0.2},{id:"cat",n:"Cat Meow",c:"animal",e:"🐱",r:1.6,d:0.3,echo:0.2},{id:"lion",n:"Lion Roar",c:"animal",e:"🦁",r:0.4,d:0.9,echo:0.6},{id:"monster",n:"Monster",c:"animal",e:"👹",r:0.45,d:1.0,echo:0.7},{id:"dinosaur",n:"Dino",c:"animal",e:"🦖",r:0.3,d:0.9,echo:0.8},{id:"mouse",n:"Mouse",c:"animal",e:"🐭",r:2.1,d:0,echo:0},{id:"bird",n:"Bird",c:"animal",e:"🐦",r:1.9,d:0,echo:0.2},{id:"wolf",n:"Wolf Howl",c:"animal",e:"🐺",r:0.6,d:0.5,echo:0.9}];
+let selectedEff=EFFECTS[0]; let activeCat="all";
 const grid=document.getElementById("grid");
-function render(){
- let list = activeCat==="all" ? EFFECTS : EFFECTS.filter(e=>e.c.includes(activeCat));
- grid.innerHTML = list.map(e=>`<button onclick="playEffect('${e.id}')" class="bg-[#1e1e1e] hover:bg-white hover:text-black border border-zinc-800 p-3 rounded-2xl text-left transition"><div class="font-bold text-[12px]">${e.e} ${e.n}</div><div class="text-[9px] opacity-60 mt-1">${e.c.toUpperCase()}</div></button>`).join("");
-}
-window.filterCat=(c)=>{
- activeCat=c; document.querySelectorAll(".cat").forEach(b=>b.className="cat bg-zinc-800 px-4 py-2 rounded-full text-xs"); event.target.className="cat bg-white text-black px-4 py-2 rounded-full text-xs font-bold"; render();
-}
-
-async function initAudio(){ if(!audioCtx) audioCtx = new (window.AudioContext||window.webkitAudioContext)(); }
-
-document.getElementById("recBtn").onclick = async ()=>{
+function render(){ let list=activeCat==="all"?EFFECTS:EFFECTS.filter(e=>e.c.includes(activeCat)); grid.innerHTML=list.map(e=>`<button onclick="selectAndPlay('${e.id}')" class="bg-[#1e1e1e] hover:bg-white hover:text-black border border-zinc-800 p-3 rounded-2xl text-left ${selectedEff.id===e.id?'bg-white text-black':''}"><div class="font-bold text-[11px]">${e.e} ${e.n}</div></button>`).join(""); }
+window.filterCat=(c)=>{ activeCat=c; document.querySelectorAll(".cat").forEach(b=>b.className="cat bg-zinc-800 px-4 py-2 rounded-full text-xs"); event.target.className="cat bg-white text-black px-4 py-2 rounded-full text-xs font-bold"; render(); }
+async function initAudio(){ if(!audioCtx) audioCtx=new (window.AudioContext||window.webkitAudioContext)(); }
+let recStream;
+document.getElementById("recBtn").onclick=async()=>{
  await initAudio();
- let stream = await navigator.mediaDevices.getUserMedia({audio:true});
- mediaRecorder = new MediaRecorder(stream); chunks=[];
- mediaRecorder.ondataavailable = e=>chunks.push(e.data);
- mediaRecorder.onstop = async ()=>{
-  let blob = new Blob(chunks,{type:"audio/webm"});
-  let arrayBuf = await blob.arrayBuffer();
-  recordedBuffer = await audioCtx.decodeAudioData(arrayBuf);
-  audioEl.src = URL.createObjectURL(blob); audioEl.classList.remove("hidden");
-  document.getElementById("status").innerText = "✅ Recorded! Ab koi bhi effect dabao";
-  document.getElementById("status").className="text-[12px] mt-3 text-green-400";
- };
- mediaRecorder.start(); document.getElementById("status").innerText="🔴 Recording... Bolo 'Hello Dosto'"; document.getElementById("status").className="text-[12px] mt-3 text-red-400";
- setTimeout(()=>mediaRecorder.stop(), 3000);
+ if(!isRecording){
+  let stream=await navigator.mediaDevices.getUserMedia({audio:true}); recStream=stream;
+  mediaRecorder=new MediaRecorder(stream); chunks=[]; mediaRecorder.ondataavailable=e=>chunks.push(e.data);
+  mediaRecorder.onstop=async()=>{ let blob=new Blob(chunks,{type:"audio/webm"}); let ab=await blob.arrayBuffer(); recordedBuffer=await audioCtx.decodeAudioData(ab); audioEl.src=URL.createObjectURL(blob); audioEl.classList.remove("hidden"); document.getElementById("status").innerText="✅ Ho gaya! Ab koi effect dabao"; document.getElementById("status").className="text-[11px] mt-3 text-green-400"; recStream.getTracks().forEach(t=>t.stop()); };
+  mediaRecorder.start(); isRecording=true; document.getElementById("recBtn").innerText="⏹️ STOP - DABAO TO BAND"; document.getElementById("recBtn").className="bg-red-500 text-white px-8 py-4 rounded-full font-black text-[15px]"; document.getElementById("status").innerText="🔴 Recording chal rahi hai... jitna bolo utna bolo"; document.getElementById("status").className="text-[11px] mt-3 text-red-400";
+ } else {
+  mediaRecorder.stop(); isRecording=false; document.getElementById("recBtn").innerText="🎤 RECORD - DABAO TO START"; document.getElementById("recBtn").className="bg-white text-black px-8 py-4 rounded-full font-black text-[15px]";
+ }
 };
-
-window.playEffect = async (id)=>{
- if(!recordedBuffer){ alert("Pehle Record karo bhai!"); return; }
- await initAudio();
- let eff = EFFECTS.find(e=>e.id===id);
- let source = audioCtx.createBufferSource(); source.buffer = recordedBuffer;
- source.playbackRate.value = Math.abs(eff.r);
-
- let gain = audioCtx.createGain();
- let dist = audioCtx.createWaveShaper();
- if(eff.d>0){ dist.curve = makeDistortion(eff.d*400); } else { dist.curve=null; }
-
- let delay = audioCtx.createDelay(2.0); delay.delayTime.value = eff.echo*0.4;
- let delayGain = audioCtx.createGain(); delayGain.gain.value = eff.echo*0.6;
-
- source.connect(dist); dist.connect(gain);
- gain.connect(audioCtx.destination);
- gain.connect(delay); delay.connect(delayGain); delayGain.connect(audioCtx.destination);
-
- if(eff.r<0){ source.buffer = reverseBuffer(recordedBuffer); source.playbackRate.value=1; }
-
- source.start();
- document.getElementById("status").innerText = `🔊 Playing: ${eff.n} ${eff.e}`;
+window.selectAndPlay=(id)=>{ selectedEff=EFFECTS.find(e=>e.id===id); render(); if(recordedBuffer) playEffect(id); else { let txt=document.getElementById("textInput").value; if(txt) speakText(id); } };
+window.playEffect=async(id)=>{
+ if(!recordedBuffer){ alert("Pehle Record karo ya Text likho"); return; }
+ await initAudio(); let eff=EFFECTS.find(e=>e.id===id); let src=audioCtx.createBufferSource(); src.buffer=recordedBuffer; src.playbackRate.value=Math.abs(eff.r);
+ let gain=audioCtx.createGain(); let dist=audioCtx.createWaveShaper(); if(eff.d>0) dist.curve=makeDistortion(eff.d*400);
+ let delay=audioCtx.createDelay(2); delay.delayTime.value=eff.echo*0.4; let dg=audioCtx.createGain(); dg.gain.value=eff.echo*0.6;
+ src.connect(dist); dist.connect(gain); gain.connect(audioCtx.destination); gain.connect(delay); delay.connect(dg); dg.connect(audioCtx.destination); src.start();
+ document.getElementById("status").innerText=`🔊 Playing: ${eff.n} ${eff.e}`;
 };
-
-function makeDistortion(amount){
- let k = amount; let n = 44100; let curve = new Float32Array(n); let deg = Math.PI/180;
- for(let i=0;i<n;i++){ let x=i*2/n-1; curve[i]=(3+k)*x*20*deg/(Math.PI+k*Math.abs(x)); } return curve;
-}
-function reverseBuffer(buf){
- let newBuf = audioCtx.createBuffer(buf.numberOfChannels, buf.length, buf.sampleRate);
- for(let c=0;c<buf.numberOfChannels;c++){ let a=buf.getChannelData(c); let b=newBuf.getChannelData(c); for(let i=0;i<a.length;i++) b[i]=a[a.length-1-i]; }
- return newBuf;
-}
-
+window.speakText=async(forceId)=>{
+ let txt=document.getElementById("textInput").value; if(!txt) return alert("Text likho pehle");
+ let effId=forceId||selectedEff.id; let eff=EFFECTS.find(e=>e.id===effId);
+ speechSynthesis.cancel(); let u=new SpeechSynthesisUtterance(txt); u.rate=eff.r>1?1.2:eff.r; u.pitch=eff.r>1.5?1.8:eff.r<0.6?0.4:1; 
+ let voices=speechSynthesis.getVoices(); let v=voices.find(v=>v.lang.includes("en-IN"))||voices[0]; if(v) u.voice=v;
+ u.onstart=()=>document.getElementById("status").innerText=`🔊 Text bol raha hai: ${eff.n}`; u.onend=()=>document.getElementById("status").innerText=`✅ Ho gaya - ${eff.n} me bola`;
+ speechSynthesis.speak(u);
+};
+function makeDistortion(a){ let k=a, n=44100, c=new Float32Array(n), d=Math.PI/180; for(let i=0;i<n;i++){ let x=i*2/n-1; c[i]=(3+k)*x*20*d/(Math.PI+k*Math.abs(x)); } return c; }
 render();
 </script>
 </body>
