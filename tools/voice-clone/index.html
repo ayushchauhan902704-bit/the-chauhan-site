@@ -1,42 +1,109 @@
 <!DOCTYPE html>
 <html lang="en">
-<head><meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>AI Voice Changer - 50+ Real Effects</title><script src="https://cdn.tailwindcss.com"></script>
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>AI Voice Changer - 50+ Real Funny, Scary & Robot Voices Free | TheChauhanSite</title>
+<meta name="description" content="Free AI Voice Changer with 50+ real effects. Change voice to Chipmunk, Baby, Ghost, Demon, Robot, Darth Vader, Animal sounds. Record unlimited & download. No login.">
+<meta name="keywords" content="voice changer, chipmunk voice changer, robot voice generator, scary voice changer, ghost voice, baby voice generator, worldwide voice changer">
+<link rel="canonical" href="https://thechauhan.site/tools/voice-changer/">
+<meta property="og:title" content="AI Voice Changer - 50+ Real Effects">
+<meta property="og:description" content="Record your voice and change it to 50+ real voices - Funny, Scary, Robot, Animal. Free & unlimited.">
+<meta property="og:type" content="website">
+<meta property="og:url" content="https://thechauhan.site/tools/voice-changer/">
+<script src="https://cdn.tailwindcss.com"></script>
+<style>
+body{background:radial-gradient(800px at 0% 0%, #102a1f 0%, #0f0f0f 70%);font-family:Inter,system-ui,sans-serif}
+.card{background:rgba(255,255,255,.06);border:1px solid rgba(255,255,255,.1);backdrop-filter:blur(20px);}
+.tagline{color:#00c896}
+</style>
+<!-- ALL SCHEMAS FROM YOUR PHOTO -->
+<script type="application/ld+json">
+{"@context":"https://schema.org","@type":"Organization","name":"TheChauhanSite","url":"https://thechauhan.site/","logo":"https://thechauhan.site/logo.png","sameAs":["https://www.instagram.com/ius.chauhan/","https://www.linkedin.com/in/ayush-chauhan/"]}
+</script>
+<script type="application/ld+json">
+{"@context":"https://schema.org","@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"Home","item":"https://thechauhan.site/"},{"@type":"ListItem","position":2,"name":"Tools","item":"https://thechauhan.site/tools/"},{"@type":"ListItem","position":3,"name":"Voice Changer 50+"}]}
+</script>
+<script type="application/ld+json">
+{"@context":"https://schema.org","@type":"FAQPage","mainEntity":[{"@type":"Question","name":"Is this Voice Changer Free?","acceptedAnswer":{"@type":"Answer","text":"Yes, 100% free, unlimited, no login, no API needed. Browser me hi chalta hai."}},{"@type":"Question","name":"Is my data Safe?","acceptedAnswer":{"@type":"Answer","text":"Yes, your recording never goes to server. Everything happens in your browser."}},{"@type":"Question","name":"How accurate is this tool?","acceptedAnswer":{"@type":"Answer","text":"100% real - because it uses your real voice with Web Audio API effects like pitch, distortion, echo."}}]}
+</script>
+<script type="application/ld+json">
+{"@context":"https://schema.org","@type":"HowTo","name":"How to use Voice Changer","step":[{"@type":"HowToStep","name":"Record","text":"Click Record and speak anything - no limit"},{"@type":"HowToStep","name":"Select Effect","text":"Choose from 50+ effects - Funny, Scary, Robot, Animal"},{"@type":"HowToStep","name":"Download","text":"Play and download original or effected voice as WAV"}]}
+</script>
 </head>
-<body class="bg-[#0a0a0a] text-white min-h-screen p-3">
-<div class="max-w-5xl mx-auto"><div class="bg-[#161616] rounded-[28px] p-5 mt-3 border border-zinc-800">
-<h1 class="text-[28px] font-black text-center">🎙️ VOICE CHANGER 50+</h1>
-<p class="text-center text-zinc-500 text-[12px] mt-1">Record karo - 50+ Real Effects me suno</p>
+<body class="text-white min-h-screen p-[18px] flex justify-center">
+<div class="max-w-[800px] w-full">
 
-<div class="bg-black rounded-2xl p-5 text-center border border-zinc-800 mt-6">
+<!-- TOP - From 2nd Code -->
+<div class="flex justify-between items-center"><a href="/" class="text-[#00c896] text-[13px] no-underline">← Back to Home</a><span class="text-[11px] text-zinc-500">Last Update: 30 Oct 2026</span></div>
+
+<!-- TOOL CARD -->
+<div class="card rounded-[24px] p-[22px] mt-[20px]">
+<h1 class="text-[28px] font-black leading-[1.1]">AI Voice Changer - <span class="tagline">50+ Real Effects</span> 🎙️</h1>
+<p class="text-[#aaa] text-[13px] mt-[8px] leading-[1.6]">Worldwide No.1 Free Voice Changer. Change your voice to Chipmunk, Baby, Ghost, Demon, Robot, Darth Vader, Dog, Cat & 40+ more. 100% real - uses your own voice.</p>
+
+<!-- RECORD BOX -->
+<div class="bg-[#111] border border-[#2a2a2a] border-dashed rounded-[16px] p-5 text-center mt-4">
 <button id="recBtn" class="bg-white text-black px-8 py-4 rounded-full font-black text-[15px] w-full">🎤 RECORD - DABAO TO START</button>
 <p id="status" class="text-[11px] mt-3 text-zinc-500">Jitna marzi bolo, koi limit nahi. Dubara dabao to stop.</p>
 <audio id="audio" controls class="w-full mt-4 hidden"></audio>
-<!-- CHOTA DOWNLOAD BUTTON -->
 <div id="downloadArea" class="hidden mt-3 flex gap-2 justify-center">
-<button onclick="downloadOriginal()" class="bg-zinc-800 px-4 py-2 rounded-full text-[11px] font-bold">⬇️ Original</button>
-<button onclick="downloadEffect()" class="bg-yellow-400 text-black px-4 py-2 rounded-full text-[11px] font-black">⬇️ Effect Wala</button>
+<button onclick="downloadOriginal()" class="bg-[#1f1f1f] border border-[#333] px-4 py-2 rounded-full text-[11px] font-bold">⬇️ Original</button>
+<button onclick="downloadEffect()" class="bg-[#00c896] text-black px-4 py-2 rounded-full text-[11px] font-black">⬇️ Effect Download</button>
 </div>
 </div>
 
+<!-- CATEGORY FILTER -->
 <div class="flex gap-2 mt-5 overflow-x-auto pb-2">
 <button onclick="filterCat('all')" class="cat bg-white text-black px-4 py-2 rounded-full text-xs font-bold">All 50</button>
-<button onclick="filterCat('funny')" class="cat bg-zinc-800 px-4 py-2 rounded-full text-xs">Funny</button>
-<button onclick="filterCat('scary')" class="cat bg-zinc-800 px-4 py-2 rounded-full text-xs">Scary</button>
-<button onclick="filterCat('robot')" class="cat bg-zinc-800 px-4 py-2 rounded-full text-xs">Robot</button>
-<button onclick="filterCat('animal')" class="cat bg-zinc-800 px-4 py-2 rounded-full text-xs">Animal</button>
+<button onclick="filterCat('funny')" class="cat bg-[#1f1f1f] border border-[#333] px-4 py-2 rounded-full text-xs">Funny</button>
+<button onclick="filterCat('scary')" class="cat bg-[#1f1f1f] border border-[#333] px-4 py-2 rounded-full text-xs">Scary</button>
+<button onclick="filterCat('robot')" class="cat bg-[#1f1f1f] border border-[#333] px-4 py-2 rounded-full text-xs">Robot</button>
+<button onclick="filterCat('animal')" class="cat bg-[#1f1f1f] border border-[#333] px-4 py-2 rounded-full text-xs">Animal</button>
 </div>
+
 <div id="grid" class="grid grid-cols-2 md:grid-cols-4 gap-2 mt-4"></div>
-</div></div>
+
+<!-- INTERNAL LINKS -->
+<div class="mt-6 flex gap-2 flex-wrap"><a href="/tools/tiktok-hashtag-generator/" class="text-[11px] bg-[#151515] border border-[#2a2a2a] px-3 py-1.5 rounded-full">TikTok Hashtag Generator</a><a href="/tools/" class="text-[11px] bg-[#151515] border border-[#2a2a2a] px-3 py-1.5 rounded-full">More Tools</a></div>
+</div>
+
+<!-- SEO CONTENT - From Your Photo -->
+<div class="card rounded-[24px] p-[22px] mt-[20px]">
+<h2 class="text-[18px] font-bold">What is Voice Changer (Tool Name)?</h2>
+<p class="text-[13px] text-[#aaa] leading-[1.7] mt-2">AI Voice Changer is a free online tool that changes your real voice into 50+ different voices. Unlike other fake TTS tools, this uses your original voice recording and applies real Web Audio API effects like pitch shifting, distortion, echo, reverb. So it sounds 100% real. Worldwide people search for chipmunk voice, robot voice, scary voice, baby voice - all are included here. Auto language support - works in Hindi, English and all languages because it records your voice.</p>
+
+<h2 class="text-[18px] font-bold mt-6">How to use Voice Changer? - 3 Step</h2>
+<p class="text-[13px] text-[#aaa] leading-[1.7] mt-2"><b class="text-white">Step 1:</b> Click RECORD button and speak anything. No time limit.<br><b class="text-white">Step 2:</b> Click any effect from 50+ list - Chipmunk, Ghost, Robot, Darth Vader, Animal etc.<br><b class="text-white">Step 3:</b> Play and download your changed voice. Share on TikTok, Instagram, WhatsApp.</p>
+
+<h2 class="text-[18px] font-bold mt-6">Features / Benefits</h2>
+<ul class="text-[13px] text-[#aaa] leading-[1.7] mt-2 list-disc ml-4"><li>50+ Real Effects - Funny, Scary, Robot, Animal</li><li>Unlimited Recording - No 3 sec limit</li><li>100% Free & No Login</li><li>Download Original + Effect Voice</li><li>Mobile Friendly & Fast - Core Web Vitals Passed</li><li>Secure - Audio never leaves your phone</li><li>E-E-A-T Verified Tool by Ayush Chauhan</li></ul>
+
+<h2 class="text-[16px] font-bold mt-6">FAQ</h2>
+<div class="mt-3 space-y-3">
+<div class="bg-[#151515] p-3 rounded-xl"><b class="text-[13px]">Q1. Is this Tool Free?</b><p class="text-[12px] text-[#aaa] mt-1">Yes, (Tool Name) is 100% free, unlimited, no API.</p></div>
+<div class="bg-[#151515] p-3 rounded-xl"><b class="text-[13px]">Q2. Is my data Safe?</b><p class="text-[12px] text-[#aaa] mt-1">Yes, your voice stays in your browser. We don't save anything on server.</p></div>
+<div class="bg-[#151515] p-3 rounded-xl"><b class="text-[13px]">Q3. How accurate is This tool?</b><p class="text-[12px] text-[#aaa] mt-1">100% accurate because it's your real voice with real audio effects, not fake AI voice.</p></div>
+</div>
+
+<!-- E-E-A-T + CONTACT from photo -->
+<div class="mt-6 border-t border-[#2a2a2a] pt-4">
+<p class="text-[12px] text-[#888]"><b class="text-white">Author:</b> Ayush Chauhan (TheChauhanSite) | <b>Email:</b> ayushchauhan903704@gmail.com | <b>Phone:</b> 9389641559 | <b>Instagram:</b> @ius.chauhan | <b>LinkedIn:</b> linkedin.com/in/ayush-chauhan</p>
+<img loading="lazy" src="/logo.png" alt="Voice Changer Tool" class="mt-3 w-[100px] opacity-50" width="100" height="100">
+</div>
+</div>
+
+<!-- FOOTER - From 2nd Code -->
+<div class="mt-[20px] text-center text-[#555] text-[11px]"><a href="/about/" class="text-[#777] no-underline mx-[6px]">About</a><a href="/contact/" class="text-[#777] no-underline mx-[6px]">Contact</a><a href="/privacy/" class="text-[#777] no-underline mx-[6px]">Privacy</a><a href="/tools/" class="text-[#777] no-underline mx-[6px]">All Tools</a><p class="mt-[8px]">© 2026 TheChauhanSite • Ayush Chauhan • ayushchauhan902704@gmail.com</p></div>
+</div>
 
 <script>
 let audioCtx, recordedBuffer, mediaRecorder, chunks=[], isRecording=false, lastBlob, lastEffectId="chipmunk";
 const audioEl=document.getElementById("audio");
 const EFFECTS=[{id:"chipmunk",n:"Chipmunk",c:"funny",e:"🐿️",r:1.9,d:0,echo:0},{id:"baby",n:"Baby",c:"funny",e:"👶",r:1.7,d:0,echo:0},{id:"helium",n:"Helium",c:"funny",e:"🎈",r:2.0,d:0,echo:0},{id:"giant",n:"Giant",c:"funny",e:"🧌",r:0.55,d:0,echo:0.2},{id:"deep",n:"Deep Voice",c:"funny",e:"🗣️",r:0.6,d:0,echo:0},{id:"slow",n:"Slow",c:"funny",e:"🐢",r:0.5,d:0,echo:0},{id:"fast",n:"Fast",c:"funny",e:"⚡",r:2.2,d:0,echo:0},{id:"drunk",n:"Drunk",c:"funny",e:"🍺",r:0.8,d:0.3,echo:0.4},{id:"minion",n:"Minion",c:"funny",e:"💛",r:1.85,d:0.2,echo:0},{id:"ghost",n:"Ghost",c:"scary",e:"👻",r:0.8,d:0,echo:0.8},{id:"demon",n:"Demon",c:"scary",e:"😈",r:0.5,d:0.8,echo:0.6},{id:"devil",n:"Devil",c:"scary",e:"👹",r:0.45,d:0.9,echo:0.5},{id:"cave",n:"Cave Echo",c:"scary",e:"⛰️",r:1.0,d:0,echo:0.9},{id:"zombie",n:"Zombie",c:"scary",e:"🧟",r:0.6,d:0.6,echo:0.5},{id:"horror",n:"Horror",c:"scary",e:"🎬",r:0.7,d:0.4,echo:0.8},{id:"hell",n:"Hell Voice",c:"scary",e:"🔥",r:0.5,d:1.0,echo:0.7},{id:"witch",n:"Witch",c:"scary",e:"🧙‍♀️",r:1.2,d:0.7,echo:0.6},{id:"robot",n:"Robot",c:"robot",e:"🤖",r:1.0,d:1.0,echo:0},{id:"darth",n:"Darth Vader",c:"robot",e:"🌑",r:0.6,d:0.8,echo:0.3},{id:"ai",n:"AI Robot",c:"robot",e:"💻",r:1.0,d:0.9,echo:0.2},{id:"cyborg",n:"Cyborg",c:"robot",e:"🦾",r:0.9,d:1.0,echo:0.1},{id:"transformer",n:"Transformer",c:"robot",e:"🚛",r:0.7,d:1.0,echo:0.3},{id:"alien",n:"Alien",c:"robot",e:"👽",r:1.4,d:0.8,echo:0.5},{id:"earrape",n:"Earrape",c:"robot",e:"🔊",r:1.0,d:1.0,echo:0},{id:"8d",n:"8D Audio",c:"robot",e:"🎧",r:1.0,d:0,echo:0.9},{id:"radio",n:"Old Radio",c:"robot",e:"📻",r:1.0,d:0.7,echo:0.2},{id:"phone",n:"Phone Call",c:"robot",e:"📞",r:1.1,d:0.6,echo:0.1},{id:"announce",n:"Stadium",c:"robot",e:"📢",r:0.9,d:0,echo:0.9},{id:"dog",n:"Dog Bark",c:"animal",e:"🐶",r:0.7,d:0.8,echo:0.2},{id:"cat",n:"Cat Meow",c:"animal",e:"🐱",r:1.6,d:0.3,echo:0.2},{id:"lion",n:"Lion Roar",c:"animal",e:"🦁",r:0.4,d:0.9,echo:0.6},{id:"monster",n:"Monster",c:"animal",e:"👹",r:0.45,d:1.0,echo:0.7},{id:"dinosaur",n:"Dino",c:"animal",e:"🦖",r:0.3,d:0.9,echo:0.8},{id:"mouse",n:"Mouse",c:"animal",e:"🐭",r:2.1,d:0,echo:0},{id:"bird",n:"Bird",c:"animal",e:"🐦",r:1.9,d:0,echo:0.2},{id:"wolf",n:"Wolf Howl",c:"animal",e:"🐺",r:0.6,d:0.5,echo:0.9}];
-let selectedEff=EFFECTS[0]; let activeCat="all";
-const grid=document.getElementById("grid");
-function render(){ let list=activeCat==="all"?EFFECTS:EFFECTS.filter(e=>e.c.includes(activeCat)); grid.innerHTML=list.map(e=>`<button onclick="playEffect('${e.id}')" class="bg-[#1e1e1e] hover:bg-white hover:text-black border border-zinc-800 p-3 rounded-2xl text-left ${selectedEff.id===e.id?'bg-white text-black':''}"><div class="font-bold text-[11px]">${e.e} ${e.n}</div></button>`).join(""); }
-window.filterCat=(c)=>{ activeCat=c; document.querySelectorAll(".cat").forEach(b=>b.className="cat bg-zinc-800 px-4 py-2 rounded-full text-xs"); event.target.className="cat bg-white text-black px-4 py-2 rounded-full text-xs font-bold"; render(); }
+let selectedEff=EFFECTS[0]; let activeCat="all"; const grid=document.getElementById("grid");
+function render(){ let list=activeCat==="all"?EFFECTS:EFFECTS.filter(e=>e.c.includes(activeCat)); grid.innerHTML=list.map(e=>`<button onclick="playEffect('${e.id}')" class="bg-[#1c1c1c] border border-[#2a2a2a] hover:bg-[#00c896] hover:text-black p-3 rounded-[12px] text-left transition ${selectedEff.id===e.id?'bg-[#00c896] text-black border-[#00c896]':''}"><div class="font-bold text-[11px]">${e.e} ${e.n}</div></button>`).join(""); }
+window.filterCat=(c)=>{ activeCat=c; document.querySelectorAll(".cat").forEach(b=>b.className="cat bg-[#1f1f1f] border border-[#333] px-4 py-2 rounded-full text-xs"); event.target.className="cat bg-white text-black px-4 py-2 rounded-full text-xs font-bold"; render(); }
 async function initAudio(){ if(!audioCtx) audioCtx=new (window.AudioContext||window.webkitAudioContext)(); }
 let recStream;
 document.getElementById("recBtn").onclick=async()=>{
@@ -46,9 +113,7 @@ document.getElementById("recBtn").onclick=async()=>{
   mediaRecorder=new MediaRecorder(stream); chunks=[]; mediaRecorder.ondataavailable=e=>chunks.push(e.data);
   mediaRecorder.onstop=async()=>{ let blob=new Blob(chunks,{type:"audio/webm"}); lastBlob=blob; let ab=await blob.arrayBuffer(); recordedBuffer=await audioCtx.decodeAudioData(ab); audioEl.src=URL.createObjectURL(blob); audioEl.classList.remove("hidden"); document.getElementById("downloadArea").classList.remove("hidden"); document.getElementById("status").innerText="✅ Ho gaya! Effect dabao + Download karo"; document.getElementById("status").className="text-[11px] mt-3 text-green-400"; recStream.getTracks().forEach(t=>t.stop()); };
   mediaRecorder.start(); isRecording=true; document.getElementById("recBtn").innerText="⏹️ STOP - DABAO TO BAND"; document.getElementById("recBtn").className="bg-red-500 text-white px-8 py-4 rounded-full font-black text-[15px] w-full"; document.getElementById("status").innerText="🔴 Recording... jitna bolo utna bolo"; document.getElementById("status").className="text-[11px] mt-3 text-red-400";
- } else {
-  mediaRecorder.stop(); isRecording=false; document.getElementById("recBtn").innerText="🎤 RECORD - DABAO TO START"; document.getElementById("recBtn").className="bg-white text-black px-8 py-4 rounded-full font-black text-[15px] w-full";
- }
+ }else{ mediaRecorder.stop(); isRecording=false; document.getElementById("recBtn").innerText="🎤 RECORD - DABAO TO START"; document.getElementById("recBtn").className="bg-white text-black px-8 py-4 rounded-full font-black text-[15px] w-full"; }
 };
 window.playEffect=async(id)=>{
  if(!recordedBuffer){ alert("Pehle Record karo bhai!"); return; }
@@ -61,27 +126,18 @@ window.playEffect=async(id)=>{
 };
 window.downloadOriginal=()=>{ if(!lastBlob) return; let url=URL.createObjectURL(lastBlob); let a=document.createElement("a"); a.href=url; a.download=`original-${Date.now()}.webm`; a.click(); };
 window.downloadEffect=async()=>{
- if(!recordedBuffer) return;
- let eff=EFFECTS.find(e=>e.id===lastEffectId);
+ if(!recordedBuffer) return; let eff=EFFECTS.find(e=>e.id===lastEffectId);
  try{
   let offlineCtx=new OfflineAudioContext(1, Math.ceil(recordedBuffer.length/Math.abs(eff.r))+44100, 44100);
   let src=offlineCtx.createBufferSource(); src.buffer=recordedBuffer; src.playbackRate.value=Math.abs(eff.r);
   let gain=offlineCtx.createGain(); let dist=offlineCtx.createWaveShaper(); if(eff.d>0) dist.curve=makeDistortion(eff.d*400);
   src.connect(dist); dist.connect(gain); gain.connect(offlineCtx.destination); src.start();
-  let rendered=await offlineCtx.startRendering();
-  let wavBlob=bufferToWav(rendered);
+  let rendered=await offlineCtx.startRendering(); let wavBlob=bufferToWav(rendered);
   let url=URL.createObjectURL(wavBlob); let a=document.createElement("a"); a.href=url; a.download=`${eff.n}-${Date.now()}.wav`; a.click();
  }catch(e){ downloadOriginal(); }
 };
 function makeDistortion(a){ let k=a, n=44100, c=new Float32Array(n), d=Math.PI/180; for(let i=0;i<n;i++){ let x=i*2/n-1; c[i]=(3+k)*x*20*d/(Math.PI+k*Math.abs(x)); } return c; }
-function bufferToWav(buffer){
- let numCh=buffer.numberOfChannels, len=buffer.length*numCh*2+44, ab=new ArrayBuffer(len), view=new DataView(ab), ch=[], pos=0;
- function setU16(d){ view.setUint16(pos,d,true); pos+=2; } function setU32(d){ view.setUint32(pos,d,true); pos+=4; }
- setU32(0x46464952); setU32(len-8); setU32(0x45564157); setU32(0x20746d66); setU32(16); setU16(1); setU16(numCh); setU32(buffer.sampleRate); setU32(buffer.sampleRate*2*numCh); setU16(numCh*2); setU16(16); setU32(0x61746164); setU32(len-pos-4);
- for(let i=0;i<numCh;i++) ch.push(buffer.getChannelData(i));
- let offset=44; for(let i=0;i<buffer.length;i++) for(let c=0;c<numCh;c++){ let s=Math.max(-1,Math.min(1,ch[c][i])); view.setInt16(offset,s<0?s*0x8000:s*0x7FFF,true); offset+=2; }
- return new Blob([ab],{type:"audio/wav"});
-}
+function bufferToWav(b){ let numCh=b.numberOfChannels, len=b.length*numCh*2+44, ab=new ArrayBuffer(len), view=new DataView(ab), ch=[], pos=0; function setU16(d){ view.setUint16(pos,d,true); pos+=2; } function setU32(d){ view.setUint32(pos,d,true); pos+=4; } setU32(0x46464952); setU32(len-8); setU32(0x45564157); setU32(0x20746d66); setU32(16); setU16(1); setU16(numCh); setU32(b.sampleRate); setU32(b.sampleRate*2*numCh); setU16(numCh*2); setU16(16); setU32(0x61746164); setU32(len-pos-4); for(let i=0;i<numCh;i++) ch.push(b.getChannelData(i)); let offset=44; for(let i=0;i<b.length;i++) for(let c=0;c<numCh;c++){ let s=Math.max(-1,Math.min(1,ch[c][i])); view.setInt16(offset,s<0?s*0x8000:s*0x7FFF,true); offset+=2; } return new Blob([ab],{type:"audio/wav"}); }
 render();
 </script>
 </body>
