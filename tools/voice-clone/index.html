@@ -1,202 +1,164 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>100+ AI Voice Clone - Worldwide Famous Voices | TheChauhanSite</title>
+<meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>AI Voice Changer - 50+ Real Effects | TheChauhanSite</title>
 <script src="https://cdn.tailwindcss.com"></script>
 </head>
-<body class="bg-[#f6f7f9] min-h-screen p-3">
+<body class="bg-[#0a0a0a] text-white min-h-screen p-3">
 <div class="max-w-5xl mx-auto">
-<div class="bg-white rounded-[28px] shadow-xl p-5 md:p-7 mt-3">
+<div class="bg-[#161616] rounded-[28px] p-5 md:p-7 mt-3 border border-zinc-800">
 
-<h1 class="text-[26px] md:text-[32px] font-black text-center">100+ AI Voice Clone 🌍</h1>
-<p class="text-center text-gray-500 text-[13px] mt-1">Worldwide Most Searched Voices - TheChauhanSite</p>
+<h1 class="text-[28px] font-black text-center leading-none">🎙️ AI VOICE CHANGER</h1>
+<p class="text-center text-zinc-400 text-[13px] mt-2">50+ Real Effects - No API Needed</p>
 
-<input id="search" placeholder="🔍 Search voice... ex: Modi, MrBeast, Ronaldo, Goku" class="w-full mt-5 p-4 border-2 rounded-2xl outline-none focus:border-black text-[14px]">
-
-<div class="flex gap-2 mt-3 overflow-x-auto pb-2">
-<button onclick="filterCat('all')" class="catBtn bg-black text-white px-4 py-2 rounded-full text-xs whitespace-nowrap">All</button>
-<button onclick="filterCat('india')" class="catBtn bg-gray-100 px-4 py-2 rounded-full text-xs whitespace-nowrap">India</button>
-<button onclick="filterCat('usa')" class="catBtn bg-gray-100 px-4 py-2 rounded-full text-xs whitespace-nowrap">USA</button>
-<button onclick="filterCat('world')" class="catBtn bg-gray-100 px-4 py-2 rounded-full text-xs whitespace-nowrap">World Leaders</button>
-<button onclick="filterCat('youtuber')" class="catBtn bg-gray-100 px-4 py-2 rounded-full text-xs whitespace-nowrap">Youtubers</button>
-<button onclick="filterCat('anime')" class="catBtn bg-gray-100 px-4 py-2 rounded-full text-xs whitespace-nowrap">Anime</button>
-<button onclick="filterCat('football')" class="catBtn bg-gray-100 px-4 py-2 rounded-full text-xs whitespace-nowrap">Football / Cricket</button>
+<div class="bg-black rounded-2xl p-5 mt-6 text-center border border-zinc-800">
+<button id="recBtn" class="bg-white text-black px-8 py-4 rounded-full font-black text-[16px]">🎤 RECORD KARO (3 sec)</button>
+<p id="status" class="text-[12px] mt-3 text-zinc-500">Record karo fir neeche koi bhi effect dabao</p>
+<audio id="audio" controls class="w-full mt-4 hidden"></audio>
 </div>
 
-<div class="grid grid-cols-2 md:grid-cols-4 gap-2.5 mt-4 max-h-[420px] overflow-y-auto" id="voiceList"></div>
-
-<textarea id="text" class="w-full h-28 mt-5 p-4 border-2 rounded-2xl outline-none focus:border-black text-[14px]">Hello friends, welcome to TheChauhanSite! This is my new AI voice clone tool with 100 worldwide famous voices.</textarea>
-
-<button id="playBtn" class="w-full mt-4 bg-black text-white py-4 rounded-2xl font-bold text-[15px]">▶️ Voice Suno</button>
-<div class="grid grid-cols-2 gap-2 mt-2">
-<button onclick="speechSynthesis.cancel()" class="bg-gray-100 py-3 rounded-xl text-[13px] font-semibold">Stop</button>
-<button onclick="copyText()" class="bg-yellow-400 py-3 rounded-xl text-[13px] font-bold">Copy Text</button>
+<div class="flex gap-2 mt-5 overflow-x-auto pb-2">
+<button onclick="filterCat('all')" class="cat bg-white text-black px-4 py-2 rounded-full text-xs font-bold">All 50</button>
+<button onclick="filterCat('funny')" class="cat bg-zinc-800 px-4 py-2 rounded-full text-xs">Funny</button>
+<button onclick="filterCat('scary')" class="cat bg-zinc-800 px-4 py-2 rounded-full text-xs">Scary</button>
+<button onclick="filterCat('robot')" class="cat bg-zinc-800 px-4 py-2 rounded-full text-xs">Robot</button>
+<button onclick="filterCat('meme')" class="cat bg-zinc-800 px-4 py-2 rounded-full text-xs">Meme</button>
+<button onclick="filterCat('animal')" class="cat bg-zinc-800 px-4 py-2 rounded-full text-xs">Animal</button>
 </div>
 
+<div id="grid" class="grid grid-cols-2 md:grid-cols-4 gap-2.5 mt-4"></div>
+
+<div class="mt-6 bg-zinc-900 p-4 rounded-2xl text-[11px] text-zinc-400 leading-relaxed">
+<b class="text-white">Kaise use kare:</b> 1. Record button dabao aur bolo "Hello dosto" 2. Koi bhi effect dabao - Real me awaz change hogi 3. Download kar sakte ho. Ye 100% real hai kyuki teri awaz pe effect lag raha hai.
 </div>
-</div>
+
+</div></div>
 
 <script>
-const VOICES = [
-{ id:"modi", name:"Narendra Modi", cat:"india world", p:0.7,r:0.85,e:"🇮🇳"},
-{ id:"rahul", name:"Rahul Gandhi", cat:"india world", p:0.9,r:0.95,e:"🇮🇳"},
-{ id:"amitabh", name:"Amitabh Bachchan", cat:"india", p:0.6,r:0.8,e:"🎬"},
-{ id:"srk", name:"Shah Rukh Khan", cat:"india", p:0.9,r:0.95,e:"❤️"},
-{ id:"salman", name:"Salman Khan", cat:"india", p:0.8,r:0.9,e:"💪"},
-{ id:"alia", name:"Alia Bhatt", cat:"india", p:1.7,r:1.05,e:"💖"},
-{ id:"deepika", name:"Deepika Padukone", cat:"india", p:1.6,r:1.0,e:"✨"},
-{ id:"ranveer", name:"Ranveer Singh", cat:"india", p:1.2,r:1.2,e:"⚡"},
-{ id:"elvish", name:"Elvish Yadav", cat:"india youtuber", p:1.0,r:1.15,e:"😎"},
-{ id:"carry", name:"CarryMinati", cat:"india youtuber", p:1.25,r:1.25,e:"🔥"},
-{ id:"totalgaming", name:"Total Gaming", cat:"india youtuber", p:1.0,r:1.1,e:"🎮"},
-{ id:"technogamerz", name:"Techno Gamerz", cat:"india youtuber", p:1.1,r:1.15,e:"🎮"},
-{ id:"ashneer", name:"Ashneer Grover", cat:"india", p:0.85,r:1.0,e:"🦈"},
-{ id:"ranbir", name:"Ranbir Kapoor", cat:"india", p:0.9,r:0.95,e:"🎥"},
-{ id:"virat", name:"Virat Kohli", cat:"india football", p:1.05,r:1.1,e:"🏏"},
-{ id:"rohit", name:"Rohit Sharma", cat:"india football", p:0.95,r:1.0,e:"🏏"},
-{ id:"dhoni", name:"MS Dhoni", cat:"india football", p:0.8,r:0.85,e:"🏏"},
-{ id:"sachin", name:"Sachin Tendulkar", cat:"india football", p:0.9,r:0.9,e:"🏏"},
-{ id:"babubhaiya", name:"Babu Bhaiya", cat:"india", p:0.65,r:1.15,e:"😂"},
-{ id:"honey", name:"Yo Yo Honey Singh", cat:"india", p:1.1,r:1.2,e:"🎵"},
-{ id:"musk", name:"Elon Musk", cat:"usa world", p:0.75,r:0.9,e:"🚀"},
-{ id:"trump", name:"Donald Trump", cat:"usa world", p:0.7,r:0.85,e:"🇺🇸"},
-{ id:"obama", name:"Barack Obama", cat:"usa world", p:0.7,r:0.85,e:"🇺🇸"},
-{ id:"biden", name:"Joe Biden", cat:"usa world", p:0.65,r:0.8,e:"🇺🇸"},
-{ id:"morgan", name:"Morgan Freeman", cat:"usa", p:0.5,r:0.8,e:"🎙️"},
-{ id:"mrbeast", name:"MrBeast", cat:"usa youtuber", p:1.1,r:1.15,e:"💰"},
-{ id:"pewdiepie", name:"PewDiePie", cat:"usa youtuber", p:1.15,r:1.1,e:"🎮"},
-{ id:"logapaul", name:"Logan Paul", cat:"usa youtuber", p:1.0,r:1.1,e:"🥊"},
-{ id:"ksi", name:"KSI", cat:"usa youtuber", p:1.0,r:1.2,e:"🎤"},
-{ id:"speed", name:"IShowSpeed", cat:"usa youtuber", p:1.3,r:1.3,e:"⚡"},
-{ id:"kylie", name:"Kylie Jenner", cat:"usa", p:1.6,r:1.0,e:"💄"},
-{ id:"kimk", name:"Kim Kardashian", cat:"usa", p:1.65,r:0.95,e:"💅"},
-{ id:"taylors", name:"Taylor Swift", cat:"usa", p:1.6,r:1.0,e:"🎶"},
-{ id:"billie", name:"Billie Eilish", cat:"usa", p:1.2,r:0.9,e:"🎧"},
-{ id:"therock", name:"The Rock", cat:"usa", p:0.6,r:0.9,e:"💪"},
-{ id:"johncena", name:"John Cena", cat:"usa", p:0.7,r:0.95,e:"🏆"},
-{ id:"keanu", name:"Keanu Reeves", cat:"usa", p:0.75,r:0.85,e:"🎬"},
-{ id:"tomh", name:"Tom Holland", cat:"usa", p:1.15,r:1.1,e:"🕷️"},
-{ id:"rdj", name:"Robert Downey Jr", cat:"usa", p:0.9,r:1.0,e:"🤖"},
-{ id:"ronaldo", name:"Cristiano Ronaldo", cat:"football", p:0.9,r:1.0,e:"⚽"},
-{ id:"messi", name:"Lionel Messi", cat:"football", p:0.9,r:0.95,e:"⚽"},
-{ id:"neymar", name:"Neymar Jr", cat:"football", p:1.0,r:1.05,e:"⚽"},
-{ id:"mbappe", name:"Mbappe", cat:"football", p:1.05,r:1.1,e:"⚽"},
-{ id:"putin", name:"Vladimir Putin", cat:"world", p:0.6,r:0.8,e:"🇷🇺"},
-{ id:"imran", name:"Imran Khan", cat:"world", p:0.8,r:0.9,e:"🇵🇰"},
-{ id:"goku", name:"Goku", cat:"anime", p:1.2,r:1.2,e:"🐉"},
-{ id:"naruto", name:"Naruto", cat:"anime", p:1.25,r:1.25,e:"🍥"},
-{ id:"luffy", name:"Luffy One Piece", cat:"anime", p:1.3,r:1.3,e:"👒"},
-{ id:"gojo", name:"Gojo Satoru", cat:"anime", p:0.9,r:1.0,e:"👁️"},
-{ id:"levi", name:"Levi Ackerman", cat:"anime", p:0.8,r:0.9,e:"⚔️"},
-{ id:"pikachu", name:"Pikachu", cat:"anime", p:1.8,r:1.4,e:"⚡"},
-{ id:"doraemon", name:"Doraemon", cat:"anime", p:1.6,r:1.1,e:"🔵"},
-{ id:"shinchan", name:"Shinchan", cat:"anime", p:1.7,r:1.3,e:"😜"},
-{ id:"spongebob", name:"SpongeBob", cat:"anime", p:1.7,r:1.3,e:"🧽"},
-{ id:"mickey", name:"Mickey Mouse", cat:"anime", p:1.6,r:1.2,e:"🐭"},
-{ id:"batman", name:"Batman", cat:"usa", p:0.5,r:0.8,e:"🦇"},
-{ id:"joker", name:"Joker", cat:"usa", p:0.7,r:0.9,e:"🃏"},
-{ id:"ironman", name:"Iron Man", cat:"usa", p:0.85,r:1.0,e:"🤖"},
-{ id:"thanos", name:"Thanos", cat:"usa", p:0.45,r:0.75,e:"💜"},
-{ id:"deadpool", name:"Deadpool", cat:"usa", p:1.1,r:1.15,e:"🔴"},
-{ id:"squid", name:"Squid Game Doll", cat:"anime", p:1.7,r:0.8,e:"👧"},
-{ id:"wednesday", name:"Wednesday Addams", cat:"usa", p:1.1,r:0.8,e:"🖤"},
-{ id:"sidhu", name:"Sidhu Moose Wala", cat:"india", p:0.75,r:0.9,e:"🎵"},
-{ id:"apdhillon", name:"AP Dhillon", cat:"india", p:0.9,r:0.95,e:"🎶"},
-{ id:"arijit", name:"Arijit Singh", cat:"india", p:0.9,r:0.9,e:"🎤"},
-{ id:"neha", name:"Neha Kakkar", cat:"india", p:1.6,r:1.1,e:"🎤"},
-{ id:"kapil", name:"Kapil Sharma", cat:"india", p:1.0,r:1.1,e:"😂"},
-{ id:"nawaz", name:"Nawazuddin", cat:"india", p:0.8,r:0.9,e:"🎬"},
-{ id:"yogi", name:"Yogi Adityanath", cat:"india world", p:0.7,r:0.85,e:"🧡"},
-{ id:"andrew", name:"Andrew Tate", cat:"usa world", p:0.7,r:0.95,e:"🥊"},
-{ id:"khabib", name:"Khabib", cat:"world", p:0.7,r:0.85,e:"🦅"},
-{ id:"tyson", name:"Mike Tyson", cat:"usa", p:0.6,r:0.85,e:"🥊"},
-{ id:"snoop", name:"Snoop Dogg", cat:"usa", p:0.65,r:0.85,e:"🎤"},
-{ id:"eminem", name:"Eminem", cat:"usa", p:1.2,r:1.3,e:"🎤"},
-{ id:"drake", name:"Drake", cat:"usa", p:0.9,r:1.0,e:"🎶"},
-{ id:"ron", name:"Ronaldo Nazario", cat:"football", p:0.85,r:0.9,e:"⚽"},
-{ id:"dora", name:"Dora The Explorer", cat:"anime", p:1.6,r:1.1,e:"🗺️"},
-{ id:"minion", name:"Minion", cat:"anime", p:1.8,r:1.4,e:"💛"},
-{ id:"stewie", name:"Stewie Griffin", cat:"anime", p:1.5,r:1.1,e:"👶"},
-{ id:"peter", name:"Peter Griffin", cat:"anime", p:0.6,r:0.9,e:"👨"},
-{ id:"homer", name:"Homer Simpson", cat:"anime", p:0.6,r:0.9,e:"🍩"},
-{ id:"rick", name:"Rick Sanchez", cat:"anime", p:0.7,r:1.0,e:"🔬"},
-{ id:"morty", name:"Morty", cat:"anime", p:1.4,r:1.2,e:"😨"},
-{ id:"spiderman", name:"Spider-Man", cat:"usa", p:1.1,r:1.1,e:"🕸️"},
-{ id:"thor", name:"Thor", cat:"usa", p:0.6,r:0.85,e:"⚡"},
-{ id:"loki", name:"Loki", cat:"usa", p:0.8,r:0.95,e:"💚"},
-{ id:"oprah", name:"Oprah Winfrey", cat:"usa", p:1.0,r:0.9,e:"🎤"},
-{ id:"gordon", name:"Gordon Ramsay", cat:"usa", p:1.0,r:1.2,e:"👨‍🍳"},
-{ id:"shakira", name:"Shakira", cat:"usa", p:1.5,r:1.1,e:"💃"},
-{ id:"beyonce", name:"Beyonce", cat:"usa", p:1.3,r:1.0,e:"👑"},
-{ id:"justinb", name:"Justin Bieber", cat:"usa", p:1.2,r:1.1,e:"🎤"},
-{ id:"selena", name:"Selena Gomez", cat:"usa", p:1.5,r:1.0,e:"🌟"},
-{ id:"zendaya", name:"Zendaya", cat:"usa", p:1.3,r:1.0,e:"✨"},
-{ id:"ronaldo2", name:"Ronaldinho", cat:"football", p:0.9,r:1.0,e:"⚽"},
-{ id:"beckham", name:"David Beckham", cat:"football", p:0.85,r:0.95,e:"⚽"},
-{ id:"kohli2", name:"Hardik Pandya", cat:"football", p:0.95,r:1.05,e:"🏏"},
-{ id:"babar", name:"Babar Azam", cat:"football", p:0.9,r:0.95,e:"🏏"},
-{ id:"afridi", name:"Shahid Afridi", cat:"football", p:0.8,r:0.9,e:"🏏"},
-{ id:"akshay", name:"Akshay Kumar", cat:"india", p:0.85,r:1.0,e:"🎬"},
-{ id:"hrithik", name:"Hrithik Roshan", cat:"india", p:0.85,r:0.95,e:"💃"},
-{ id:"alluarjun", name:"Allu Arjun", cat:"india", p:0.85,r:1.0,e:"🔥"},
-{ id:"prabhas", name:"Prabhas", cat:"india", p:0.7,r:0.9,e:"💪"},
-{ id:"rajini", name:"Rajinikanth", cat:"india", p:0.6,r:0.8,e:"🕶️"},
+let audioCtx, recordedBuffer, mediaRecorder, chunks=[];
+const audioEl = document.getElementById("audio");
+const EFFECTS = [
+{id:"chipmunk", n:"Chipmunk", c:"funny", e:"🐿️", r:1.9, d:0, echo:0},
+{id:"baby", n:"Baby Voice", c:"funny", e:"👶", r:1.7, d:0, echo:0},
+{id:"helium", n:"Helium", c:"funny", e:"🎈", r:2.0, d:0, echo:0},
+{id:"giant", n:"Giant", c:"funny", e:"🧌", r:0.55, d:0, echo:0.2},
+{id:"deep", n:"Deep Voice", c:"funny", e:"🗣️", r:0.6, d:0, echo:0},
+{id:"slow", n:"Slow Motion", c:"funny", e:"🐢", r:0.5, d:0, echo:0},
+{id:"fast", n:"Fast Chipmunk", c:"funny", e:"⚡", r:2.2, d:0, echo:0},
+{id:"drunk", n:"Drunk Voice", c:"funny", e:"🍺", r:0.8, d:0.3, echo:0.4},
+{id:"squirrel", n:"Squirrel", c:"funny animal", e:"🐿️", r:1.8, d:0, echo:0},
+{id:"minion", n:"Minion", c:"funny", e:"💛", r:1.85, d:0.2, echo:0},
+
+{id:"ghost", n:"Ghost", c:"scary", e:"👻", r:0.8, d:0, echo:0.8},
+{id:"demon", n:"Demon", c:"scary", e:"😈", r:0.5, d:0.8, echo:0.6},
+{id:"devil", n:"Devil Deep", c:"scary", e:"👹", r:0.45, d:0.9, echo:0.5},
+{id:"cave", n:"Cave Echo", c:"scary", e:"⛰️", r:1.0, d:0, echo:0.9},
+{id:"scarygirl", n:"Scary Girl", c:"scary", e:"💀", r:1.3, d:0.5, echo:0.7},
+{id:"zombie", n:"Zombie", c:"scary", e:"🧟", r:0.6, d:0.6, echo:0.5},
+{id:"horror", n:"Horror Movie", c:"scary", e:"🎬", r:0.7, d:0.4, echo:0.8},
+{id:"underwater", n:"Underwater", c:"scary", e:"🌊", r:0.7, d:0, echo:0.6},
+{id:"hell", n:"Hell Voice", c:"scary", e:"🔥", r:0.5, d:1.0, echo:0.7},
+{id:"witch", n:"Witch", c:"scary", e:"🧙‍♀️", r:1.2, d:0.7, echo:0.6},
+
+{id:"robot", n:"Robot", c:"robot", e:"🤖", r:1.0, d:1.0, echo:0},
+{id:"darth", n:"Darth Vader", c:"robot", e:"🌑", r:0.6, d:0.8, echo:0.3},
+{id:"ai", n:"AI Robot", c:"robot", e:"💻", r:1.0, d:0.9, echo:0.2},
+{id:"cyborg", n:"Cyborg", c:"robot", e:"🦾", r:0.9, d:1.0, echo:0.1},
+{id:"transformer", n:"Transformer", c:"robot", e:"🚛", r:0.7, d:1.0, echo:0.3},
+{id:"ironman", n:"Iron Man Suit", c:"robot", e:"🦸", r:1.0, d:0.8, echo:0.4},
+{id:"alien", n:"Alien", c:"robot", e:"👽", r:1.4, d:0.8, echo:0.5},
+{id:"dalek", n:"Dalek", c:"robot", e:"📡", r:0.8, d:1.0, echo:0},
+{id:"walle", n:"Wall-E", c:"robot", e:"🤖", r:1.5, d:0.5, echo:0},
+{id:"terminator", n:"Terminator", c:"robot", e:"🔴", r:0.65, d:0.9, echo:0.2},
+
+{id:"earrape", n:"Earrape Bass", c:"meme", e:"🔊", r:1.0, d:1.0, echo:0},
+{id:"8d", n:"8D Audio", c:"meme", e:"🎧", r:1.0, d:0, echo:0.9},
+{id:"vibrato", n:"Vibrato", c:"meme", e:"〰️", r:1.0, d:0.6, echo:0.3},
+{id:"reverse", n:"Reverse", c:"meme", e:"⏪", r:-1.0, d:0, echo:0},
+{id:"radio", n:"Old Radio", c:"meme", e:"📻", r:1.0, d:0.7, echo:0.2},
+{id:"phone", n:"Phone Call", c:"meme", e:"📞", r:1.1, d:0.6, echo:0.1},
+{id:"announce", n:"Stadium", c:"meme", e:"📢", r:0.9, d:0, echo:0.9},
+{id:"whisper", n:"Whisper", c:"meme", e:"🤫", r:1.2, d:0, echo:0.5},
+{id:"chorus", n:"Choir", c:"meme", e:"🎤", r:1.0, d:0, echo:0.8},
+{id:"megaphone", n:"Megaphone", c:"meme", e:"📣", r:1.0, d:0.8, echo:0.6},
+
+{id:"dog", n:"Dog Bark", c:"animal", e:"🐶", r:0.7, d:0.8, echo:0.2},
+{id:"cat", n:"Cat Meow", c:"animal", e:"🐱", r:1.6, d:0.3, echo:0.2},
+{id:"lion", n:"Lion Roar", c:"animal", e:"🦁", r:0.4, d:0.9, echo:0.6},
+{id:"monster", n:"Monster", c:"animal scary", e:"👹", r:0.45, d:1.0, echo:0.7},
+{id:"dinosaur", n:"Dinosaur", c:"animal", e:"🦖", r:0.3, d:0.9, echo:0.8},
+{id:"mouse", n:"Mouse", c:"animal funny", e:"🐭", r:2.1, d:0, echo:0},
+{id:"cow", n:"Cow Deep", c:"animal", e:"🐄", r:0.5, d:0.2, echo:0.3},
+{id:"bird", n:"Bird Chirp", c:"animal", e:"🐦", r:1.9, d:0, echo:0.2},
+{id:"bee", n:"Bee Buzz", c:"animal", e:"🐝", r:1.7, d:0.8, echo:0},
+{id:"wolf", n:"Wolf Howl", c:"animal scary", e:"🐺", r:0.6, d:0.5, echo:0.9},
 ];
 
-let selected = VOICES[0];
-let activeCat = "all";
-let allSpeechVoices=[];
-function loadV(){ allSpeechVoices = speechSynthesis.getVoices(); }
-loadV(); speechSynthesis.onvoiceschanged = loadV;
-
-const list = document.getElementById("voiceList");
-const search = document.getElementById("search");
-
+let activeCat="all";
+const grid=document.getElementById("grid");
 function render(){
- let q = search.value.toLowerCase();
- let filtered = VOICES.filter(v=>{
-  let matchCat = activeCat==="all" || v.cat.includes(activeCat);
-  let matchQ = v.name.toLowerCase().includes(q) || v.id.includes(q);
-  return matchCat && matchQ;
- });
- list.innerHTML = filtered.map(v=>`
-  <button onclick="selectVoice('${v.id}')" class="text-left p-3 rounded-2xl border-2 transition ${selected.id===v.id?'bg-black border-black text-white':'bg-gray-50 border-gray-200 hover:border-black'}">
-   <div class="font-bold text-[12px]">${v.e} ${v.name}</div>
-   <div class="text-[10px] opacity-60 mt-0.5">${v.cat}</div>
-  </button>
- `).join("") + (filtered.length===0?'<div class="col-span-4 text-center text-sm text-gray-400 py-10">No voice found</div>':'');
+ let list = activeCat==="all" ? EFFECTS : EFFECTS.filter(e=>e.c.includes(activeCat));
+ grid.innerHTML = list.map(e=>`<button onclick="playEffect('${e.id}')" class="bg-[#1e1e1e] hover:bg-white hover:text-black border border-zinc-800 p-3 rounded-2xl text-left transition"><div class="font-bold text-[12px]">${e.e} ${e.n}</div><div class="text-[9px] opacity-60 mt-1">${e.c.toUpperCase()}</div></button>`).join("");
 }
-window.selectVoice = (id)=>{
- selected = VOICES.find(x=>x.id===id);
- document.getElementById("playBtn").innerText = `▶️ ${selected.name} ki Voice me Suno`;
- render();
+window.filterCat=(c)=>{
+ activeCat=c; document.querySelectorAll(".cat").forEach(b=>b.className="cat bg-zinc-800 px-4 py-2 rounded-full text-xs"); event.target.className="cat bg-white text-black px-4 py-2 rounded-full text-xs font-bold"; render();
 }
-window.filterCat = (cat)=>{
- activeCat = cat;
- document.querySelectorAll(".catBtn").forEach(b=>b.className="catBtn bg-gray-100 px-4 py-2 rounded-full text-xs whitespace-nowrap");
- event.target.className="catBtn bg-black text-white px-4 py-2 rounded-full text-xs whitespace-nowrap";
- render();
-}
-search.oninput = render;
 
-document.getElementById("playBtn").onclick = ()=>{
- const txt = document.getElementById("text").value;
- if(!txt) return;
- speechSynthesis.cancel();
- const u = new SpeechSynthesisUtterance(txt);
- u.pitch = selected.p;
- u.rate = selected.r;
- let best = allSpeechVoices.find(v=>v.lang.includes("en-IN")) || allSpeechVoices.find(v=>v.lang.includes("hi")) || allSpeechVoices.find(v=>v.lang.includes("en")) || allSpeechVoices[0];
- if(best) u.voice = best;
- u.onstart = ()=>{ document.getElementById("playBtn").innerText = "🔊 "+selected.name+" Bol Raha Hai..."; }
- u.onend = ()=>{ document.getElementById("playBtn").innerText = `▶️ ${selected.name} ki Voice me Suno`; }
- speechSynthesis.speak(u);
+async function initAudio(){ if(!audioCtx) audioCtx = new (window.AudioContext||window.webkitAudioContext)(); }
+
+document.getElementById("recBtn").onclick = async ()=>{
+ await initAudio();
+ let stream = await navigator.mediaDevices.getUserMedia({audio:true});
+ mediaRecorder = new MediaRecorder(stream); chunks=[];
+ mediaRecorder.ondataavailable = e=>chunks.push(e.data);
+ mediaRecorder.onstop = async ()=>{
+  let blob = new Blob(chunks,{type:"audio/webm"});
+  let arrayBuf = await blob.arrayBuffer();
+  recordedBuffer = await audioCtx.decodeAudioData(arrayBuf);
+  audioEl.src = URL.createObjectURL(blob); audioEl.classList.remove("hidden");
+  document.getElementById("status").innerText = "✅ Recorded! Ab koi bhi effect dabao";
+  document.getElementById("status").className="text-[12px] mt-3 text-green-400";
+ };
+ mediaRecorder.start(); document.getElementById("status").innerText="🔴 Recording... Bolo 'Hello Dosto'"; document.getElementById("status").className="text-[12px] mt-3 text-red-400";
+ setTimeout(()=>mediaRecorder.stop(), 3000);
+};
+
+window.playEffect = async (id)=>{
+ if(!recordedBuffer){ alert("Pehle Record karo bhai!"); return; }
+ await initAudio();
+ let eff = EFFECTS.find(e=>e.id===id);
+ let source = audioCtx.createBufferSource(); source.buffer = recordedBuffer;
+ source.playbackRate.value = Math.abs(eff.r);
+
+ let gain = audioCtx.createGain();
+ let dist = audioCtx.createWaveShaper();
+ if(eff.d>0){ dist.curve = makeDistortion(eff.d*400); } else { dist.curve=null; }
+
+ let delay = audioCtx.createDelay(2.0); delay.delayTime.value = eff.echo*0.4;
+ let delayGain = audioCtx.createGain(); delayGain.gain.value = eff.echo*0.6;
+
+ source.connect(dist); dist.connect(gain);
+ gain.connect(audioCtx.destination);
+ gain.connect(delay); delay.connect(delayGain); delayGain.connect(audioCtx.destination);
+
+ if(eff.r<0){ source.buffer = reverseBuffer(recordedBuffer); source.playbackRate.value=1; }
+
+ source.start();
+ document.getElementById("status").innerText = `🔊 Playing: ${eff.n} ${eff.e}`;
+};
+
+function makeDistortion(amount){
+ let k = amount; let n = 44100; let curve = new Float32Array(n); let deg = Math.PI/180;
+ for(let i=0;i<n;i++){ let x=i*2/n-1; curve[i]=(3+k)*x*20*deg/(Math.PI+k*Math.abs(x)); } return curve;
 }
-window.copyText = ()=>{ navigator.clipboard.writeText(document.getElementById("text").value); alert("Copied!"); }
+function reverseBuffer(buf){
+ let newBuf = audioCtx.createBuffer(buf.numberOfChannels, buf.length, buf.sampleRate);
+ for(let c=0;c<buf.numberOfChannels;c++){ let a=buf.getChannelData(c); let b=newBuf.getChannelData(c); for(let i=0;i<a.length;i++) b[i]=a[a.length-1-i]; }
+ return newBuf;
+}
+
 render();
-selectVoice("modi");
 </script>
 </body>
 </html>
