@@ -9,9 +9,14 @@
 <p class="text-center text-zinc-500 text-[12px] mt-1">Record karo - 50+ Real Effects me suno</p>
 
 <div class="bg-black rounded-2xl p-5 text-center border border-zinc-800 mt-6">
-<button id="recBtn" class="bg-white text-black px-8 py-4 rounded-full font-black text-[15px]">🎤 RECORD - DABAO TO START</button>
+<button id="recBtn" class="bg-white text-black px-8 py-4 rounded-full font-black text-[15px] w-full">🎤 RECORD - DABAO TO START</button>
 <p id="status" class="text-[11px] mt-3 text-zinc-500">Jitna marzi bolo, koi limit nahi. Dubara dabao to stop.</p>
 <audio id="audio" controls class="w-full mt-4 hidden"></audio>
+<!-- CHOTA DOWNLOAD BUTTON -->
+<div id="downloadArea" class="hidden mt-3 flex gap-2 justify-center">
+<button onclick="downloadOriginal()" class="bg-zinc-800 px-4 py-2 rounded-full text-[11px] font-bold">⬇️ Original</button>
+<button onclick="downloadEffect()" class="bg-yellow-400 text-black px-4 py-2 rounded-full text-[11px] font-black">⬇️ Effect Wala</button>
+</div>
 </div>
 
 <div class="flex gap-2 mt-5 overflow-x-auto pb-2">
@@ -22,12 +27,10 @@
 <button onclick="filterCat('animal')" class="cat bg-zinc-800 px-4 py-2 rounded-full text-xs">Animal</button>
 </div>
 <div id="grid" class="grid grid-cols-2 md:grid-cols-4 gap-2 mt-4"></div>
-
-<div class="mt-6 bg-zinc-900 p-4 rounded-2xl text-[11px] text-zinc-400">Tip: Record karke koi bhi effect dabao, teri real awaz change hogi. Download bhi kar sakta hai.</div>
 </div></div>
 
 <script>
-let audioCtx, recordedBuffer, mediaRecorder, chunks=[], isRecording=false;
+let audioCtx, recordedBuffer, mediaRecorder, chunks=[], isRecording=false, lastBlob, lastEffectId="chipmunk";
 const audioEl=document.getElementById("audio");
 const EFFECTS=[{id:"chipmunk",n:"Chipmunk",c:"funny",e:"🐿️",r:1.9,d:0,echo:0},{id:"baby",n:"Baby",c:"funny",e:"👶",r:1.7,d:0,echo:0},{id:"helium",n:"Helium",c:"funny",e:"🎈",r:2.0,d:0,echo:0},{id:"giant",n:"Giant",c:"funny",e:"🧌",r:0.55,d:0,echo:0.2},{id:"deep",n:"Deep Voice",c:"funny",e:"🗣️",r:0.6,d:0,echo:0},{id:"slow",n:"Slow",c:"funny",e:"🐢",r:0.5,d:0,echo:0},{id:"fast",n:"Fast",c:"funny",e:"⚡",r:2.2,d:0,echo:0},{id:"drunk",n:"Drunk",c:"funny",e:"🍺",r:0.8,d:0.3,echo:0.4},{id:"minion",n:"Minion",c:"funny",e:"💛",r:1.85,d:0.2,echo:0},{id:"ghost",n:"Ghost",c:"scary",e:"👻",r:0.8,d:0,echo:0.8},{id:"demon",n:"Demon",c:"scary",e:"😈",r:0.5,d:0.8,echo:0.6},{id:"devil",n:"Devil",c:"scary",e:"👹",r:0.45,d:0.9,echo:0.5},{id:"cave",n:"Cave Echo",c:"scary",e:"⛰️",r:1.0,d:0,echo:0.9},{id:"zombie",n:"Zombie",c:"scary",e:"🧟",r:0.6,d:0.6,echo:0.5},{id:"horror",n:"Horror",c:"scary",e:"🎬",r:0.7,d:0.4,echo:0.8},{id:"hell",n:"Hell Voice",c:"scary",e:"🔥",r:0.5,d:1.0,echo:0.7},{id:"witch",n:"Witch",c:"scary",e:"🧙‍♀️",r:1.2,d:0.7,echo:0.6},{id:"robot",n:"Robot",c:"robot",e:"🤖",r:1.0,d:1.0,echo:0},{id:"darth",n:"Darth Vader",c:"robot",e:"🌑",r:0.6,d:0.8,echo:0.3},{id:"ai",n:"AI Robot",c:"robot",e:"💻",r:1.0,d:0.9,echo:0.2},{id:"cyborg",n:"Cyborg",c:"robot",e:"🦾",r:0.9,d:1.0,echo:0.1},{id:"transformer",n:"Transformer",c:"robot",e:"🚛",r:0.7,d:1.0,echo:0.3},{id:"alien",n:"Alien",c:"robot",e:"👽",r:1.4,d:0.8,echo:0.5},{id:"earrape",n:"Earrape",c:"robot",e:"🔊",r:1.0,d:1.0,echo:0},{id:"8d",n:"8D Audio",c:"robot",e:"🎧",r:1.0,d:0,echo:0.9},{id:"radio",n:"Old Radio",c:"robot",e:"📻",r:1.0,d:0.7,echo:0.2},{id:"phone",n:"Phone Call",c:"robot",e:"📞",r:1.1,d:0.6,echo:0.1},{id:"announce",n:"Stadium",c:"robot",e:"📢",r:0.9,d:0,echo:0.9},{id:"dog",n:"Dog Bark",c:"animal",e:"🐶",r:0.7,d:0.8,echo:0.2},{id:"cat",n:"Cat Meow",c:"animal",e:"🐱",r:1.6,d:0.3,echo:0.2},{id:"lion",n:"Lion Roar",c:"animal",e:"🦁",r:0.4,d:0.9,echo:0.6},{id:"monster",n:"Monster",c:"animal",e:"👹",r:0.45,d:1.0,echo:0.7},{id:"dinosaur",n:"Dino",c:"animal",e:"🦖",r:0.3,d:0.9,echo:0.8},{id:"mouse",n:"Mouse",c:"animal",e:"🐭",r:2.1,d:0,echo:0},{id:"bird",n:"Bird",c:"animal",e:"🐦",r:1.9,d:0,echo:0.2},{id:"wolf",n:"Wolf Howl",c:"animal",e:"🐺",r:0.6,d:0.5,echo:0.9}];
 let selectedEff=EFFECTS[0]; let activeCat="all";
@@ -41,22 +44,44 @@ document.getElementById("recBtn").onclick=async()=>{
  if(!isRecording){
   let stream=await navigator.mediaDevices.getUserMedia({audio:true}); recStream=stream;
   mediaRecorder=new MediaRecorder(stream); chunks=[]; mediaRecorder.ondataavailable=e=>chunks.push(e.data);
-  mediaRecorder.onstop=async()=>{ let blob=new Blob(chunks,{type:"audio/webm"}); let ab=await blob.arrayBuffer(); recordedBuffer=await audioCtx.decodeAudioData(ab); audioEl.src=URL.createObjectURL(blob); audioEl.classList.remove("hidden"); document.getElementById("status").innerText="✅ Ho gaya! Ab koi effect dabao"; document.getElementById("status").className="text-[11px] mt-3 text-green-400"; recStream.getTracks().forEach(t=>t.stop()); };
-  mediaRecorder.start(); isRecording=true; document.getElementById("recBtn").innerText="⏹️ STOP - DABAO TO BAND"; document.getElementById("recBtn").className="bg-red-500 text-white px-8 py-4 rounded-full font-black text-[15px]"; document.getElementById("status").innerText="🔴 Recording chal rahi hai... jitna bolo utna bolo"; document.getElementById("status").className="text-[11px] mt-3 text-red-400";
+  mediaRecorder.onstop=async()=>{ let blob=new Blob(chunks,{type:"audio/webm"}); lastBlob=blob; let ab=await blob.arrayBuffer(); recordedBuffer=await audioCtx.decodeAudioData(ab); audioEl.src=URL.createObjectURL(blob); audioEl.classList.remove("hidden"); document.getElementById("downloadArea").classList.remove("hidden"); document.getElementById("status").innerText="✅ Ho gaya! Effect dabao + Download karo"; document.getElementById("status").className="text-[11px] mt-3 text-green-400"; recStream.getTracks().forEach(t=>t.stop()); };
+  mediaRecorder.start(); isRecording=true; document.getElementById("recBtn").innerText="⏹️ STOP - DABAO TO BAND"; document.getElementById("recBtn").className="bg-red-500 text-white px-8 py-4 rounded-full font-black text-[15px] w-full"; document.getElementById("status").innerText="🔴 Recording... jitna bolo utna bolo"; document.getElementById("status").className="text-[11px] mt-3 text-red-400";
  } else {
-  mediaRecorder.stop(); isRecording=false; document.getElementById("recBtn").innerText="🎤 RECORD - DABAO TO START"; document.getElementById("recBtn").className="bg-white text-black px-8 py-4 rounded-full font-black text-[15px]";
+  mediaRecorder.stop(); isRecording=false; document.getElementById("recBtn").innerText="🎤 RECORD - DABAO TO START"; document.getElementById("recBtn").className="bg-white text-black px-8 py-4 rounded-full font-black text-[15px] w-full";
  }
 };
 window.playEffect=async(id)=>{
  if(!recordedBuffer){ alert("Pehle Record karo bhai!"); return; }
- await initAudio(); selectedEff=EFFECTS.find(e=>e.id===id); render();
+ await initAudio(); selectedEff=EFFECTS.find(e=>e.id===id); lastEffectId=id; render();
  let eff=EFFECTS.find(e=>e.id===id); let src=audioCtx.createBufferSource(); src.buffer=recordedBuffer; src.playbackRate.value=Math.abs(eff.r);
  let gain=audioCtx.createGain(); let dist=audioCtx.createWaveShaper(); if(eff.d>0) dist.curve=makeDistortion(eff.d*400);
  let delay=audioCtx.createDelay(2); delay.delayTime.value=eff.echo*0.4; let dg=audioCtx.createGain(); dg.gain.value=eff.echo*0.6;
  src.connect(dist); dist.connect(gain); gain.connect(audioCtx.destination); gain.connect(delay); delay.connect(dg); dg.connect(audioCtx.destination); src.start();
  document.getElementById("status").innerText=`🔊 Playing: ${eff.n} ${eff.e}`;
 };
+window.downloadOriginal=()=>{ if(!lastBlob) return; let url=URL.createObjectURL(lastBlob); let a=document.createElement("a"); a.href=url; a.download=`original-${Date.now()}.webm`; a.click(); };
+window.downloadEffect=async()=>{
+ if(!recordedBuffer) return;
+ let eff=EFFECTS.find(e=>e.id===lastEffectId);
+ try{
+  let offlineCtx=new OfflineAudioContext(1, Math.ceil(recordedBuffer.length/Math.abs(eff.r))+44100, 44100);
+  let src=offlineCtx.createBufferSource(); src.buffer=recordedBuffer; src.playbackRate.value=Math.abs(eff.r);
+  let gain=offlineCtx.createGain(); let dist=offlineCtx.createWaveShaper(); if(eff.d>0) dist.curve=makeDistortion(eff.d*400);
+  src.connect(dist); dist.connect(gain); gain.connect(offlineCtx.destination); src.start();
+  let rendered=await offlineCtx.startRendering();
+  let wavBlob=bufferToWav(rendered);
+  let url=URL.createObjectURL(wavBlob); let a=document.createElement("a"); a.href=url; a.download=`${eff.n}-${Date.now()}.wav`; a.click();
+ }catch(e){ downloadOriginal(); }
+};
 function makeDistortion(a){ let k=a, n=44100, c=new Float32Array(n), d=Math.PI/180; for(let i=0;i<n;i++){ let x=i*2/n-1; c[i]=(3+k)*x*20*d/(Math.PI+k*Math.abs(x)); } return c; }
+function bufferToWav(buffer){
+ let numCh=buffer.numberOfChannels, len=buffer.length*numCh*2+44, ab=new ArrayBuffer(len), view=new DataView(ab), ch=[], pos=0;
+ function setU16(d){ view.setUint16(pos,d,true); pos+=2; } function setU32(d){ view.setUint32(pos,d,true); pos+=4; }
+ setU32(0x46464952); setU32(len-8); setU32(0x45564157); setU32(0x20746d66); setU32(16); setU16(1); setU16(numCh); setU32(buffer.sampleRate); setU32(buffer.sampleRate*2*numCh); setU16(numCh*2); setU16(16); setU32(0x61746164); setU32(len-pos-4);
+ for(let i=0;i<numCh;i++) ch.push(buffer.getChannelData(i));
+ let offset=44; for(let i=0;i<buffer.length;i++) for(let c=0;c<numCh;c++){ let s=Math.max(-1,Math.min(1,ch[c][i])); view.setInt16(offset,s<0?s*0x8000:s*0x7FFF,true); offset+=2; }
+ return new Blob([ab],{type:"audio/wav"});
+}
 render();
 </script>
 </body>
